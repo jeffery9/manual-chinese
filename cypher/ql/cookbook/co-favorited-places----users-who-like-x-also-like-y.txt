@@ -1,0 +1,70 @@
+[[cookbook-co-favorited-places----users-who-like-x-also-like-y]]
+== Co-favorited places -- users who like x also like y ==
+Find places that people also like who favorite this place:
+
+* Determine who has favorited place x.
+* What else have they favorited that is not place x.
+
+_Query_
+
+[source,cypher]
+----
+START place=node:node_auto_index(name = "CoffeeShop1")
+MATCH place<-[:favorite]-person-[:favorite]->stuff
+RETURN stuff.name, count(*)
+ORDER BY count(*) DESC, stuff.name
+----
+
+
+The list of places that are favorited by people that favorited the start place.
+
+.Result
+[queryresult]
+----
++-------------------------+
+| stuff.name   | count(*) |
++-------------------------+
+| "MelsPlace"  | 2        |
+| "CoffeShop2" | 1        |
+| "SaunaX"     | 1        |
++-------------------------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"SaunaX"}
+(2) {"name":"CoffeeShop1"}
+(3) {"name":"MelsPlace"}
+(4) {"name":"CoffeeShop3"}
+(5) {"name":"Cool"}
+(6) {"name":"CoffeeShop2"}
+(7) {"name":"CoffeShop2"}
+(8) {"name":"Cosy"}
+(9) {"name":"Jill"}
+(10) {"name":"Joe"}
+(2)-[:tagged]->(5) {}
+(2)-[:tagged]->(8) {}
+(3)-[:tagged]->(8) {}
+(3)-[:tagged]->(5) {}
+(4)-[:tagged]->(8) {}
+(6)-[:tagged]->(5) {}
+(9)-[:favorite]->(2) {}
+(9)-[:favorite]->(3) {}
+(9)-[:favorite]->(7) {}
+(10)-[:favorite]->(2) {}
+(10)-[:favorite]->(1) {}
+(10)-[:favorite]->(3) {}
+
+
+START place=node:node_auto_index(name = "CoffeeShop1")
+      		MATCH place<-[:favorite]-person-[:favorite]->stuff 
+      		RETURN stuff.name, count(*) 
+      		ORDER BY count(*) DESC, stuff.name
+----
+

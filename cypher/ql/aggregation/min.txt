@@ -1,0 +1,45 @@
+[[aggregation-min]]
+== MIN ==
++MIN+ takes a numeric property as input, and returns the smallest value in that column.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(2,3,4)
+RETURN min(n.property)
+----
+
+
+This returns the smallest of all the values in the property `property`.
+
+.Result
+[queryresult]
+----
++-----------------+
+| min(n.property) |
++-----------------+
+| 13              |
++-----------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"eyes":"brown","name":"D"}
+(2) {"name":"A","property":13}
+(3) {"eyes":"blue","name":"B","property":33}
+(4) {"eyes":"blue","name":"C","property":44}
+(2)-[:KNOWS]->(3) {}
+(2)-[:KNOWS]->(4) {}
+(2)-[:KNOWS]->(1) {}
+
+
+start n=node(2,3,4) return min(n.property)
+----
+

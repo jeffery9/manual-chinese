@@ -1,0 +1,44 @@
+[[where-default-false-if-property-is-missing]]
+== Default false if property is missing ==
+When you need missing property to evaluate to false, use the exclamation mark.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(3, 1)
+WHERE n.belt! = 'white'
+RETURN n
+----
+
+
+No nodes without the belt property are returned.
+
+.Result
+[queryresult]
+----
++--------------------------------------------+
+| n                                          |
++--------------------------------------------+
+| Node[3]{name:"Andres",age:36,belt:"white"} |
++--------------------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":25,"name":"Tobias"}
+(2) {"age":34,"name":"Peter"}
+(3) {"age":36,"belt":"white","name":"Andres"}
+(3)-[:KNOWS]->(1) {}
+(3)-[:KNOWS]->(2) {}
+
+
+start n=node(3, 1) where n.belt! = 'white' return n
+----
+

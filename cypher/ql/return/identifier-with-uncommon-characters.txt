@@ -1,0 +1,44 @@
+[[return-identifier-with-uncommon-characters]]
+== Identifier with uncommon characters ==
+To introduce a placeholder that is made up of characters that are
+      outside of the english alphabet, you can use the +`+ to enclose the identifier, like this:
+
+_Query_
+
+[source,cypher]
+----
+START `This isn't a common identifier`=node(1)
+RETURN `This isn't a common identifier`.happy
+----
+
+
+The node indexed with name "A" is returned
+
+.Result
+[queryresult]
+----
++--------------------------------------+
+| This isn't a common identifier.happy |
++--------------------------------------+
+| "Yes!"                               |
++--------------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":55,"happy":"Yes!","name":"A"}
+(2) {"name":"B"}
+(1)-[:KNOWS]->(2) {}
+(1)-[:BLOCKS]->(2) {}
+
+
+start `This isn't a common identifier`=node(1)
+return `This isn't a common identifier`.happy
+----
+

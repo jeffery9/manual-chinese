@@ -1,0 +1,58 @@
+[[functions-filter]]
+== FILTER ==
+`FILTER` returns all the elements in a collection that comply to a predicate.
+
+*Syntax:* `FILTER(identifier in collection : predicate)`
+
+*Arguments:*
+
+* _collection:_ An expression that returns a collection
+
+* _identifier:_ This is the identifier that can be used from the predicate.
+
+* _predicate:_ A predicate that is tested against all items in the collection.
+
+_Query_
+
+[source,cypher]
+----
+START a=node(2)
+RETURN a.array, filter(x in a.array : length(x) = 3)
+----
+
+
+This returns the property named `array` and a list of values in it, which have the length `3`.
+
+.Result
+[queryresult]
+----
++--------------------------------------------------------------+
+| a.array               | filter(x in a.array : length(x) = 3) |
++--------------------------------------------------------------+
+| ["one","two","three"] | ["one","two"]                        |
++--------------------------------------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":54,"eyes":"brown","name":"D"}
+(2) {"age":41,"array":["one","two","three"],"eyes":"blue","name":"E"}
+(3) {"age":38,"eyes":"brown","name":"A"}
+(4) {"age":25,"eyes":"blue","name":"B"}
+(5) {"age":53,"eyes":"green","name":"C"}
+(3)-[:KNOWS]->(4) {}
+(3)-[:KNOWS]->(5) {}
+(4)-[:KNOWS]->(1) {}
+(4)-[:MARRIED]->(2) {}
+(5)-[:KNOWS]->(1) {}
+
+
+start a=node(2) return a.array, filter(x in a.array : length(x) = 3)
+----
+

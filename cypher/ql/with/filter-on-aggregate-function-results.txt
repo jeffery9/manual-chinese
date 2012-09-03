@@ -1,0 +1,52 @@
+[[with-filter-on-aggregate-function-results]]
+== Filter on aggregate function results ==
+Aggregated results have to pass through a `WITH` clause to be able to filter on.
+
+_Query_
+
+[source,cypher]
+----
+START david=node(1)
+MATCH david--otherPerson-->()
+WITH otherPerson, count(*) as foaf
+WHERE foaf > 1
+RETURN otherPerson
+----
+
+
+The person connected to David with the at least more than one outgoing relationship will be returned by the query.
+
+.Result
+[queryresult]
+----
++------------------------+
+| otherPerson            |
++------------------------+
+| Node[3]{name:"Anders"} |
++------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"David"}
+(2) {"name":"Emil"}
+(3) {"name":"Anders"}
+(4) {"name":"Bossman"}
+(5) {"name":"Cesar"}
+(1)-[:KNOWS]->(3) {}
+(3)-[:KNOWS]->(4) {}
+(3)-[:BLOCKS]->(5) {}
+(4)-[:KNOWS]->(2) {}
+(4)-[:BLOCKS]->(1) {}
+(5)-[:KNOWS]->(2) {}
+
+
+start david=node(1) match david--otherPerson-->() with otherPerson, count(*) as foaf where foaf > 1 return otherPerson
+----
+

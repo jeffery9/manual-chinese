@@ -1,0 +1,45 @@
+[[where-default-true-if-property-is-missing]]
+== Default true if property is missing ==
+If you want to compare a property on a graph element, but only if it exists, use the nullable property syntax. You can use a question mark if you want missing property to return true, like:
+
+_Query_
+
+[source,cypher]
+----
+START n=node(3, 1)
+WHERE n.belt? = 'white'
+RETURN n
+----
+
+
+This returns all nodes, even those without the belt property.
+
+.Result
+[queryresult]
+----
++--------------------------------------------+
+| n                                          |
++--------------------------------------------+
+| Node[3]{name:"Andres",age:36,belt:"white"} |
+| Node[1]{name:"Tobias",age:25}              |
++--------------------------------------------+
+2 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":25,"name":"Tobias"}
+(2) {"age":34,"name":"Peter"}
+(3) {"age":36,"belt":"white","name":"Andres"}
+(3)-[:KNOWS]->(1) {}
+(3)-[:KNOWS]->(2) {}
+
+
+start n=node(3, 1) where n.belt? = 'white' return n
+----
+

@@ -1,0 +1,103 @@
+[[examples-uniqueness-of-paths-in-traversals]]
+在遍历查询中的唯一路径
+=================================
+
+这个范例演示了节点唯一性的使用。
+下面是一个想象的有多个负责人的领域图，这些负责人有它们增加的宠物，而这些宠物又生产了它的后代。
+
+.后代范例图
+["dot", "Descendants-Example-Graph-Uniqueness-of-Paths-in-traversals.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'Pet1\'\l}"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'Pet2\'\l}"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'Pet0\'\l}"
+  ]
+  N3 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "descendant\n"
+  ]
+  N3 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "descendant\n"
+  ]
+  N3 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "descendant\n"
+  ]
+  N4 [
+    label = "{Node\[4\]|name = \'Pet3\'\l}"
+  ]
+  N5 [
+    label = "{Node\[5\]|name = \'Principal1\'\l}"
+  ]
+  N5 -> N1 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "owns\n"
+  ]
+  N5 -> N4 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "owns\n"
+  ]
+  N6 [
+    label = "{Node\[6\]|name = \'Principal2\'\l}"
+  ]
+  N6 -> N2 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "owns\n"
+  ]
+----
+
+为了返回 +Pet0+ 的所有后代，要求与 +Pet0+ 必须有 +owns+ 和 +Principal1+ 关系（实际上只有 +Pet1+ 和 +Pet3+），遍历查询的 _Uniqueness_ 应该设置成 +NODE_PATH+ 来代替默认的 +NODE_GLOBAL+ 以至于节点可以被遍历不止一次，而且那些有不同节点但能有一些相同的路径（比如开始节点和结束节点）也能被返回。
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/UniquenessOfPathsTest.java
+classifier=test-sources
+tag=traverser
+----
+
+这将返回下面的路径:
+
+[source]
+----
+(3)--[descendant,0]-->(1)<--[owns,3]--(5)
+(3)--[descendant,2]-->(4)<--[owns,5]--(5)
+
+----
+
+在 `path.toString()` 的默认实现中，`(1)--[knows,2]-->(4)` 表示一个ID=1的节点通过一个ID=2，关系类型为 `knows` 的关系连接到了一个ID=4的节点上。
+
+
+让我们从一个旧的中创建一个新的 +TraversalDescription+ ，并且设置uniqueness为 +NODE_GLOBAL+ 来查看它们之间的区别。
+
+TIP: +TraversalDescription+ 对象是不变的，因此我们必须使用一个新的实例来返回新的uniqueness设置。
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/UniquenessOfPathsTest.java
+classifier=test-sources
+tag=traverseNodeGlobal
+----
+
+现在只有一条路径返回:
+
+[source]
+----
+(3)--[descendant,0]-->(1)<--[owns,3]--(5)
+
+----
+
+

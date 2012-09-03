@@ -1,0 +1,43 @@
+[[start-relationship-by-id]]
+== Relationship by id ==
+Binding a relationship as a starting point is done with the `relationship(*)` function, which can also be abbreviated `rel(*)`.
+
+_Query_
+
+[source,cypher]
+----
+START r=relationship(0)
+RETURN r
+----
+
+
+The relationship with id +0+ is returned.
+
+.Result
+[queryresult]
+----
++--------------+
+| r            |
++--------------+
+| :KNOWS[0] {} |
++--------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"A"}
+(2) {"name":"B"}
+(3) {"name":"C"}
+(1)-[:KNOWS]->(2) {}
+(1)-[:KNOWS]->(3) {}
+
+
+start r=relationship(0) return r
+----
+

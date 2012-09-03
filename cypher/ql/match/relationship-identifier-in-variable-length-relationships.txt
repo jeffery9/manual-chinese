@@ -1,0 +1,51 @@
+[[match-relationship-identifier-in-variable-length-relationships]]
+== Relationship identifier in variable length relationships ==
+When the connection between two nodes is of variable length, a relationship identifier becomes an collection of relationships.
+
+_Query_
+
+[source,cypher]
+----
+START a=node(3), x=node(2, 4)
+MATCH a-[r:KNOWS*1..3]->x
+RETURN r
+----
+
+
+The query returns the relationships, if there is a path between 1 and 3 relationships away.
+
+.Result
+[queryresult]
+----
++-----------------------------+
+| r                           |
++-----------------------------+
+| [:KNOWS[0] {},:KNOWS[3] {}] |
+| [:KNOWS[0] {}]              |
++-----------------------------+
+2 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"David"}
+(2) {"name":"Emil"}
+(3) {"name":"Anders"}
+(4) {"name":"Bossman"}
+(5) {"name":"Cesar"}
+(1)-[:KNOWS]->(3) {}
+(3)-[:KNOWS]->(4) {}
+(3)-[:BLOCKS]->(5) {}
+(4)-[:KNOWS]->(2) {}
+(4)-[:BLOCKS]->(1) {}
+(5)-[:KNOWS]->(2) {}
+
+
+start a=node(3), x=node(2, 4) match a-[r:KNOWS*1..3]->x return r
+----
+

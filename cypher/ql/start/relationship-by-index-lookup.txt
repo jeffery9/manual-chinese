@@ -1,0 +1,30 @@
+[[start-relationship-by-index-lookup]]
+== Relationship by index lookup ==
+When the starting point can be found by using index lookups, it can be done like this: `relationship:index-name(key = "value")`.
+
+_Query_
+
+[source,cypher]
+----
+START r=relationship:rels(name = "Andrés")
+RETURN r
+----
+
+
+The relationship indexed with the +name+ property set to "+Andrés+" is returned by the query.
+
+.Result
+[queryresult]
+----
++---------------------------+
+| r                         |
++---------------------------+
+| :KNOWS[0] {name:"Andrés"} |
++---------------------------+
+1 row
+0 ms
+
+----
+
+
+

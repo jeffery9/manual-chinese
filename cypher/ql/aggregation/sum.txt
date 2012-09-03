@@ -1,0 +1,45 @@
+[[aggregation-sum]]
+== SUM ==
+The +SUM+ aggregation function simply sums all the numeric values it encounters. Nulls are silently dropped. This is an example of how you can use +SUM+.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(2,3,4)
+RETURN sum(n.property)
+----
+
+
+This returns the sum of all the values in the property `property`.
+
+.Result
+[queryresult]
+----
++-----------------+
+| sum(n.property) |
++-----------------+
+| 90              |
++-----------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"eyes":"brown","name":"D"}
+(2) {"name":"A","property":13}
+(3) {"eyes":"blue","name":"B","property":33}
+(4) {"eyes":"blue","name":"C","property":44}
+(2)-[:KNOWS]->(3) {}
+(2)-[:KNOWS]->(4) {}
+(2)-[:KNOWS]->(1) {}
+
+
+start n=node(2,3,4) return sum(n.property)
+----
+

@@ -1,0 +1,24 @@
+
+_Graph_
+
+["dot", "cypher-return-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'A\'\lhappy = \'Yes!\'\lage = 55\l}"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N1 -> N2 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "BLOCKS\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'B\'\l}"
+  ]
+
+----
+

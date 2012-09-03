@@ -1,0 +1,97 @@
+
+_Graph_
+
+["dot", "cypher-multirelationalsocialnetwork-graph.txt.svg", "neoviz", "graph [layout=circo]"]
+----
+  N1 [
+    label = "name = \'cats\'\l"
+  ]
+  N2 [
+    label = "name = \'nature\'\l"
+  ]
+  N3 [
+    label = "name = \'Ben\'\l"
+  ]
+  N4 [
+    label = "name = \'Sara\'\l"
+  ]
+  N4 -> N8 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "FOLLOWS\n"
+  ]
+  N4 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "FOLLOWS\n"
+  ]
+  N4 -> N5 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "LIKES\n"
+  ]
+  N4 -> N7 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "LIKES\n"
+  ]
+  N4 -> N1 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "LIKES\n"
+  ]
+  N5 [
+    label = "name = \'bikes\'\l"
+  ]
+  N6 [
+    label = "name = \'Maria\'\l"
+  ]
+  N6 -> N8 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "LOVES\n"
+  ]
+  N6 -> N8 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "FOLLOWS\n"
+  ]
+  N6 -> N7 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "LIKES\n"
+  ]
+  N7 [
+    label = "name = \'cars\'\l"
+  ]
+  N8 [
+    label = "name = \'Joe\'\l"
+  ]
+  N8 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "FOLLOWS\n"
+  ]
+  N8 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "FOLLOWS\n"
+  ]
+  N8 -> N6 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "LOVES\n"
+  ]
+  N8 -> N5 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "LIKES\n"
+  ]
+  N8 -> N2 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "LIKES\n"
+  ]
+
+----
+

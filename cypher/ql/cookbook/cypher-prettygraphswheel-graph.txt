@@ -1,0 +1,89 @@
+
+_Graph_
+
+["dot", "cypher-prettygraphswheel-graph.txt.svg", "neoviz", "graph [layout=neato]"]
+----
+  N1 [
+    label = "{Node\[1\]|}"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N1 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N1 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N1 -> N5 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N1 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N1 -> N7 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|count = 1\l}"
+  ]
+  N2 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N3 [
+    label = "{Node\[3\]|count = 2\l}"
+  ]
+  N3 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N4 [
+    label = "{Node\[4\]|count = 3\l}"
+  ]
+  N4 -> N5 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N5 [
+    label = "{Node\[5\]|count = 4\l}"
+  ]
+  N5 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N6 [
+    label = "{Node\[6\]|count = 5\l}"
+  ]
+  N6 -> N7 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N7 [
+    label = "{Node\[7\]|count = 6\l}"
+  ]
+  N7 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+
+----
+

@@ -1,0 +1,66 @@
+[[cookbook-find-all-groups-and-roles-for-a-user]]
+== Find all groups and roles for a user ==
+Here, find all groups and the roles a user has, sorted by the name of the role.
+
+_Query_
+
+[source,cypher]
+----
+START n=node:node_auto_index(name = "User1")
+MATCH n-[:hasRoleInGroup]->hyperEdge-[:hasGroup]->group, hyperEdge-[:hasRole]->role
+RETURN role.name, group.name
+ORDER BY role.name asc
+----
+
+
+The groups and roles of +User1+ are returned:
+
+.Result
+[queryresult]
+----
++------------------------+
+| role.name | group.name |
++------------------------+
+| "Role1"   | "Group2"   |
+| "Role2"   | "Group1"   |
++------------------------+
+2 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"U1G2R1"}
+(2) {"name":"Role2"}
+(3) {"name":"Group1"}
+(4) {"name":"Group2"}
+(5) {"name":"Role1"}
+(6) {"name":"Role"}
+(7) {"name":"User1"}
+(8) {"name":"U1G1R2"}
+(9) {"name":"Group"}
+(1)-[:hasRole]->(5) {}
+(1)-[:hasGroup]->(4) {}
+(2)-[:isA]->(6) {}
+(3)-[:canHave]->(5) {}
+(3)-[:canHave]->(2) {}
+(3)-[:isA]->(9) {}
+(4)-[:canHave]->(2) {}
+(4)-[:canHave]->(5) {}
+(4)-[:isA]->(9) {}
+(5)-[:isA]->(6) {}
+(7)-[:in]->(3) {}
+(7)-[:in]->(4) {}
+(7)-[:hasRoleInGroup]->(1) {}
+(7)-[:hasRoleInGroup]->(8) {}
+(8)-[:hasRole]->(2) {}
+(8)-[:hasGroup]->(3) {}
+
+
+start n=node:node_auto_index(name = "User1") match n-[:hasRoleInGroup]->hyperEdge-[:hasGroup]->group, hyperEdge-[:hasRole]->role return role.name, group.name order by role.name asc
+----
+

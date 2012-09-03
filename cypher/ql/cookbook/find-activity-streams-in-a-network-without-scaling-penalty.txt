@@ -1,0 +1,68 @@
+[[cookbook-find-activity-streams-in-a-network-without-scaling-penalty]]
+== Find Activity Streams in a network without scaling penalty ==
+This is an approach put forward by Rene Pickard as http://www.rene-pickhardt.de/graphity-an-efficient-graph-model-for-retrieving-the-top-k-news-feeds-for-users-in-social-networks/[Graphity].
+        In short, a linked list is created for every persons friends in the order that the last activities of these friends have occured.
+        To find the activity stream for a person, the friend just follow the linked list of the friend list, and retrieve the needed amount of activities form the respective activity list of the friends.
+
+_Query_
+
+[source,cypher]
+----
+START me=node:node_auto_index(name = "Jane")
+MATCH p=me-[:jane_knows*]->friend, friend-[:has]->status
+RETURN me.name, friend.name, status.name, length(p)
+ORDER BY length(p)
+----
+
+
+The activity stream for Jane.
+
+.Result
+[queryresult]
+----
++-------------------------------------------------+
+| me.name | friend.name | status.name | length(p) |
++-------------------------------------------------+
+| "Jane"  | "Bill"      | "Bill_s1"   | 1         |
+| "Jane"  | "Joe"       | "Joe_s1"    | 2         |
+| "Jane"  | "Bob"       | "Bob_s1"    | 3         |
++-------------------------------------------------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"Bill"}
+(2) {"name":"Ted_s1"}
+(3) {"name":"Bill_s1"}
+(4) {"name":"Ted_s2"}
+(5) {"name":"Bill_s2"}
+(6) {"name":"Jane"}
+(7) {"name":"Joe_s1"}
+(8) {"name":"Bob"}
+(9) {"name":"Ted"}
+(10) {"name":"Joe_s2"}
+(11) {"name":"Bob_s1"}
+(12) {"name":"Joe"}
+(1)-[:has]->(3) {}
+(1)-[:jane_knows]->(12) {}
+(2)-[:next]->(4) {}
+(3)-[:next]->(5) {}
+(6)-[:jane_knows]->(1) {}
+(7)-[:next]->(10) {}
+(8)-[:bob_knows]->(9) {}
+(8)-[:has]->(11) {}
+(9)-[:has]->(2) {}
+(9)-[:bob_knows]->(1) {}
+(12)-[:has]->(7) {}
+(12)-[:jane_knows]->(8) {}
+
+
+START me=node:node_auto_index(name = "Jane") MATCH p=me-[:jane_knows*]->friend, friend-[:has]->status RETURN me.name, friend.name, status.name, length(p) ORDER BY length(p)
+----
+

@@ -1,0 +1,242 @@
+[[examples-user-roles-in-graphs]]
+在图数据库中的用户角色模型
+=============
+
+这个范例展示了一个角色的等级制度。
+有趣的是，一棵树是不能足够用于存储这样的结构，下文阐述。
+
+image::roles.png[scaledwidth="100%"]
+
+这个范例是 http://www.codeproject.com/script/Articles/MemberArticles.aspx?amid=274518[Kemal Erdogan]在由撰写的文章 http://www.codeproject.com/Articles/22824/A-Model-to-Represent-Directed-Acyclic-Graphs-DAG-o[A Model to Represent Directed Acyclic Graphs (DAG) on SQL Databases] 中的一个实现。
+这个文章讨论了如何在基于SQL的数据库中存储 http://en.wikipedia.org/wiki/Directed_acyclic_graph[
+directed acyclic graphs] (DAGs) 。DAGs很像树结构，但有一点：它们可能通过不同的路径到达相同的节点。从这个来说树结构是被严格限制的，保证他们更容易控制。在我们的这种情况下，它是 "Ali" 和 "Engin"，因为他们是管理员和普通用户因此可以通过他们的组节点到达。现实往往看起来这样而不能被树结构处理。
+
+在文章中一个SQL存储过程提供了一个解决方案。主要的意思就是他们有来自科学家的一些支持，他们能预先计算所有可能的路径。这种方法的优缺点是：
+
+* 提升读性能
+* 降低插入性能
+*  _大量_的空间浪费
+* 依赖存储过程
+
+在Neo4j中存储角色是没有价值的。在这种情况下我们使用 +PART_OF+ （绿边）关系来对用户组层次建模而 +MEMBER_OF+（蓝边）用来表示组中的成员。
+我们也把顶级组节点通过关系 +ROOT+ 连接到参考节点（第一个节点）。
+这提供了一个非常有用的分割方法给我们。Neo4j并没有预先定义关系类型，你可以自由的创建任何关系类型并且赋予他们任何你希望的语义。
+
+现在让我们看下如何从图数据库接收信息。Java代码使用Neo4j遍历相关的API（参考：<<tutorial-traversal-java-api>>），查询工具使用<<cypher-query-lang, Cypher>>。
+
+== 得到管理员 ==
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/RolesTest.java
+classifier=test-sources
+tag=get-admins
+----
+
+结果是：
+
+[source]
+----
+Found: Ali at depth: 0
+Found: HelpDesk at depth: 0
+Found: Engin at depth: 1
+Found: Demet at depth: 1
+
+----
+
+结果是从遍历器收集的：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/RolesTest.java
+classifier=test-sources
+tag=read-traverser
+----
+
+在Cypher中，一个简单的查询如下：
+
+[source,cypher]
+----
+START admins=node(14)
+MATCH admins<-[:PART_OF*0..]-group<-[:MEMBER_OF]-user
+RETURN user.name, group.name
+----
+
+输出结果：
+
+[queryresult]
+----
++------------------------+
+| user.name | group.name |
++------------------------+
+| "Ali"     | "Admins"   |
+| "Engin"   | "HelpDesk" |
+| "Demet"   | "HelpDesk" |
++------------------------+
+3 rows
+4 ms
+
+----
+
+== 得到一个用户的组成员 ==
+
+使用Neo4j Java遍历API,这个查询像这样：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/RolesTest.java
+classifier=test-sources
+tag=get-user-memberships
+----
+
+输出结果： 
+
+[source]
+----
+Found: ABCTechnicians at depth: 0
+Found: Technicians at depth: 1
+Found: Users at depth: 2
+
+----
+
+在Cypher中：
+
+[source,cypher]
+----
+START jale=node(10)
+MATCH jale-[:MEMBER_OF]->()-[:PART_OF*0..]->group
+RETURN group.name
+----
+
+[queryresult]
+----
++------------------+
+| group.name       |
++------------------+
+| "ABCTechnicians" |
+| "Technicians"    |
+| "Users"          |
++------------------+
+3 rows
+1 ms
+
+----
+
+== 获取所有的用户组 ==
+
+在Java中： 
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/RolesTest.java
+classifier=test-sources
+tag=get-groups
+----
+
+输出结果:
+
+[source]
+----
+Found: Admins at depth: 0
+Found: Users at depth: 0
+Found: HelpDesk at depth: 1
+Found: Managers at depth: 1
+Found: Technicians at depth: 1
+Found: ABCTechnicians at depth: 2
+
+----
+
+在Cypher中：
+
+[source,cypher]
+----
+START refNode=node(16)
+MATCH refNode<-[:ROOT]->()<-[:PART_OF*0..]-group
+RETURN group.name
+----
+
+[queryresult]
+----
++------------------+
+| group.name       |
++------------------+
+| "Admins"         |
+| "HelpDesk"       |
+| "Users"          |
+| "Managers"       |
+| "Technicians"    |
+| "ABCTechnicians" |
++------------------+
+6 rows
+2 ms
+
+----
+
+== 找到所有用户 ==
+
+现在，让我们试图找到在系统中属于任何用户组的所有用户。
+
+在Java中：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/RolesTest.java
+classifier=test-sources
+tag=get-members
+----
+
+[source]
+----
+Found: Ali at depth: 1
+Found: Engin at depth: 1
+Found: Burcu at depth: 1
+Found: Can at depth: 1
+Found: Demet at depth: 2
+Found: Gul at depth: 2
+Found: Fuat at depth: 2
+Found: Hakan at depth: 2
+Found: Irmak at depth: 2
+Found: Jale at depth: 3
+
+----
+
+在Cypher中像这样:
+
+[source,cypher]
+----
+START refNode=node(16)
+MATCH refNode<-[:ROOT]->root, p=root<-[PART_OF*0..]-()<-[:MEMBER_OF]-user
+RETURN user.name, min(length(p))
+ORDER BY min(length(p)), user.name
+----
+
+输出结果：
+
+[queryresult]
+----
++----------------------------+
+| user.name | min(length(p)) |
++----------------------------+
+| "Ali"     | 1              |
+| "Burcu"   | 1              |
+| "Can"     | 1              |
+| "Engin"   | 1              |
+| "Demet"   | 2              |
+| "Fuat"    | 2              |
+| "Gul"     | 2              |
+| "Hakan"   | 2              |
+| "Irmak"   | 2              |
+| "Jale"    | 3              |
++----------------------------+
+10 rows
+33 ms
+
+----
+使用在Java中比较短的构建和其他查询机制来实现更加复杂语义的查询。
+
+

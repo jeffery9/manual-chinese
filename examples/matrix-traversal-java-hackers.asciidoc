@@ -1,0 +1,8 @@
+[source]
+----
+Hackers:
+At depth 4 => The Architect
+找到hackers的数量: 1
+
+----
+

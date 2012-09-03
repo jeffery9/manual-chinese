@@ -1,0 +1,50 @@
+[[match-multiple-relationships]]
+== Multiple relationships ==
+Relationships can be expressed by using multiple statements in the form of `()--()`, or they can be strung together, like this:
+
+_Query_
+
+[source,cypher]
+----
+START a=node(3)
+MATCH (a)-[:KNOWS]->(b)-[:KNOWS]->(c)
+RETURN a,b,c
+----
+
+
+The three nodes in the path are returned by the query.
+
+.Result
+[queryresult]
+----
++-------------------------------------------------------------------------+
+| a                      | b                       | c                    |
++-------------------------------------------------------------------------+
+| Node[3]{name:"Anders"} | Node[4]{name:"Bossman"} | Node[2]{name:"Emil"} |
++-------------------------------------------------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"David"}
+(2) {"name":"Emil"}
+(3) {"name":"Anders"}
+(4) {"name":"Bossman"}
+(5) {"name":"Cesar"}
+(1)-[:KNOWS]->(3) {}
+(3)-[:KNOWS]->(4) {}
+(3)-[:BLOCKS]->(5) {}
+(4)-[:KNOWS]->(2) {}
+(4)-[:BLOCKS]->(1) {}
+(5)-[:KNOWS]->(2) {}
+
+
+start a=node(3) match (a)-[:KNOWS]->(b)-[:KNOWS]->(c) return a,b,c
+----
+

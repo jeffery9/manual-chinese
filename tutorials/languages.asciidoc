@@ -1,0 +1,10 @@
+[[languages]]
+多语言支持
+=====
+
+下表列出了社区提供的用于将Neo4j工作在嵌入模式的不同语言以及相应的框架。
+
+include::{docdir}/community/embedded-drivers.asciidoc[]
+
+要获取更多关于不同语言的REST客户端信息，请参考：<<tutorials-rest>>。
+

@@ -1,0 +1,45 @@
+[[aggregation-count-non-null-values]]
+== Count non-null values ==
+You can count the non-`null` values by using +count(<identifier>)+.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(2,3,4,1)
+RETURN count(n.property?)
+----
+
+
+The count of related nodes with the `property` property set is returned by the query.
+
+.Result
+[queryresult]
+----
++--------------------+
+| count(n.property?) |
++--------------------+
+| 3                  |
++--------------------+
+1 row
+1 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"eyes":"brown","name":"D"}
+(2) {"name":"A","property":13}
+(3) {"eyes":"blue","name":"B","property":33}
+(4) {"eyes":"blue","name":"C","property":44}
+(2)-[:KNOWS]->(3) {}
+(2)-[:KNOWS]->(4) {}
+(2)-[:KNOWS]->(1) {}
+
+
+start n=node(2,3,4,1) return count(n.property?)
+----
+

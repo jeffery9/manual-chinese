@@ -1,0 +1,66 @@
+
+_Graph_
+
+["dot", "cypher-peoplesimilarityfavorites-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "name = \'Sara\'\l"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "favorite\n"
+  ]
+  N1 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "favorite\n"
+  ]
+  N2 [
+    label = "name = \'Cats\'\l"
+  ]
+  N3 [
+    label = "name = \'Derrick\'\l"
+  ]
+  N3 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "favorite\n"
+  ]
+  N3 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "favorite\n"
+  ]
+  N4 [
+    label = "name = \'Bikes\'\l"
+  ]
+  N5 [
+    label = "name = \'Jill\'\l"
+  ]
+  N5 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "favorite\n"
+  ]
+  N6 [
+    label = "name = \'Joe\'\l"
+  ]
+  N6 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "favorite\n"
+  ]
+  N6 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "favorite\n"
+  ]
+  N6 -> N1 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "friend\n"
+  ]
+
+----
+

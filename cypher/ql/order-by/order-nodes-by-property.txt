@@ -1,0 +1,46 @@
+[[order-by-order-nodes-by-property]]
+== Order nodes by property ==
++ORDER BY+ is used to sort the output.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(3,1,2)
+RETURN n
+ORDER BY n.name
+----
+
+
+The nodes are returned, sorted by their name.
+
+.Result
+[queryresult]
+----
++-------------------------------------+
+| n                                   |
++-------------------------------------+
+| Node[1]{name:"A",age:34,length:170} |
+| Node[2]{name:"B",age:34}            |
+| Node[3]{name:"C",age:32,length:185} |
++-------------------------------------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":34,"length":170,"name":"A"}
+(2) {"age":34,"name":"B"}
+(3) {"age":32,"length":185,"name":"C"}
+(1)-[:KNOWS]->(2) {}
+(2)-[:KNOWS]->(3) {}
+
+
+start n=node(3,1,2) return n order by n.name
+----
+

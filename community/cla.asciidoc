@@ -1,0 +1,53 @@
+[[cla]]
+贡献者许可协议
+=======
+
+== 总结 ==
+
+我们要求所有托管在Neo4j上面的源代码都必须通过 http://dist.neo4j.org/neo4j-cla.pdf[Neo4j Contributor License Agreement] (CLA)贡献出来。这个协议的目的是为了保护完整的代码库，反过来也保护代码库周围的社区：创始公司Neo Technology，Neo4j开发社区以及Neo4j用户。 贡献者协议类型跟很多开源软件和开源工程类似（实际上，他非常类似于广泛签署的 http://www.oracle.com/technetwork/community/oca-486395.html[Oracle Contributor Agreement]）。
+
+如果你没有CLA协议的其他任何问题，请继续浏览下面的内容或者发送邮件到地址： admins@neofourjay.org。如果你有一个法律问题，请咨询律师。
+
+== 一般问题 ==
+
+=== 我会失去我自己代码的权利吗？ ===
+
+No, the http://dist.neo4j.org/neo4j-cla.pdf[Neo4j CLA] only asks you to _share_ your rights, not relinquish them. Unlike some contribution agreements that require you to transfer copyrights to another organization, the CLA does not take away your rights to your contributed intellectual property. When you agree to the CLA, you grant us joint ownership in copyright, and a patent license for your contributions. You retain all rights, title, and interest in your contributions and may use them for any purpose you wish. Other than revoking our rights, you can still do whatever you want with your code.
+
+=== 你们会如何处理我贡献的东西？ ===
+
+
+We may exercise all rights that a copyright holder has, as well as the rights you grant in the http://dist.neo4j.org/neo4j-cla.pdf[Neo4j CLA] to use any patents you have in your contributions. As the CLA provides for joint copyright ownership, you may exercise the same rights as we in your contributions.
+
+=== 为此社区会提供什么福利？ ===
+
+Well, it allows us to sponsor the Neo4j projects and provide an infrastructure for the community, while making sure that we can include this in software that we ship to our customers without any nasty surprises. Without this ability, we as a small company would be hard pressed to release all our code as free software.
+
+Moreover, the CLA lets us protect community members (both developers and users) from hostile intellectual property litigation should the need arise. This is in line with how other free software stewards like the http://www.fsf.org[Free Software Foundation - FSF] defend projects (except with the FSF, there's no shared copyright but instead you completely sign it over to the FSF). The contributor agreement also includes a "free software covenant," or a promise that a contribution will remain available as free software.
+
+At the end of the day, you still retain all rights to your contribution and we can stand confident that we can protect the Neo4j community and the Neo Technology customers.
+
+=== 我们可以讨论一些CLA里面的条款吗？ ===
+
+绝对可以的！请告诉我们你的反馈！But let's keep the legalese off the mailing lists。请把你的反馈信息直接发送邮件到cla@neotechnology.com，我们会尽快回复你的。
+
+=== 我仍然不喜欢CLA协议。 ===
+
+好的，当然你也可以把你的代码或者稳定托管到其他任何地方。请不要！ 我们只是在这讨论下我们提供的基础设施的规则而已。
+
+==  如何签署CLA协议 ==
+
+当你已经阅读完了CLA，请你发送一份邮件到：cla@neotechnology.com。包括下面一些信息：
+
+* 你的完整姓名（包括中文名和英文名）。
+* 你的常用电子邮件。
+* http://dist.neo4j.org/neo4j-cla.pdf[Neo4j CLA]协议的一份拷贝作为附件发送。
+* 你同意这个协议的表述。
+
+举个例子：
+
+----
+Hi. My name is John Doe (john@doe.com).
+I agree to the terms in the attached Neo4j Contributor License Agreement.
+----
+

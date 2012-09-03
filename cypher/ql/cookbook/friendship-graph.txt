@@ -1,0 +1,48 @@
+[[cookbook-friendship-graph]]
+== Friendship graph ==
+This query first creates a center node, and then once per element in the range, creates a cycle graph and connects it to the center
+
+_Query_
+
+[source,cypher]
+----
+CREATE center
+foreach( x in range(1,3) :
+
+CREATE leaf1, leaf2, center-[:X]->leaf1, center-[:X]->leaf2, leaf1-[:X]->leaf2
+)
+RETURN ID(center) as id
+----
+
+
+The id of the center node is returned by the query.
+
+.Result
+[queryresult]
+----
++----+
+| id |
++----+
+| 1  |
++----+
+1 row
+Nodes created: 7
+Relationships created: 9
+3 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+start n=node(*) match n-[r?]->() delete n, r;
+
+CREATE center
+foreach( x in range(1,3) : 
+   CREATE leaf1, leaf2, center-[:X]->leaf1, center-[:X]->leaf2, leaf1-[:X]->leaf2
+)
+RETURN ID(center) as id
+----
+

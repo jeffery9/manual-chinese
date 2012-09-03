@@ -1,0 +1,70 @@
+[[python-embedded-core-relationships]]
+== 关系 ==
+
+这节描述了关系对象的一些操作。
+要获取关于如何控制节点和关系上面的属性，请参考： <<python-embedded-core-properties>>。
+
+=== 创建一个关系 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=createRelationship
+classifier=test-sources
+----
+
+=== 通过Id找到一个关系 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=getRelationshipById
+classifier=test-sources
+----
+
+=== 移除一个关系 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=deleteRelationship
+classifier=test-sources
+----
+
+TIP: 也可以参考：<<transactions-delete>>。
+
+=== 通过Id移除一个关系 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=deleteByIdRelationship
+classifier=test-sources
+----
+
+=== 关系的起点，终点和关系类型 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=relationshipAttributes
+classifier=test-sources
+----
+
+=== 获取所有的关系以及数量 ===
+
+Use this with care, it will become extremely slow in large datasets.
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=getAllRelationships
+classifier=test-sources
+----
+

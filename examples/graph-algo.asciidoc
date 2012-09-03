@@ -1,0 +1,41 @@
+[[tutorials-java-embedded-graph-algo]]
+图算法范例
+========================
+
+[TIP]
+范例源代码下载地址：
+https://github.com/neo4j/community/blob/{neo4j-git-tag}/embedded-examples/src/test/java/org/neo4j/examples/PathFindingExamplesTest.java[PathFindingExamplesTest.java]
+
+
+计算正连个节点之间的最短路径（最少数目的关系）：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/PathFindingExamplesTest.java
+tag=shortestPathUsage
+----
+
+使用 http://zh.wikipedia.org/wiki/Dijkstra[迪科斯彻（Dijkstra）算法]解决有向图中任意两个顶点之间的最短路径问题。
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/PathFindingExamplesTest.java
+tag=dijkstraUsage
+----
+
+使用 http://en.wikipedia.org/wiki/A*_search_algorithm[A*]算法是解决静态路网中求解最短路最有效的方法。
+
+这儿是我们的范例图：
+
+image::graphalgo-astar.png[scaledwidth="50%", alt="A* 算法范例图"]
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/PathFindingExamplesTest.java
+tag=astarUsage
+----
+
+

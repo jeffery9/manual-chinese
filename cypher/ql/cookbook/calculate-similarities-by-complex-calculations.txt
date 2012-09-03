@@ -1,0 +1,50 @@
+[[cookbook-calculate-similarities-by-complex-calculations]]
+== Calculate similarities by complex calculations ==
+Here, a similarity between two players in a game is calculated by the number of times they have eaten the same food.
+
+_Query_
+
+[source,cypher]
+----
+START me=node:node_auto_index(name = "me")
+MATCH me-[r1:ATE]->food<-[r2:ATE]-you
+==== me,count(distinct r1) as H1,count(distinct r2) as H2,you ====
+MATCH me-[r1:ATE]->food<-[r2:ATE]-you
+RETURN sum((1-ABS(r1.times/H1-r2.times/H2))*(r1.times+r2.times)/(H1+H2)) as similarity
+----
+
+
+The two players and their similarity measure.
+
+.Result
+[queryresult]
+----
++------------+
+| similarity |
++------------+
+| -30.0      |
++------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"me"}
+(2) {"name":"meat"}
+(3) {"name":"you"}
+(1)-[:ATE]->(2) {"times":10}
+(3)-[:ATE]->(2) {"times":5}
+
+
+START me=node:node_auto_index(name = "me")
+MATCH me-[r1:ATE]->food<-[r2:ATE]-you
+==== me,count(distinct r1) as H1,count(distinct r2) as H2,you ====
+MATCH me-[r1:ATE]->food<-[r2:ATE]-you
+RETURN sum((1-ABS(r1.times/H1-r2.times/H2))*(r1.times+r2.times)/(H1+H2)) as similarity
+----
+

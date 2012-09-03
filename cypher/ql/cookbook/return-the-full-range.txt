@@ -1,0 +1,79 @@
+[[cookbook-return-the-full-range]]
+== Return the full range ==
+In this case, the range goes from the first to the last leaf of the index tree. Here, 
++startPath+ (color +Greenyellow+) and +endPath+  (color +Green+) span up the range, +valuePath+  (color +Blue+) is then connecting the leafs, and the values can
+be read from the +middle+ node, hanging off the +values+ (color +Red+) path.
+
+include::path-tree-layout-full-range.txt[]
+
+
+
+_Query_
+
+[source,cypher]
+----
+START root=node:node_auto_index(name = 'Root')
+MATCH startPath=root-[:`2010`]->()-[:`12`]->()-[:`31`]->startLeaf,
+      endPath=root-[:`2011`]->()-[:`01`]->()-[:`03`]->endLeaf,
+      valuePath=startLeaf-[:NEXT*0..]->middle-[:NEXT*0..]->endLeaf,
+      values=middle-[:VALUE]->event
+RETURN event.name
+ORDER BY event.name ASC
+----
+
+
+Returning all events between 2010-12-31 and 2011-01-03, in this case all events.
+
+.Result
+[queryresult]
+----
++------------+
+| event.name |
++------------+
+| "Event1"   |
+| "Event2"   |
+| "Event2"   |
+| "Event3"   |
++------------+
+4 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"Y11M01"}
+(2) {"name":"Y10M12D31"}
+(3) {"name":"Y10M12"}
+(4) {"name":"Event2"}
+(5) {"name":"Y11M11D02"}
+(6) {"name":"Y11"}
+(7) {"name":"Event3"}
+(8) {"name":"Y10"}
+(9) {"name":"Root"}
+(10) {"name":"Event1"}
+(11) {"name":"Y11M01D01"}
+(12) {"name":"Y11M12D03"}
+(1)-[:01]->(11) {}
+(1)-[:02]->(5) {}
+(1)-[:03]->(12) {}
+(2)-[:NEXT]->(11) {}
+(2)-[:VALUE]->(10) {}
+(2)-[:VALUE]->(4) {}
+(3)-[:31]->(2) {}
+(5)-[:NEXT]->(12) {}
+(6)-[:01]->(1) {}
+(8)-[:12]->(3) {}
+(9)-[:2010]->(8) {}
+(9)-[:2011]->(6) {}
+(11)-[:NEXT]->(5) {}
+(11)-[:VALUE]->(4) {}
+(12)-[:VALUE]->(7) {}
+
+
+START root=node:node_auto_index(name = 'Root') MATCH startPath=root-[:`2010`]->()-[:`12`]->()-[:`31`]->startLeaf, endPath=root-[:`2011`]->()-[:`01`]->()-[:`03`]->endLeaf, valuePath=startLeaf-[:NEXT*0..]->middle-[:NEXT*0..]->endLeaf, values=middle-[:VALUE]->event RETURN event.name ORDER BY event.name ASC
+----
+

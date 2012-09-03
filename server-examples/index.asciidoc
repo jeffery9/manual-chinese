@@ -1,0 +1,16 @@
+[[server-extending]]
+扩展Neo4j服务器
+==========
+
+Neo4j服务器可以通过插件或者非托管扩展来增强。
+为了获取更多关于服务器的信息，请参考：<<server>>。
+
+:leveloffset: 2
+
+include::server-plugins.asciidoc[]
+
+:leveloffset: 2
+
+include::server-unmanaged-extensions.asciidoc[]
+
+

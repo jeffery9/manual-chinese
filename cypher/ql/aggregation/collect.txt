@@ -1,0 +1,45 @@
+[[aggregation-collect]]
+== COLLECT ==
++COLLECT+ collects all the values into a list.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(2,3,4)
+RETURN collect(n.property)
+----
+
+
+Returns a single row, with all the values collected.
+
+.Result
+[queryresult]
+----
++---------------------+
+| collect(n.property) |
++---------------------+
+| [13,33,44]          |
++---------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"eyes":"brown","name":"D"}
+(2) {"name":"A","property":13}
+(3) {"eyes":"blue","name":"B","property":33}
+(4) {"eyes":"blue","name":"C","property":44}
+(2)-[:KNOWS]->(3) {}
+(2)-[:KNOWS]->(4) {}
+(2)-[:KNOWS]->(1) {}
+
+
+start n=node(2,3,4) return collect(n.property)
+----
+

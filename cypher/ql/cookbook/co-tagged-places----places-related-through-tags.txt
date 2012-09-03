@@ -1,0 +1,70 @@
+[[cookbook-co-tagged-places----places-related-through-tags]]
+== Co-Tagged places -- places related through tags ==
+Find places that are tagged with the same tags:
+
+* Determine the tags for place x.
+* What else is tagged the same as x that is not x.
+
+_Query_
+
+[source,cypher]
+----
+START place=node:node_auto_index(name = "CoffeeShop1")
+MATCH place-[:tagged]->tag<-[:tagged]-otherPlace
+RETURN otherPlace.name, collect(tag.name)
+ORDER BY length(collect(tag.name)) DESC, otherPlace.name
+----
+
+
+This query returns other places than CoffeeShop1 which share the same tags; they are ranked by the number of tags.
+
+.Result
+[queryresult]
+----
++-------------------------------------+
+| otherPlace.name | collect(tag.name) |
++-------------------------------------+
+| "MelsPlace"     | ["Cool","Cosy"]   |
+| "CoffeeShop2"   | ["Cool"]          |
+| "CoffeeShop3"   | ["Cosy"]          |
++-------------------------------------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"SaunaX"}
+(2) {"name":"CoffeeShop1"}
+(3) {"name":"MelsPlace"}
+(4) {"name":"CoffeeShop3"}
+(5) {"name":"Cool"}
+(6) {"name":"CoffeeShop2"}
+(7) {"name":"CoffeShop2"}
+(8) {"name":"Cosy"}
+(9) {"name":"Jill"}
+(10) {"name":"Joe"}
+(2)-[:tagged]->(5) {}
+(2)-[:tagged]->(8) {}
+(3)-[:tagged]->(8) {}
+(3)-[:tagged]->(5) {}
+(4)-[:tagged]->(8) {}
+(6)-[:tagged]->(5) {}
+(9)-[:favorite]->(2) {}
+(9)-[:favorite]->(3) {}
+(9)-[:favorite]->(7) {}
+(10)-[:favorite]->(2) {}
+(10)-[:favorite]->(1) {}
+(10)-[:favorite]->(3) {}
+
+
+START place=node:node_auto_index(name = "CoffeeShop1") 
+MATCH place-[:tagged]->tag<-[:tagged]-otherPlace
+RETURN otherPlace.name, collect(tag.name)
+ORDER BY length(collect(tag.name)) DESC, otherPlace.name
+----
+

@@ -1,0 +1,69 @@
+[[aggregation-introduction]]
+== Introduction ==
+To calculate aggregated data, Cypher offers aggregation, much like SQL's +GROUP BY+.
+
+Aggregate functions take multiple input values and calculate an aggregated value from them. Examples are +AVG+ that
+calculate the average of multiple numeric values, or +MIN+ that finds the smallest numeric value in a set of values.
+
+Aggregation can be done over all the matching sub graphs, or it can be further divided by introducing key values.
+These are non-aggregate expressions, that are used to group the values going into the aggregate functions.
+
+So, if the return statement looks something like this:
+
+[source,cypher]
+----
+RETURN n, count(*)
+----
+
+We have two return expressions -- `n`, and `count(*)`. The first, `n`, is no aggregate function, and so it will be the
+grouping key. The latter, `count(*)` is an aggregate expression. So the matching subgraphs will be divided into
+different buckets, depending on the grouping key. The aggregate function will then run on these buckets, calculating
+the aggregate values.
+
+The last piece of the puzzle is the +DISTINCT+ keyword. It is used to make all values unique before running them through
+an aggregate function.
+
+An example might be helpful:
+
+_Query_
+
+[source,cypher]
+----
+START me=node(1)
+MATCH me-->friend-->friend_of_friend
+RETURN count(distinct friend_of_friend), count(friend_of_friend)
+----
+
+
+In this example we are trying to find all our friends of friends, and count them. The first aggregate function, +count(distinct friend_of_friend)+, will only see a `friend_of_friend` once -- +DISTINCT+ removes the duplicates. The latter aggregate function, +count(friend_of_friend)+, might very well see the same `friend_of_friend` multiple times. Since there is no real data in this case, an empty result is returned. See the sections below for real data.
+
+.Result
+[queryresult]
+----
++------------------------------------------------------------+
+| count(distinct friend_of_friend) | count(friend_of_friend) |
++------------------------------------------------------------+
+| 0                                | 0                       |
++------------------------------------------------------------+
+1 row
+1 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"eyes":"brown","name":"D"}
+(2) {"name":"A","property":13}
+(3) {"eyes":"blue","name":"B","property":33}
+(4) {"eyes":"blue","name":"C","property":44}
+(2)-[:KNOWS]->(3) {}
+(2)-[:KNOWS]->(4) {}
+(2)-[:KNOWS]->(1) {}
+
+
+START me=node(1) MATCH me-->friend-->friend_of_friend RETURN count(distinct friend_of_friend), count(friend_of_friend)
+----
+

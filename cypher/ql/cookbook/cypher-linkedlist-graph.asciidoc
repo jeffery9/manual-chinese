@@ -1,0 +1,40 @@
+
+_Graph_
+
+["dot", "cypher-linkedlist-graph.txt.svg", "neoviz", "graph [rankdir=RL]"]
+----
+  N1 [
+    label = "name = \'A\'\lvalue = 10\l"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LINK\n"
+  ]
+  N2 [
+    label = "name = \'B\'\lvalue = 20\l"
+  ]
+  N2 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LINK\n"
+  ]
+  N3 [
+    label = "name = \'C\'\lvalue = 30\l"
+  ]
+  N3 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LINK\n"
+  ]
+  N4 [
+    label = "name = \'ROOT\'\l"
+  ]
+  N4 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LINK\n"
+  ]
+
+----
+

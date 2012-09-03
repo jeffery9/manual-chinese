@@ -1,0 +1,53 @@
+
+_Graph_
+
+["dot", "cypher-mutualfriendsandgroups-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'Bill\'\l}"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "member_of_group\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'Group1\'\l}"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'Bob\'\l}"
+  ]
+  N3 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "member_of_group\n"
+  ]
+  N4 [
+    label = "{Node\[4\]|name = \'Jill\'\l}"
+  ]
+  N4 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "member_of_group\n"
+  ]
+  N4 -> N1 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "knows\n"
+  ]
+  N5 [
+    label = "{Node\[5\]|name = \'Joe\'\l}"
+  ]
+  N5 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "member_of_group\n"
+  ]
+  N5 -> N1 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "knows\n"
+  ]
+
+----
+

@@ -8,11 +8,11 @@ Neo4j项目有一个非常强大的社区。
 阅读下面的信息了解如何从社区获取帮助和如何为社区做贡献。
 --
 
-:leveloffset: 1
+:leveloffset: 2
 
 include::help.asciidoc[]
 
-:leveloffset: 1
+:leveloffset: 2
 
 include::contributing.asciidoc[]
 

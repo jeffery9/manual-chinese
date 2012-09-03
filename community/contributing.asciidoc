@@ -2,39 +2,38 @@
 促进Neo4j发展
 =========
 
-The Neo4j project is an Open Source effort to bring fast complex data storage and processing to life. Every form of help is highly appreciated by the community - and you are not alone, see <<contributors>>!
+Neo4j工程是一个致力于带给我们快速复杂数据存储的开源工程。任何形式的帮助都是社区高度赞赏的 - 你不是一个人在战斗，请参考：<<contributors,贡献者列表>>!
 
-One crucial aspect of contributing to the Neo4j project is the <<cla>>.
+贡献给Neo4j工程的一个关键方面，请参考：<<cla,CLA协议>>。
 
-In short: make sure to sign the CLA and send in the email, or the Neo4j project won't be able to accept your contribution.
+简而言之：确保签署CLA协议并通过邮件发送给我们否则Neo4j工程不能接收你的贡献信息。
 
-Note that you can contribute to Neo4j also by contributing documentation or giving feedback on the current documentation.
-Basically, at all the places where you can get help, there's also room for contributions.
+注意你也能贡献文档或者在当前页面提出你的反馈来给社区做贡献。
+基本上，在你能得到帮助的任何地方，都有你贡献的机会。
 
-If you want to contribute, there are some good areas to start with, especially for getting in contact with the community, <<community-support>>.
+如果你想为社区作贡献，可以从一些好的领域开始，特别要与社区联系，请参考：<<community-support,社区支持>>。
 
-To document your efforts, we highly recommend to read <<community-docs>>.
+如果你想在文档方面作贡献，我们非常推荐你先阅读：<<community-docs,社区文档>>。
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::cla.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::contribution-areas.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::docs.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::contributing-code.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::contributors.asciidoc[]
 
-:leveloffset: 1
 
 

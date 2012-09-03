@@ -2,23 +2,25 @@
 可以贡献的领域
 =======
 
-Neo4j is a project with a vast ecosystem and a lot of space for contributions. Where you can and want to pitch in depends of course on your time, skill set and interests. Below are some of the areas that might interest you:
+Neo4j是一个高速成长并有大量贡献空间的项目。
+在这里你可以和全情投入，当然取决于你的时间，技能和兴趣。下面是一些你可能感兴趣的领域：
 
-== Neo4j Distribution ==
 
-* https://github.com/neo4j/community/issues[The Neo4j Community open issues] for some starting points for contribution 
-* See the https://github.com/neo4j/[GitHub Neo4j area] for a list of projects
+== Neo4j发布 ==
 
-== Maintaining Neo4j Documentation ==
+* https://github.com/neo4j/community/issues[Neo4j社区版问题讨论]，适合刚开始为社区作贡献的成员。
+* 查看 https://github.com/neo4j/[GitHub Neo4j项目]获取所有的Neo4j工程。
 
-Some parts of the documentation need extra care from the community to stay up to date.
-They typically refer to different kinds of community contributions. 
-Below is a list of such places, feel free to look into them and check for outdated or missing content!
-The easiest way to contribute fixes is to comment at the http://docs.neo4j.org/chunked/snapshot/[online HTML version].
+== 维护Neo4j文档 ==
+
+文档的某些部分需要额外维护来保持与社区同步更新。
+他们通常是指不同的社区贡献。
+下面有一个清单，正那儿你可以随时研究和检查过时的或缺少的内容！
+为社区做贡献的最简单方式是直接在 http://docs.neo4j.org/chunked/snapshot/[在线HTML版本]发表评论。
 
 * <<tutorials-rest>>
 
-== Drivers and bindings to Neo4j ==
+== Neo4j的客户端驱动以及绑定 ==
 
-* REST: see <<tutorials-rest>> for a list of active projects
+* REST: 查看 <<tutorials-rest>>获取当前活跃的社区项目。
 

@@ -2,27 +2,26 @@
 撰写Neo4j开发文档
 ===========
 
-NOTE: Other than writing documentation, you can help out by providing comments - head over to the http://docs.neo4j.org/chunked/snapshot/[online HTML version] to do that!
+注意：比起撰写文档，你也可以通过在 http://docs.neo4j.org/chunked/snapshot/[在线HTML版本]页面提交评论来帮助我们。
 
-For how to build the manual see:
-https://github.com/neo4j/manual/blob/master/README.asciidoc[readme]
+要获取如何编译手册，请参考：https://github.com/neo4j/manual/blob/master/README.asciidoc[编译说明]。
 
-The documents use the asciidoc format, see:
+文档采用了asciidoc格式，请参考：
 
-* http://www.methods.co.nz/asciidoc/[Aciidoc Reference]
-* http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]
+* http://www.methods.co.nz/asciidoc/[Aciidoc 参考手册]
+* http://powerman.name/doc/asciidoc[AsciiDoc 速记卡]
 
-The cheatsheet is really useful!
+这个速记卡真的非常棒!
 
 [[community-docs-overall-flow]]
-== Overall Flow ==
+== 总体流程 ==
 
-Each (sub)project has its own documentation, which will produce a 'docs.jar' file.
-By default this file is assembled from the contents in 'src/docs/'.
-Asciidoc documents have the +.txt+ file extension.
+每一个项目或者子项目都有它自己的文档，会生成到一个'docs.jar'文件中。
+默认情况下，这个文件从'src/docs/'目录的内容组装而成。
+Asciidoc文档的扩展名是 +.txt+ 。
 
-The documents can use code snippets which will extract code from the project.
-The corresponding code must be deployed to the 'sources.jar' or 'test-sources.jar' file.
+文档可以使用来自项目的扩展代码的代码片段。
+相应的代码必须部署到'sources.jar' 或者 'test-sources.jar'文件中。
 
 By setting up a unit test accordingly, documentation can be written directly in the JavaDoc comment.
 

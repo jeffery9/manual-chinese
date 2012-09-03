@@ -7,46 +7,46 @@
 在Java应用中使用Neo4j是非常容易的。
 正这个章节中你将找到你需要的一切 -- 从开发环境的建立到用你的数据做一些有用的事情。
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::setup.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::hello-world.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::index-users.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::unit-testing.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::traversal.asciidoc[]
 
-:leveloffset: 3
+:leveloffset: 4
 
 include::examples/uniqueness-of-paths-in-traversals.asciidoc[]
 
-:leveloffset: 3
+:leveloffset: 4
 
 include::social.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::entities.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::graph-algo.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::management.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 3
 
 include::osgi.asciidoc[]

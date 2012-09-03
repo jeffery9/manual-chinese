@@ -1,9 +1,9 @@
 [[server]]
-Neo4j Server
+Neo4j服务器
 ============
 
 ///////////////////
-:leveloffset: 2
+:leveloffset: 3
 
 include::server-installation.txt[]
 

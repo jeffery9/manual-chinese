@@ -5,22 +5,22 @@
 你能在不同的 _事件_ 上学习很多关于Neo4j的信息。
 为了获取关于Neo4j事件更新的信息，你可以看看下面的网站：
 
-* http://neo4j.org/
-* http://neo4j.meetup.com/
+* http://neo4j.org/ 。
+* http://neo4j.meetup.com/ 。
 
 从Neo4j开源社区获取帮助; 这里是一些切入点。
 
-* Neo4j社区讨论组： https://groups.google.com/forum/#!forum/neo4j
-* Twitter: http://twitter.com/neo4j
-* IRC 频道: irc://irc.freenode.net/neo4j http://webchat.freenode.net/?randomnick=1&channels=neo4j[web chat].
+* Neo4j社区讨论组： https://groups.google.com/forum/#!forum/neo4j 。
+* Twitter: http://twitter.com/neo4j 。
+* IRC 频道: irc://irc.freenode.net/neo4j http://webchat.freenode.net/?randomnick=1&channels=neo4j[web chat]。
 
 报告一个 _bug_ 或者 新增一个 _特性请求_：
 
-* 通用：https://github.com/neo4j/community/issues
-* 监视器：https://github.com/neo4j/advanced/issues
+* 通用： https://github.com/neo4j/community/issues
+* 监视器： https://github.com/neo4j/advanced/issues
 * 备份和高可用性： https://github.com/neo4j/enterprise/issues
 
 关于 _文档_ 的问题：
-Neo4j手册发布在网上，允许大家评论，请使用他提交任何问题或者评论，请浏览：http://docs.neo4j.org/。
+Neo4j手册发布在网上，允许大家评论，请使用他提交任何问题或者评论，请浏览： http://docs.neo4j.org/ 。
 
 

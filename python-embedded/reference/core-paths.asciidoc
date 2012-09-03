@@ -1,0 +1,40 @@
+[[python-embedded-core-paths]]
+== 路径 ==
+
+一个路径对象表示在一个图中的两个节点之间的一个路径。
+路径因此至少包括两个节点和一个关系，但不限长度。
+这个对象在API的不同部分使用，最多的地方请参考： <<python-embedded-reference-traversal, 遍历查询>>。
+
+=== 访问开始节点和结束节点 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=traversal.py
+tag=accessPathStartAndEndNode
+classifier=test-sources
+----
+
+=== 访问关系 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=traversal.py
+tag=accessPathLastRelationship
+classifier=test-sources
+----
+
+=== 通过完整的路径轮询 ===
+
+你能直接通过一个路径的所有元素进行轮询，或者你能通过节点或者关系来选择一个进行轮询。
+当你通过所有元素进行轮询时，第一个元素将成为开始节点，第二个会成为第一个关系，第三个节点是关系要到达的地方。
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=traversal.py
+tag=loopThroughPath
+classifier=test-sources
+----
+

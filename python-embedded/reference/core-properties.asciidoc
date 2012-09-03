@@ -1,0 +1,48 @@
+[[python-embedded-core-properties]]
+== 属性 ==
+
+节点和关系都可以有属性，所以这个部分介绍的内容同时适合节点和关系。
+属性允许的值包括：字符串，数字，布尔型以及数组。
+在咩一个数组内部，所有的值的类型都是相同的。
+
+
+=== 设置属性值 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=setProperties
+classifier=test-sources
+----
+
+=== 获取属性值 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=getProperties
+classifier=test-sources
+----
+
+=== 移除属性 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=deleteProperties
+classifier=test-sources
+----
+
+=== 通过属性轮询 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=loopProperties
+classifier=test-sources
+----
+

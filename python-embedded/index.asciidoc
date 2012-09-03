@@ -1,0 +1,22 @@
+[[python-embedded]]
+Python嵌入绑定
+==========
+
+这描述了 _neo4j-embedded_，一个Python库让你在Python应用中嵌入Neo4j数据库。
+
+从参考文档和这个章节的安装介绍分开，你可以参考：<<tutorials-python-embedded>>。
+
+这个工程在GitHub上面的源代码地址： https://github.com/neo4j/python-embedded
+
+:leveloffset: 2
+
+include::installation.asciidoc[]
+
+include::reference/core.asciidoc[]
+
+include::reference/indexes.asciidoc[]
+
+include::reference/cypher.asciidoc[]
+
+include::reference/traversal.asciidoc[]
+

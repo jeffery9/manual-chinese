@@ -1,0 +1,26 @@
+== 事务 ==
+
+所以的写到数据库的操作都必须在一个事务中执行。
+这确保了你的数据库不会处于一个数据不一致的状态。
+
+了解关于如何在Neo4j中控制事务的细节，请参考：<<transactions>>。
+
+我们用python 的 +with+ 声明来定义一个事务。
+如果你使用一个Python的老版本，你可呢给你必须引入 +with+ 声明。
+
+
+[source, python]
+----
+from __future__ import with_statement
+----
+
+无论哪种方式，这就是进入事务的方法：
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=withBasedTransactions
+classifier=test-sources
+----
+

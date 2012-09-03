@@ -1,0 +1,82 @@
+[[python-embedded-core-nodes]]
+== 节点 ==
+
+这个地方描述了节点对象的一些特殊操作。
+要了解关于如何控制节点和关系的属性的文档，请参考：<<python-embedded-core-properties>> 。
+
+=== 创建一个节点 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=createNode
+classifier=test-sources
+----
+
+=== 通过Id找到一个节点 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=getNodeById
+classifier=test-sources
+----
+
+=== 找到参考节点 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=getReferenceNode
+classifier=test-sources
+----
+
+=== 移除一个节点 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=deleteNode
+classifier=test-sources
+----
+
+TIP: 也可以参考：<<transactions-delete>>。
+
+=== 通过id移除一个节点 ===
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=deleteByIdNode
+classifier=test-sources
+----
+
+=== 从一个节点上访问他的关系 ===
+
+要获取关于你在关系对象上面你能做什么操作的细节，请参考： <<python-embedded-core-relationships>>。
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=accessingRelationships
+classifier=test-sources
+----
+
+=== 获取并计算节点个数 ===
+
+使用这个必须小心，在大型数据集中它会变得非常慢。
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=core.py
+tag=getAllNodes
+classifier=test-sources
+----
+

@@ -1,0 +1,51 @@
+[[match-relationship-types-with-uncommon-characters]]
+== Relationship types with uncommon characters ==
+Sometime your database will have types with non-letter characters, or with spaces in them. Use +`+ (backtick) to quote these.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(3)
+MATCH (n)-[r:`TYPE THAT HAS SPACE IN IT`]->()
+RETURN r
+----
+
+
+This query returns a relationship of a type with spaces in it.
+
+.Result
+[queryresult]
+----
++----------------------------------+
+| r                                |
++----------------------------------+
+| :TYPE THAT HAS SPACE IN IT[6] {} |
++----------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"David"}
+(2) {"name":"Emil"}
+(3) {"name":"Anders"}
+(4) {"name":"Bossman"}
+(5) {"name":"Cesar"}
+(1)-[:KNOWS]->(3) {}
+(3)-[:KNOWS]->(4) {}
+(3)-[:BLOCKS]->(5) {}
+(3)-[:TYPE THAT HAS SPACE IN IT]->(3) {}
+(4)-[:KNOWS]->(2) {}
+(4)-[:BLOCKS]->(1) {}
+(5)-[:KNOWS]->(2) {}
+
+
+start n=node(3) match (n)-[r:`TYPE THAT HAS SPACE IN IT`]->() return r
+----
+

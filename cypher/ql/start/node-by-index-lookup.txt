@@ -1,0 +1,30 @@
+[[start-node-by-index-lookup]]
+== Node by index lookup ==
+When the starting point can be found by using index lookups, it can be done like this: `node:index-name(key = "value")`. In this example, there exists a node index named `nodes`.
+
+_Query_
+
+[source,cypher]
+----
+START n=node:nodes(name = "A")
+RETURN n
+----
+
+
+The query returns the node indexed with the name "+A+".
+
+.Result
+[queryresult]
+----
++-------------------+
+| n                 |
++-------------------+
+| Node[1]{name:"A"} |
++-------------------+
+1 row
+0 ms
+
+----
+
+
+

@@ -1,0 +1,45 @@
+[[start-multiple-nodes-by-id]]
+== Multiple nodes by id ==
+Multiple nodes are selected by listing them separated by commas.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(1, 2, 3)
+RETURN n
+----
+
+
+This returns the nodes listed in the `START` statement.
+
+.Result
+[queryresult]
+----
++-------------------+
+| n                 |
++-------------------+
+| Node[1]{name:"A"} |
+| Node[2]{name:"B"} |
+| Node[3]{name:"C"} |
++-------------------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"A"}
+(2) {"name":"B"}
+(3) {"name":"C"}
+(1)-[:KNOWS]->(2) {}
+(1)-[:KNOWS]->(3) {}
+
+
+start n=node(1, 2, 3) return n
+----
+

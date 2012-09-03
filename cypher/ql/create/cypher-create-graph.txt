@@ -1,0 +1,19 @@
+
+_Graph_
+
+["dot", "cypher-create-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'Andres\'\l}"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "RELTYPE\nname = \'Andres\\\<-\\\>Michael\'\l"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'Michael\'\l}"
+  ]
+
+----
+

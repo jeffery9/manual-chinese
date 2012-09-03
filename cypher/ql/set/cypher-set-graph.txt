@@ -1,0 +1,19 @@
+
+_Graph_
+
+["dot", "cypher-set-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'Peter\'\lage = 34\l}"
+  ]
+  N2 [
+    label = "{Node\[2\]|age = 36\l}"
+  ]
+  N2 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+
+----
+

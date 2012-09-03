@@ -1,0 +1,52 @@
+[[create-unique-create-nodes-with-values]]
+== Create nodes with values ==
+The pattern described can also contain values on the node. These are given using the following syntax: `prop : <expression>`.
+
+_Query_
+
+[source,cypher]
+----
+START root=node(2)
+CREATE UNIQUE root-[:X]-(leaf {name:'D'} )
+RETURN leaf
+----
+
+
+No node connected with the root node has the name +D+, and so a new node is created to match the pattern.
+
+.Result
+[queryresult]
+----
++-------------------+
+| leaf              |
++-------------------+
+| Node[5]{name:"D"} |
++-------------------+
+1 row
+Nodes created: 1
+Relationships created: 1
+Properties set: 1
+11 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"A"}
+(2) {"name":"root"}
+(3) {"name":"B"}
+(4) {"name":"C"}
+(5) {"name":"D"}
+(1)-[:KNOWS]->(4) {}
+(2)-[:X]->(1) {}
+(2)-[:X]->(3) {}
+(2)-[:X]->(4) {}
+(5)-[:X]->(2) {}
+
+
+start root=node(2) create unique root-[:X]-(leaf {name:'D'} ) return leaf
+----
+

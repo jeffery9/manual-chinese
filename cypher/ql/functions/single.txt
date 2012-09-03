@@ -1,0 +1,61 @@
+[[functions-single]]
+== SINGLE ==
+Returns true if the predicate holds for exactly one of the elements in the collection.
+
+*Syntax:* `SINGLE(identifier in collection WHERE predicate)`
+
+*Arguments:*
+
+* _collection:_ An expression that returns a collection
+
+* _identifier:_ This is the identifier that can be used from the predicate.
+
+* _predicate:_ A predicate that is tested against all items in the collection.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(3)
+MATCH p=n-->b
+WHERE SINGLE(var in nodes(p)
+WHERE var.eyes = "blue")
+RETURN p
+----
+
+
+Exactly one node in every returned path will have the `eyes` property set to `"blue"`.
+
+.Result
+[queryresult]
+----
++-------------------------------------------------------------------------------------------+
+| p                                                                                         |
++-------------------------------------------------------------------------------------------+
+| [Node[3]{name:"A",age:38,eyes:"brown"},:KNOWS[0] {},Node[4]{name:"B",age:25,eyes:"blue"}] |
++-------------------------------------------------------------------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":54,"eyes":"brown","name":"D"}
+(2) {"age":41,"array":["one","two","three"],"eyes":"blue","name":"E"}
+(3) {"age":38,"eyes":"brown","name":"A"}
+(4) {"age":25,"eyes":"blue","name":"B"}
+(5) {"age":53,"eyes":"green","name":"C"}
+(3)-[:KNOWS]->(4) {}
+(3)-[:KNOWS]->(5) {}
+(4)-[:KNOWS]->(1) {}
+(4)-[:MARRIED]->(2) {}
+(5)-[:KNOWS]->(1) {}
+
+
+start n=node(3) match p=n-->b where SINGLE(var in nodes(p) WHERE var.eyes = "blue") return p
+----
+

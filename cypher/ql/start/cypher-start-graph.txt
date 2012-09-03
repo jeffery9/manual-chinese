@@ -1,0 +1,27 @@
+
+_Graph_
+
+["dot", "cypher-start-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'A\'\l}"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N1 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'B\'\l}"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'C\'\l}"
+  ]
+
+----
+

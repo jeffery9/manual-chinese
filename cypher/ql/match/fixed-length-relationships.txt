@@ -1,0 +1,52 @@
+[[match-fixed-length-relationships]]
+== Fixed length relationships ==
+Elements that are a fixed number of hops away can be matched by using [*numberOfHops]. 
+
+_Query_
+
+[source,cypher]
+----
+START a=node(1)
+MATCH p=a-[*3]->()
+RETURN p
+----
+
+
+The three paths that go from node D to node E
+
+.Result
+[queryresult]
+----
++--------------------------------------------------------------------------------------------------------------------------------------+
+| p                                                                                                                                    |
++--------------------------------------------------------------------------------------------------------------------------------------+
+| [Node[1]{name:"David"},:KNOWS[2] {},Node[3]{name:"Anders"},:KNOWS[0] {},Node[4]{name:"Bossman"},:KNOWS[3] {},Node[2]{name:"Emil"}]   |
+| [Node[1]{name:"David"},:KNOWS[2] {},Node[3]{name:"Anders"},:KNOWS[0] {},Node[4]{name:"Bossman"},:BLOCKS[5] {},Node[1]{name:"David"}] |
+| [Node[1]{name:"David"},:KNOWS[2] {},Node[3]{name:"Anders"},:BLOCKS[1] {},Node[5]{name:"Cesar"},:KNOWS[4] {},Node[2]{name:"Emil"}]    |
++--------------------------------------------------------------------------------------------------------------------------------------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"David"}
+(2) {"name":"Emil"}
+(3) {"name":"Anders"}
+(4) {"name":"Bossman"}
+(5) {"name":"Cesar"}
+(1)-[:KNOWS]->(3) {}
+(3)-[:KNOWS]->(4) {}
+(3)-[:BLOCKS]->(5) {}
+(4)-[:KNOWS]->(2) {}
+(4)-[:BLOCKS]->(1) {}
+(5)-[:KNOWS]->(2) {}
+
+
+start a=node(1) match p=a-[*3]->() return p
+----
+

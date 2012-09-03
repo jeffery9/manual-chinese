@@ -1,0 +1,27 @@
+
+_Graph_
+
+["dot", "cypher-orderby-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'A\'\lage = 34\llength = 170\l}"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'B\'\lage = 34\l}"
+  ]
+  N2 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'C\'\lage = 32\llength = 185\l}"
+  ]
+
+----
+

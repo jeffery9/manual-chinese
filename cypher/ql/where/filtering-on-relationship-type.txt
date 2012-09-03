@@ -1,0 +1,46 @@
+[[where-filtering-on-relationship-type]]
+== Filtering on relationship type ==
+You can put the exact relationship type in the `MATCH` pattern, but sometimes you want to be able to do more advanced filtering on the type. You can use the special property `TYPE` to compare the type with something else. In this example, the query does a regular expression comparison with the name of the relationship type.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(3)
+MATCH (n)-[r]->()
+WHERE type(r) =~ 'K.*'
+RETURN r
+----
+
+
+This returns relationships that has a type whose name starts with K.
+
+.Result
+[queryresult]
+----
++--------------+
+| r            |
++--------------+
+| :KNOWS[0] {} |
+| :KNOWS[1] {} |
++--------------+
+2 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":25,"name":"Tobias"}
+(2) {"age":34,"name":"Peter"}
+(3) {"age":36,"belt":"white","name":"Andres"}
+(3)-[:KNOWS]->(1) {}
+(3)-[:KNOWS]->(2) {}
+
+
+start n=node(3) match (n)-[r]->() where type(r) =~ 'K.*' return r
+----
+

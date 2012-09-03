@@ -1,0 +1,37 @@
+[[create-create-single-node-and-set-properties]]
+== Create single node and set properties ==
+The values for the properties can be any scalar expressions.
+
+_Query_
+
+[source,cypher]
+----
+CREATE n = {name : 'Andres', title : 'Developer'}
+----
+
+
+Nothing is returned from this query.
+
+.Result
+[queryresult]
+----
++-------------------+
+| No data returned. |
++-------------------+
+Nodes created: 1
+Properties set: 2
+2 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"Andres","title":"Developer"}
+
+
+create n = {name : 'Andres', title : 'Developer'}
+----
+

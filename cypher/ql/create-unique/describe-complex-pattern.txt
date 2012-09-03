@@ -1,0 +1,52 @@
+[[create-unique-describe-complex-pattern]]
+== Describe complex pattern ==
+The pattern described by +CREATE UNIQUE+ can be separated by commas, just like in +MATCH+ and +CREATE+.
+
+_Query_
+
+[source,cypher]
+----
+START root=node(2)
+CREATE UNIQUE root-[:FOO]->x, root-[:BAR]->x
+RETURN x
+----
+
+
+This example pattern uses two paths, separated by a comma.
+
+.Result
+[queryresult]
+----
++-----------+
+| x         |
++-----------+
+| Node[5]{} |
++-----------+
+1 row
+Nodes created: 1
+Relationships created: 2
+2 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"A"}
+(2) {"name":"root"}
+(3) {"name":"B"}
+(4) {"name":"C"}
+(5) {}
+(1)-[:KNOWS]->(4) {}
+(2)-[:X]->(1) {}
+(2)-[:X]->(3) {}
+(2)-[:X]->(4) {}
+(2)-[:FOO]->(5) {}
+(2)-[:BAR]->(5) {}
+
+
+start root=node(2) create unique root-[:FOO]->x, root-[:BAR]->x return x
+----
+

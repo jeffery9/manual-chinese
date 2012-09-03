@@ -1,0 +1,11 @@
+[source]
+----
+Thomas Anderson 的朋友们:
+At depth 1 => Trinity
+At depth 1 => Morpheus
+At depth 2 => Cypher
+At depth 3 => Agent Smith
+一共找到朋友数量: 4
+
+----
+

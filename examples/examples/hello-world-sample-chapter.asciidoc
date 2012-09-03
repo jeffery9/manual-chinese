@@ -1,0 +1,61 @@
+[[examples-hello-world-sample-chapter]]
+Hello world 范例章节
+================
+
+这是一个范例文档测试，演示了将代码和其他构件变成Asciidoc表单的不同方法。生成文档的标题由方法名称决定，并用 " " 取代 "+_+" 。
+
+Below you see a number of different ways to generate text from source,
+inserting it into the JavaDoc documentation (really being Asciidoc markup)
+via the +@@+ snippet markers and programmatic adding with runtime data
+in the Java code.
+
+- The annotated graph as http://www.graphviz.org/[GraphViz]-generated visualization:
+
+.Hello World Graph
+["dot", "Hello-World-Graph-hello-world-Sample-Chapter.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'you\'\l}"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'I\'\l}"
+  ]
+  N2 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+- A sample Cypher query:
+
+[source,cypher]
+----
+START n = node(2)
+RETURN n
+----
+
+- A sample text output snippet:
+
+[source]
+----
+Hello graphy world!
+----
+
+- a generated source link to the original GIThub source for this test:
+
+https://github.com/neo4j/community/blob/{neo4j-git-tag}/embedded-examples/src/test/java/org/neo4j/examples/DocumentationTest.java[DocumentationTest.java]
+
+- The full source for this example as a source snippet, highlighted as Java code:
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/DocumentationTest.java
+classifier=test-sources
+tag=sampleDocumentation
+----
+
+This is the end of this chapter.
+
+

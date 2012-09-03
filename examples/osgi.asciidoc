@@ -1,0 +1,25 @@
+[[tutorials-java-embedded-osgi]]
+OSGi配置
+======
+
+在http://www.osgi.org/[OSGi]关联的上下文比如大量的应用服务器（e.g. http://glassfish.java.net/[Glassfish] ）和基于http://www.eclipse.org[Eclipse]的系统中，Neo4j能被明确地建立起来而不是通过Java服务加载机制来发现。
+
+
+== Simple OSGi Activator 脚本 ==
+
+如同在下面的范例中看到的一样，为了代替依赖Neo4j内核的类加载，Neo4j Bundle被作为库 bundles，而像 IndexProviders 和 CacheProviders 这样的服务被明确地实例化，配置和注册了秩序。只需要确保必要的jars，所以所有必须的类都被导出并且包括这Activator。
+
+As seen in the following example, instead of relying on the Classloading of the Neo4j kernel, the Neo4j bundles are treated as library bundles,
+and services like the IndexProviders and CacheProviders are explicitly instantiated, configured and registered. Just make the necessary jars available
+as wrapped library bundles, so all needed classes are exported and seen by the bundle containing the Activator.
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/osgi/Neo4jActivator.java
+classifier=test-sources
+tag=setup
+----
+
+[TIP]
+源代码下载地址： http://github.com/neo4j/community/tree/{neo4j-git-tag}/embedded-examples/src/test/java/org/neo4j/examples/osgi/[下载].

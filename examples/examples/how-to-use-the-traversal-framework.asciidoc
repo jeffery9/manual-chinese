@@ -1,0 +1,221 @@
+[[examples-how-to-use-the-traversal-framework]]
+如何使用遍历查询框架
+==========
+
+与 http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/Node.html#traverse[Node#traverse]相反，一个 http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/traversal/TraversalDescription.html[traversal description] 被构造而它能产生一个 http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/traversal/Traverser.html[traversers] 。
+
+.遍历查询范例数据库
+["dot", "Traversal-Example-Graph-how-to-use-the-Traversal-framework.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'Lars\'\l}"
+  ]
+  N1 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'Sara\'\l}"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'Ed\'\l}"
+  ]
+  N3 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N4 [
+    label = "{Node\[4\]|name = \'Lisa\'\l}"
+  ]
+  N4 -> N7 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "LIKES\n"
+  ]
+  N4 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N5 [
+    label = "{Node\[5\]|name = \'Peter\'\l}"
+  ]
+  N5 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N6 [
+    label = "{Node\[6\]|name = \'Dirk\'\l}"
+  ]
+  N6 -> N5 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N7 [
+    label = "{Node\[7\]|name = \'Joe\'\l}"
+  ]
+  N7 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+----
+
+ +RelationshipTypes+的定义如下：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/TraversalExample.java
+classifier=sources
+tag=sourceRels
+----
+
+图数据库可以被下面范例的遍历查询器便利，从``Joe''节点开始：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/TraversalExample.java
+classifier=sources
+tag=knowslikestraverser
+----
+
+i遍历后输出结果：
+
+[source]
+----
+(7)
+(7)<--[LIKES,1]--(4)
+(7)<--[LIKES,1]--(4)--[KNOWS,6]-->(1)
+(7)<--[LIKES,1]--(4)--[KNOWS,6]-->(1)--[KNOWS,4]-->(6)
+(7)<--[LIKES,1]--(4)--[KNOWS,6]-->(1)--[KNOWS,4]-->(6)--[KNOWS,3]-->(5)
+(7)<--[LIKES,1]--(4)--[KNOWS,6]-->(1)--[KNOWS,4]-->(6)--[KNOWS,3]-->(5)--[KNOWS,2]-->(2)
+(7)<--[LIKES,1]--(4)--[KNOWS,6]-->(1)<--[KNOWS,5]--(3)
+
+----
+
+因为 http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/traversal/TraversalDescription.html[+TraversalDescription+] 是不可以改变的因此创建一个描述模板来在不同的遍历器中共享是非常游泳的，比如，让他们从这个遍历器开始：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/TraversalExample.java
+classifier=sources
+tag=basetraverser
+----
+
+这个遍历器将会输出下面的结果（我们始终保持从节点 ``Joe''开始）：
+
+[source]
+----
+(7)
+(7)--[KNOWS,0]-->(2)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)<--[KNOWS,3]--(6)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)<--[KNOWS,3]--(6)<--[KNOWS,4]--(1)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)<--[KNOWS,3]--(6)<--[KNOWS,4]--(1)<--[KNOWS,5]--(3)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)<--[KNOWS,3]--(6)<--[KNOWS,4]--(1)<--[KNOWS,6]--(4)
+
+----
+
+现在让我们从它上面创建一个新的遍历器，严格规定深度为3：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/TraversalExample.java
+classifier=sources
+tag=depth3
+----
+
+这会返回这样的结果：
+
+[source]
+----
+(7)
+(7)--[KNOWS,0]-->(2)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)<--[KNOWS,3]--(6)
+
+----
+
+或者我们把深度从2变成4又会怎么样呢？
+下面是我们的测试：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/TraversalExample.java
+classifier=sources
+tag=depth4
+----
+
+这个遍历器会返回这样的结果：
+
+[source]
+----
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)<--[KNOWS,3]--(6)
+(7)--[KNOWS,0]-->(2)<--[KNOWS,2]--(5)<--[KNOWS,3]--(6)<--[KNOWS,4]--(1)
+
+----
+
+要获取各种不同有用的evaluators，请参考： http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/traversal/Evaluators.html[Evaluators] Java API 。
+或者自己简单实现 http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/traversal/Evaluator.html[Evaluator]接口。
+
+如果你对 http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/Path.html[+Path+] 没有兴趣，但对 http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/Node.html[+Node+] 有兴趣，你可以转换遍历器成一个 http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/traversal/Traverser.html#nodes()[节点]的迭代器，像下面这样：
+
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/TraversalExample.java
+classifier=sources
+tag=nodes
+----
+
+在这种情况下我们使用它来接收名称：
+
+[source]
+----
+Joe
+Sara
+Peter
+Dirk
+Lars
+Ed
+Lisa
+
+----
+http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/traversal/Traverser.html#relationships()[Relationships] 也同样可以这样，下面是我们如何得到他们：
+
+[snippet,java]
+----
+component=neo4j-examples
+source=org/neo4j/examples/TraversalExample.java
+classifier=sources
+tag=relationships
+----
+
+这儿是书写的关系类型，我们将得到他们：
+
+[source]
+----
+KNOWS
+KNOWS
+KNOWS
+KNOWS
+KNOWS
+KNOWS
+
+----
+
+在这个范例中的遍历器的源代码下载地址： 
+https://github.com/neo4j/community/blob/{neo4j-git-tag}/embedded-examples/src/main/java/org/neo4j/examples/TraversalExample.java[TraversalExample.java]。
+
+

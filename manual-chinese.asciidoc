@@ -37,16 +37,17 @@ include::reference/index.asciidoc[]
 
 
 ///////////////////
-维护操作
+操作
 :leveloffset: 1
 include::operations/index.asciidoc[]
 ///////////////////
 
 ///////////////////
 工具
-:leveloffset: 1
-include::tools/index.asciidoc[]
 ///////////////////
+:leveloffset: 1
+
+include::tools/index.asciidoc[]
 
 ///////////////////
 社区

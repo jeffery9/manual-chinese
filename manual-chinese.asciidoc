@@ -58,10 +58,11 @@ include::community/index.asciidoc[]
 
 ///////////////////
 联机帮助页
+///////////////////
 :leveloffset: 1
 :numbered!:
+
 include::tools/manpages.asciidoc[]
-///////////////////
 
 ///////////////////
 常见问题

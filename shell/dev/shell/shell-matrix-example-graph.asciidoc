@@ -1,0 +1,61 @@
+.基于Shell的黑客帝国范例
+["dot", "Shell-Matrix-Example-graph.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N0 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "ROOT\n"
+  ]
+  N1 [
+    label = "{Node\[1\]|name = \'Thomas Andersson\'\l}"
+  ]
+  N1 -> N2 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "KNOWS\n"
+  ]
+  N1 -> N3 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "KNOWS\nage = 3\l"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'Trinity\'\l}"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'Morpheus\'\l}"
+  ]
+  N3 -> N2 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "KNOWS\nage = 90\l"
+  ]
+  N3 -> N4 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "KNOWS\n"
+  ]
+  N4 [
+    label = "{Node\[4\]|name = \'Cypher\'\l}"
+  ]
+  N4 -> N5 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "KNOWS\n"
+  ]
+  N5 [
+    label = "{Node\[5\]|name = \'Agent Smith\'\l}"
+  ]
+  N5 -> N6 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "CODED_BY\n"
+  ]
+  N6 [
+    label = "{Node\[6\]|name = \'The Architect\'\l}"
+  ]
+----
+

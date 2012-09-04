@@ -1,80 +1,80 @@
 [[tools-webadmin]]
 基于Web的Neo4j图数据库管理工具
 ===================
+基于Web的Neo4j图数据库管理工具是我们与Neo4j数据库主要的用户交互接口。
+使用它，你可以：
 
-The Neo4j Web Administration is the primary user interface for Neo4j.
-With it, you can:
+- 监控 Neo4j 服务器
+- 维护和浏览数据
+- 通过控制台与数据库直接进行交互操作
+- 浏览管理对象(JMX MBeans)
 
-- monitor the Neo4j Server
-- manipulate and browse data
-- interact with the database via various consoles
-- view raw data management objects (JMX MBeans)
-
-The tool is available at http://127.0.0.1:7474/ after you have installed the <<server,Neo4j Server>>.
-To use it together with an embedded database, see <<server-embedded>>.
+在你安装了<<server,Neo4j服务器>>后，这个工具可以通过地址： http://127.0.0.1:7474/ 访问。
+要使用它与嵌入模式的Neo4j图数据库交互，请参考：<<server-embedded>>。
 
 [[webadmin-dashboard]]
-== 数据选项 ==
+== 仪表盘选项 ==
 
-The Dashboard tab provides an overview of a running Neo4j instance.
+仪表盘提供了一个对正在运行的Neo4j实例的总览。
 
-.Web Administration Dashboard
-image::operations/webadmin-overview.png["Dashboard tab", scaledwidth="100%"]
+.Web管理工具之仪表盘
+image::operations/webadmin-overview.png["仪表盘", scaledwidth="100%"]
 
 === 实体图 ===
 
-The charts show entity counts over time: node, relationship and properties. 
+图表展示了随着时间的推移的实体数量：节点，关系和属性。
 
-.Entity charting
-image::operations/webadmin-charts.png["Entity charts", scaledwidth="75%"]
+.实体图
+image::operations/webadmin-charts.png["实体图", scaledwidth="75%"]
 
 === 监视器状态 ===
 
-Below the entity chart is a collection of status panels, displaying current resource usage.
+正实体图下面是一个状态面板收集区，显示了当前的资源使用情况。
 
-.Status indicator panels
-image::operations/webadmin-stats.png["Status indicator panels", scaledwidth="75%"]
+.状态指示面板
+image::operations/webadmin-stats.png["状态指示面板", scaledwidth="75%"]
 
 [[webadmin-data]]
 == 数据选项 ==
 
-Use the Data tab to browse, add or modify nodes, relationships and their properties.
+使用数据选项浏览，新增和修改节点，关系以及它们的属性。
 
-.Browsing and manipulating data
-image::operations/webadmin-data.png["Data tab", scaledwidth="100%"]
+.浏览和维护数据
+image::operations/webadmin-data.png["数据选项", scaledwidth="100%"]
 
-.Editing properties
-image::operations/webadmin-databrowser.png["Node properties", scaledwidth="75%"]
+.编辑属性
+image::operations/webadmin-databrowser.png["节点属性", scaledwidth="75%"]
 
 [[webadmin-console]]
 == 控制台选项 ==
 
-The Console tab gives:
+控制面板可以让你：
 
-* scripting access to the database via the http://gremlin.tinkerpop.com[Gremlin] scripting engine,
-* query access via <<cypher-query-lang,Cypher>>,
-* HTTP access via the HTTP console.
+* 通过http://gremlin.tinkerpop.com[Gremlin]脚本引擎访问数据库。
+* 通过<<cypher-query-lang,Cypher>>查询数据。
+* 通过HTTP控制台进行HTTP请求。
 
-.Traverse data with Gremlin
-image::operations/webadmin-console-gremlin.png["Data manipulation with Gremlin", scaledwidth="75%"]
+.使用Gremlin遍历数据
+image::operations/webadmin-console-gremlin.png["使用Gremlin进行数据维护", scaledwidth="75%"]
 
-.Query data with Cypher
-image::operations/webadmin-console-cypher.png["Queries with Cypher", scaledwidth="75%"]
+.使用Cypher进行查询
+image::operations/webadmin-console-cypher.png["使用Cypher进行查询", scaledwidth="75%"]
 
 //:leveloffset: 3
 
-//include::{importdir}/neo4j-server-docs-jar/webadmin/accessing-the-cypher-console.txt[]
+//include::{docdir}/server/webadmin/accessing-the-cypher-console.asciidoc[]
 
 //:leveloffset: 1
 
-.Interact over HTTP
-image::operations/webadmin-console-http.png["Queries with Cypher", scaledwidth="75%"]
+.通过HTTP进行交互
+image::operations/webadmin-console-http.png["通过HTTP进行交互", scaledwidth="75%"]
 
 [[webadmin-serverinfo]]
-== The Server Info tab ==
+== 服务器信息面板 ==
 
-The Server Info tab provides raw access to all available management objects (see <<operations-monitoring>> for details).
+服务器信息面板提供访问所有的管理对象（详细的细节请参考：<<operations-monitoring>>）。
 
-.JMX Attributes
+
+.JMX 属性
 image::operations/webadmin-jmx.png["JMX", scaledwidth="50%"]
 

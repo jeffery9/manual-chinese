@@ -1,0 +1,144 @@
+
+[source, bash]
+-----
+ # 创建 Thomas Andersson 节点
+ neo4j-sh (0)$ mkrel -t ROOT -c -v
+ Node (1) created
+ Relationship [:ROOT,0] created
+ 
+
+ # 切换到新节点
+ neo4j-sh (0)$ cd 1
+
+ # 设置节点属性：name
+ neo4j-sh (1)$ set name "Thomas Andersson"
+
+ # 创建 Thomas直接的朋友
+ neo4j-sh (Thomas Andersson,1)$ mkrel -t KNOWS -cv
+ Node (2) created
+ Relationship [:KNOWS,1] created
+ 
+
+ # 切换到新节点
+ neo4j-sh (Thomas Andersson,1)$ cd 2
+
+ # 设置节点属性：name
+ neo4j-sh (2)$ set name "Trinity"
+
+ # 返回上级
+ neo4j-sh (Trinity,2)$ cd ..
+
+ # 创建Thomas直接的朋友
+ neo4j-sh (Thomas Andersson,1)$ mkrel -t KNOWS -cv
+ Node (3) created
+ Relationship [:KNOWS,2] created
+ 
+
+ # 切换到新节点
+ neo4j-sh (Thomas Andersson,1)$ cd 3
+
+ # 设置节点属性：name
+ neo4j-sh (3)$ set name "Morpheus"
+
+ # 创建到Trinity的关系
+ neo4j-sh (Morpheus,3)$ mkrel -t KNOWS 2
+
+ # 列出节点3的关系
+ neo4j-sh (Morpheus,3)$ ls -rv
+ (me)-[:KNOWS,3]->(Trinity,2)
+ (me)<-[:KNOWS,2]-(Thomas Andersson,1)
+ 
+
+ # 切换当前位置到关系#2
+ neo4j-sh (Morpheus,3)$ cd -r 2
+
+ # 设置关系的属性：age
+ neo4j-sh [:KNOWS,2]$ set -t int age 3
+
+ # 回到Morpheus
+ neo4j-sh [:KNOWS,2]$ cd ..
+
+ # 回到下一个关系
+ neo4j-sh (Morpheus,3)$ cd -r 3
+
+ # 设置关系的属性：age
+ neo4j-sh [:KNOWS,3]$ set -t int age 90
+
+ # 切换当前位置到当前关系的开始节点处
+ neo4j-sh [:KNOWS,3]$ cd start
+
+ # 创建新节点
+ neo4j-sh (Morpheus,3)$ mkrel -t KNOWS -c
+
+ # 列出当前节点的所有关系
+ neo4j-sh (Morpheus,3)$ ls -r
+ (me)-[:KNOWS]->(Trinity,2)
+ (me)-[:KNOWS]->(4)
+ (me)<-[:KNOWS]-(Thomas Andersson,1)
+ 
+
+ # 切换到Cypher
+ neo4j-sh (Morpheus,3)$ cd 4
+
+ # 设置属性：name
+ neo4j-sh (4)$ set name Cypher
+
+ # 从Cypher处创建新节点
+ neo4j-sh (Cypher,4)$ mkrel -ct KNOWS
+
+ # 列出关系
+ neo4j-sh (Cypher,4)$ ls -r
+ (me)-[:KNOWS]->(5)
+ (me)<-[:KNOWS]-(Morpheus,3)
+ 
+
+ # 切换到Agent Smith节点
+ neo4j-sh (Cypher,4)$ cd 5
+
+ # 设置节点属性：name
+ neo4j-sh (5)$ set name "Agent Smith"
+
+ # 创建输出关系和新节点
+ neo4j-sh (Agent Smith,5)$ mkrel -cvt CODED_BY
+ Node (6) created
+ Relationship [:CODED_BY,6] created
+ 
+
+ # 跳到这
+ neo4j-sh (Agent Smith,5)$ cd 6
+
+ # 设置节点属性：name
+ neo4j-sh (6)$ set name "The Architect"
+
+ # 跳回第一个节点处
+ neo4j-sh (The Architect,6)$ cd
+
+ # Morpheus的朋友, 通过Neo4j自动生成的索引name查询Morpheus
+ neo4j-sh (0)$ start morpheus = node:node_auto_index(name='Morpheus') match morpheus-[:KNOWS]-zionist return zionist.name;
+ +--------------------+
+ | zionist.name       |
+ +--------------------+
+ | "Trinity"          |
+ | "Cypher"           |
+ | "Thomas Andersson" |
+ +--------------------+
+ 3 rows
+ 19 ms
+ 
+ 
+
+ # Morpheus的朋友, 通过Neo4j自动生成的索引name查询Morpheus
+ neo4j-sh (0)$ cypher 1.6 start morpheus = node:node_auto_index(name='Morpheus') match morpheus-[:KNOWS]-zionist return zionist.name;
+ +--------------------+
+ | zionist.name       |
+ +--------------------+
+ | "Trinity"          |
+ | "Cypher"           |
+ | "Thomas Andersson" |
+ +--------------------+
+ 3 rows
+ 1 ms
+ 
+ 
+
+-----

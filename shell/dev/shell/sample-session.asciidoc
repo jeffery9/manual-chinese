@@ -1,0 +1,57 @@
+
+[source, bash]
+-----
+ # 我们在那儿？
+ neo4j-sh (0)$ pwd
+ 当前在：(0)
+ (0)
+ 
+
+ # 在当前节点，设置属性“name"的值为"Jon"
+ neo4j-sh (0)$ set name "Jon"
+
+ # 发送一个cypher查询
+ neo4j-sh (Jon,0)$ start n=node(0) return n;
+ +---------------------+
+ | n                   |
+ +---------------------+
+ | Node[0]{name:"Jon"} |
+ +---------------------+
+ 1 row
+ 0 ms
+ 
+ 
+
+ # 创建一个类型为LIKES的输入关系，并且创建关系的终点节点
+ neo4j-sh (Jon,0)$ mkrel -c -d i -t LIKES --np "{'app':'foobar'}"
+
+ # 我们在那儿？
+ neo4j-sh (Jon,0)$ ls
+ *name =[Jon]
+ (me)<-[:LIKES]-(1)
+ 
+
+ # 切换到新创建的节点
+ neo4j-sh (Jon,0)$ cd 1
+
+ # 列举关系包括关系的Id
+ neo4j-sh (1)$ ls -avr
+ (me)-[:LIKES,0]->(Jon,0)
+ 
+
+ # 创建不止一个关系KNOWS以及它的终点节点
+ neo4j-sh (1)$ mkrel -c -d i -t KNOWS --np "{'name':'Bob'}"
+
+ # 输出当前位置
+ neo4j-sh (1)$ pwd
+ Current is (1)
+ (Jon,0)-->(1)
+ 
+
+ # 列举关系
+ neo4j-sh (1)$ ls -avr
+ (me)-[:LIKES,0]->(Jon,0)
+ (me)<-[:KNOWS,1]-(Bob,2)
+ 
+
+-----

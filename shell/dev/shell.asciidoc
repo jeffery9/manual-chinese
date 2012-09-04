@@ -1,0 +1,346 @@
+
+[[shell]]
+Neo4j Shell
+===========
+// 如果你只是想看看范例请参考：<<shell-example>>，否则请继续阅读。
+
+Neo4j shell是一个用来浏览图数据库的命令行shell，就像在Unix Shell中你可以使用像 +cd+, +ls+ 和 +pwd+来浏览你的本地文件系统一样。
+
+它包括两个部分：
+
+* 通过RMI发送命令的轻量级客户端
+* 处理这些命令并返回结果的客户端
+
+它是用于开发和调试非常好的工具。
+这个向导将给你展示如何使用它。
+
+[[shell-starting]]
+== 启动 shell ==
+
+当Neo4j作为一个服务器已经启动时，你只需要简单的输入下面的命令：
+
+[source,shell]
+----
+./bin/neo4j-shell
+----
+
+要了解完整的选项，请参考：<<shell-manpage,Shell 手册>>。
+
+为了连接到一个正在运行的Neo4j图数据库，使用<<read-only-mode,只读模式>>连接到本地数据库而远程数据库请参考：<<shell-enabling-remote>>。
+
+当你启动你的Neo4j实例时，你需要确保shell jar文件正类路径中。
+
+[[shell-enabling-remote]]
+=== 使能Shell服务器 ===
+
+Shell从Neo4j内核配置中设置是否启动，请参考：<<server-configuration,服务器配置>>。
+这儿是一个范例配置：
+
+[source,plain]
+----
+# 使用默认配置
+enable_remote_shell = true
+# ...或者指定自定义端口，而使用默认参数给其他地方
+enable_remote_shell = port=1234
+----
+
+当使用Neo4j服务器时，看<<server-configuration,服务器配置>>了解如何在这种情况下新增配置设置。
+
+有两个方法启动Shell，要么是连接到一个远端Shell服务器又或者直接指向一个Neo4j的存储路径。
+
+=== 连接到Shell服务器 ===
+为了启动Shell并连接到一个运行的服务器，请运行：
+[source,plain]
+----
+neo4j-shell 
+----
+另外还支持 +-port+ 和 +-name+ 选项，当然它们取决于远程Shell服务器如何启动的。
+然后你将得到一个shell提示符像下面这样：
+[source,plain]
+----
+neo4j-sh (0)$
+----
+
+=== 把shell指向一个路径 ===
+通过指定到一个你运行shell jar文件的Neo4j存储路径来启动shell。
+neo4j-kernel-<version>.jar 和 jta jar文件与你的neo4j-shell-<version>.jar在同一个目录，你可以用下面的命令启动它：
+[source,plain]
+----
+$ neo4j-shell -path path/to/neo4j-db
+----
+
+[[read-only-mode]]
+=== 只读模式 ===
+
+正启动一个带存储路径的shell时指定 +-readonly+ 开关，那么在会话期间就能进行任何写操作。
+
+[source,plain]
+----
+$ neo4j-shell -readonly -path path/to/neo4j-db
+----
+
+=== 运行一个命令然后退出 ===
+
+可以告诉shell只是启动，执行一个命令然后就退出。
+
+这个功能用于后台任务和管理大量输出的命令，比如 '''ls'''，你可以通过管道将它输出到 '''less''' 或者其他你选择的阅读工具上面，或者甚至是一个文件。
+
+下面是用法范例:
+[source,plain]
+----
+$ neo4j-shell -c "cd -a 24 && set name Mattias"
+$ neo4j-shell -c "trav -r KNOWS" | less
+----
+
+[[shell-options]]
+== 传递选项和参数 ==
+
+传递选项和参数给你的命令行相比在 *nix环境下需要CLI命令行来说是非常简单的。
+选项带有 +-+ 前缀而且可以包括多个选项。
+一些选项起到有一个值。
+参数是没有 +-+ 前缀的字符串。
+让我们把 +ls+ 作为一个范例看看：
+
++ls -r -f KNOWS:out -v 12345+ 将生成一个带有输出关系 +KNOWS+ 的节点 +12345+'关联的节点详细列表。
+节点， +12345+，是 +ls+ 的一个参数，告诉它是要显示这个指定的节点而不是当前节点（默认是当前节点，使用命令： +pwd+ 查看当前节点）。
+然而这个也有一个简短的版本：
+
++ls -rfv KNOWS:out 12345+。这儿三个选项都写在一个单独的前缀 '+-+' 后面合并在一起的。
+虽然 +f+ 在中间，它也知道是 +KNOWS:out+ 需要的值。
+这是因为  +ls+命令的选项 +r+ 或者 +v+ 并不期望任何值。
+因此，它能推断出正确的选项和对应的值。
+
+[[shell-options-enum]]
+== 枚举选项 ==
+
+一些选项期望一个值是一个枚举中的一个，比如，关系类型的方向就是： +INCOMING+， +OUTGOING+ 和 +BOTH+ 。
+这些值都在之前已经提供了。
+它足够你使用并且解释器也能找出你真正的意思。
+比如 +out+， +in+， +i+ 设置是 +INCOMING+。
+
+[[shell-filters]]
+== 过滤器 ==
+
+一些命令使用过滤器来达到各种目的。
+比如，在 +ls+ 和在 +trav+ 中的 +-f+。
+一个过滤器以一个http://www.json.org/[json]对象的形式提供，
+键和键值都能包括正则表达式来表示更复杂的匹配。
+
+一个过滤器的范例是： +.\*url.\*:http.\*neo4j.*,name:Neo4j+。
+过滤器选项也可以伴随 +-i+ 和 +-l+ 等选项，表示 +忽略+ 大小写和 +宽松的匹配+ （即时过滤器的值只匹配一部分也认为完全匹配而不要求完整匹配）。
+所以如果不考虑大小写并且模糊查询的话，你可以使用 +-f -i -l+ 或者它们的简短版本： +-fil+ 。
+
+[[shell-titles]]
+== 节点标题标签 ==
+
+为了能更好的浏览你的图数据库，shell可以为每一个节点显示标题。比如： +ls -r+。
+它将显示关系以及关系相连的其他节点。
+标题和每一个节点显示在一起而这个标题可以由一组属性值组合而成。
+
+如果你站在一个有两个 +KNOWS+关系指向其他节点的节点上时，你是很难知道谁是谁的朋友的。
+标题特性通过读取一系列属性值并且抓取这些属性存在的第一个属性值组合在一起并作为节点的标题显示。
+因此你可以从列表中选择需要的属性。比如：+name,title.\*,caption+  而每个节点的标题将是在那个列表中第一个存在的值。
+列表通过你的使用 +TITLE_KEYS+ <<shell-env-vars,环境变量>>  来定义，默认是： +.\*name.\*,.\*title.*+。
+
+[[shell-commands]]
+== 如何使用私有命令 ==
+
+shell是在Unix Shell之后建立模型的，比如你用来浏览你本地文件系统的bash。
+它们有一些相同的命令，比如 +cd+ 和 +ls+。
+当你第一次启动shell时，你将获取到所有变量命令的一个列表。
+使用 +man <命令>+ 获取更多关于一些特殊命令的用法。
+
+[[shell-current-pos]]
+=== 当前节点/关系以及路径 ===
+
+你有一个当前节点/关系和一个 “当前路径”（像在bash中的当前工作目录一样）到此，你可以遍历查询了。
+你从http://api.neo4j.org/current/org/neo4j/graphdb/GraphDatabaseService.html#getReferenceNode()[参考节点]开始，然后 +cd+ 到你想去的路径（任何时候都可以通过命令 +pwd+ 查询当前路径）。
++cd+ 可以以不同的方式使用：
+
+* +cd <node-id>+ 将遍历一个关系到指定ID的节点。节点必须有一个直接关系连接到当前节点。
+* +cd -a <node-id>+ 将做一次绝对路径切换，意味着给定的节点必须有一个直接的关系连接到当前节点。
+* +cd -r <relationship-id>+ 将遍历到一个关系而不是一个节点。
+关系必须有当前节点作为起点或者终点。在节点上面使用命令 +ls -vr+ 查询关系的id。
+* +cd -ar <relationship-id>+ 将做一次绝对路径切换，意味着给定的关系可以是图中的任意一个关系。
+* +cd+ 将把你重新带回参考节点处，就是你开始的地方。
+* +cd ..+ 将带你返回上一次所在的地方，如果去掉 .. 将会带你到参考节点处。
+* +cd start+ _(只适合你的当前路径是一个关系)_。遍历到关系的开始节点处。
+* +cd end+ _(只适合你的当前路径是一个关系)_。遍历到关系的结束节点处。
+
+[[shell-listing]]
+=== 列出一个节点/关系的内容 ===
+使用命令 +ls+ 来列举当前节点/关系的内容（当然也可以是其他节点）。
+请注意如果当前节点/属性每一任何属性或者关系图将返回一个空值。（比如在一个新数据库上面）。
++ls+ 使用一个节点作为参数，也可以使用过滤器，细节请参考：<<shell-filters>> 而关于如何指定方向的信息，请参考：<<shell-options-enum>>。
+使用 +man ls+ 获取更多帮助信息。
+
+=== 创建节点和关系 ===
+你通过关系连接它们到当前节点来创建一个新的节点。
+比如 +mkrel -t A_RELATIONSHIP_TYPE -d OUTGOING -c+ 将创建一个新的节点（+-c+）并通过 带有 +OUTGOING+ 方向的 +A_RELATIONSHIP_TYPE+ 连接到当前节点。
+如果你已经有两个节点，你可以这样：+mkrel -t A_RELATIONSHIP_TYPE -d OUTGOING -n <other-node-id>+。它将只会创建关系而不会创建节点。
+
+=== 设置，重命名和移除属性 ===
+属性操作通过 +set+， +mv+ 和 +rm+ 来完成。
+这些命令操作当前的节点/关系。
+* 带 +-t+ 选项的 +set <key> <value>+ 用来设置一个属性值。
+属性值支持Neo4j支持的任何类型的值。比如 +int+ 类型：
+[source,plain]
+----
+$ set -t int age 29
+----
+
+设置一个 +double[]+ 属性的范例：
+[source,plain]
+----
+$ set -t double[] my_values [1.4,12.2,13]
+----
+
+设置一个包括一个JSON字符串的 +String+ 的范例：
+[source,plain]
+----
+mkrel -c -d i -t DOMAIN_OF --np "{'app':'foobar'}"
+----
+
+* +rm <key>+ 移除一个属性。
+* +mv <key> <new-key>+ 重命名一个已经存在的属性。
+
+=== 移除节点和关系 ===
+删除节点和关系通过命令 +rmnode+ 和 +rmrel+ 来完成。
+
++rmnode+ 能删除节点，如果被删除的节点还有关系，你也可以通过附加选项 -f 来强制删除。
++rmrel+ 能删除关系，它始终保证图中的关联性，但页可以通过 -f 选项来强制删除。
++rmrel+ 也能删除正被删除关系相连的节点，当然这个关联的节点么可以任何关系，查看选项 -d 了解细节。
+
+[[shell-env-vars]]
+=== 环境变量 ===
+shell使用环境变量 a-la bash来保存会话信息，比如当前的路径等等。
+这个命令模仿了bash命令 +export+ 和 +env+。比如，你能正任何时候执行一个 +export STACKTRACES=true+命令来设置 +STACKTRACES+环境变量为 +true+。这让一个异常或者错误发生后，堆栈可以被打印出来。
+使用 +env+ 列举环境变量。
+
+=== 执行 groovy/python 脚本 ===
+shell是支持执行脚本的，比如 http://groovy.codehaus.org[Groovy] 和 http://www.python.org[Python] (通过 http://www.jython.org[Jython])。
+脚本(*.groovy, *.py)必须保存在服务器上，我们通过客户端调用，比如： +gsh --renamePerson 1234 "Mathias" "Mattias" --doSomethingElse+ ，脚本renamePerson.groovy和doSomethingElse.groovy必须在服务端存在于通过环境变量 +GSH_PATH+ 指定的目录（默认是在  .:src:src/script）。变量跟java类路径一样，通过 +:+ 分割，然而脚本有 .py扩展名而路径的环境名是 +JSH_PATH+。
+
+当书写脚本时，变量 +args+ （一个String[]）是可以使用的，并包括里面支持的参数。
+在上面的 +renamePerson+ 的范例的情况中，数组会包括 +["1234", "Mathias", "Mattias"]+。
+也请你将输出结果指定给变量 +out+，比如 +out.println( "My tracing text" )+ 会在客户端打印结果而不是在服务端。
+
+=== 遍历查询 ===
+允许你通过使用命令 +trav+ 从当前的节点进行遍历查询。
+你能提供关系类型（可以使用正则匹配），方向以及属性过滤器来匹配节点。
+另外，你能提供一个命令行来执行每一次匹配。
+比如：+trav -o depth -r KNOWS:both,HAS_.\*:incoming -c "ls $n"+。
+表示查询条件是：深度优先，关系类型是 +KNOWS+但不考虑方向，有输入方向的关系 +HAS_.\*+并且为每一个匹配的节点执行命令： +ls <matching node>+。节点过滤器页支持 +-f+ 选项，请参考：<<shell-filters>>。
+了解查询顺序选项，请参考：<<shell-options-enum>> 。甚至是关系类型/方向都可以通过相同的格式作为过滤器存在。
+
+=== 通过Cypher查询 ===
+你能使用Cypher查询数据库，请使用命令： +start+。
+
+
+[TIP]
+Cypher查询需要一个 `;` 作为结尾符号。
+
+* +start n = (0) return n;+ 将给你一个ID=0的节点列表
+
+
+=== 索引 ===
+通过索引命令是能查询和维护索引的。
+比如：+index -i persons name+ （将在索引"persons"中索引当前节点或者关系的名称）。
+
+* +-g+ 将在索引中进行精确查询并且显示结果。你能使用 +-c+ 带一个命令为每一个结果执行一次命令。
+* +-q+ 将请求一个索引，查询并且显示结果。你能使用 +-c+ 带一个命令为每一个结果执行一次命令。
+* +--cd+ 将改变当前位置到查询到的位置。它只是适用于使用 +-c+ 选项。
+* +--ls+ 会为每一个结果查询内容列表。它只适用于使用 +-c+ 选项。
+* +-i+ 将为当前节点/关系在一个索引中创建一个key-value对。如果没有给予属性值，当前节点将作为一个值。
+* +-r+ 将为当前节点/关系在一个索引中移除一个key-value对。 键和值是可选的。
+* +-t+ 将设置工作的索引类型，比如：`index -t Relationship --delete friends`将删除 +friends+ 关系的索引。
+
+=== 事务 ===
+能尝试修改，然后能提交并且在修改失败后能回滚是非常有用的。
+
+事务是可以被嵌套的。在一个嵌套的事务里面，除了顶层事务以外，一个提交是不能写任何东西在磁盘上的。然而，一个回滚是不管事务的层级的。它将回滚所有打开的事务。
+
+
+* +begin transaction+  启动一个事务。
+* +commit+ 提交一个事务。
+* +rollback+ 回滚所有打开的事务。
+
+[[shell-extending]]
+== 扩展Shell: 增加你自己的命令 ==
+
+shell当然是可以扩展的并且有一个没有功能的通用的核心... 只有 http://components.neo4j.org/neo4j-shell/{neo4j-version}/apidocs/org/neo4j/shell/App.html[命令]中的一些可以使用。
+
+所以，你说你想开始一个Neo4j http://api.neo4j.org/current/org/neo4j/graphdb/GraphDatabaseService.html[图数据库]，<<shell-enabling-remote, 打开远程shell开关>> 并且增加你自己的应用到里面以至于你的应用和标准Neo4j应用共同存在，这儿是一个范例：
+
+[source,java]
+----
+import org.neo4j.helpers.Service;
+import org.neo4j.shell.kernel.apps.GraphDatabaseApp;
+
+@Service.Implementation( App.class )
+public class LsRelTypes extends GraphDatabaseApp
+{
+    @Override
+    protected String exec( AppCommandParser parser, Session session, Output out )
+            throws ShellException, RemoteException
+    {
+        GraphDatabaseService graphDb = getServer().getDb();
+        out.println( "Types:" );
+        for ( RelationshipType type : graphDb.getRelationshipTypes() )
+        {
+            out.println( type.name() );
+        }
+        return null;
+    }
+}
+----
+
+而你现在能在shell里面输入 +lsreltypes+ （它的名字是基于类名的）来使用它们，当然要求 +getName+ 没有被重载。
+
+如果你想正使用命令 +help+ 的时候显示一些更友好的信息，重载 +getDescription+ 方法并使用 +addValueType+方法增加你在你的应用中支持的选项的描述。
+
+要知道应用是运行在服务端所以你你有一个正在允许的服务器而你从另外一个JVM启动的一个远程客户端的话，你是不能增加你的应用到客户端的。
+
+[[shell-sample-session]]
+== 一个Shell会话范例 ==
+
+include::shell/sample-session.txt[]
+
+[[shell-matrix-example]]
+== 黑客帝国范例 ==
+
+这个范例通过shel创建了在黑客帝国中的人物的图数据库，然后执行Cypher来查询数据：
+
+include::shell/shell-matrix-example-graph.asciidoc[]
+
+////
+["dot", "shell-matrix.svg"]
+----
+root[label="root"]
+neo[label="Mr Andersson"]
+morpheus[label="Morpheus"]
+trinity[label="Trinity"]
+cypher[label="Cypher"]
+agent [label="Agent Smith"]
+architect[label="The Architect"]
+root->neo[label="ROOT"]
+neo -> morpheus[label="KNOWS\nage=3"]
+morpheus->trinity[label="KNOWS\nage=90"]
+morpheus->cypher[label="KNOWS"]
+agent -> cypher [dir="back" label="KNOWS"]
+agent -> architect[label="CODED_BY"]
+----
+////
+
+Neo4j是配置成自动索引的，在Neo4j配置文件中如下：
+
+[source]
+----
+include::../autoindex.properties[]
+----
+
+下面的范例展示了如何通过Shell会话创建黑客帝国的图数据库并从查询数据。
+
+include::shell/a-matrix-example.asciidoc[]
+
+

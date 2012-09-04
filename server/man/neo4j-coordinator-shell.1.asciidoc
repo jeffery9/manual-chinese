@@ -2,7 +2,7 @@ NEO4J-COORDINATOR-SHELL(1)
 ==========================
 :author: The Neo4j Team
 
-NAME
+名称
 ----
 neo4j-coordinator-shell - Neo4j Coordinator Shell interactive interface
 

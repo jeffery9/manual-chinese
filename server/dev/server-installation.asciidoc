@@ -1,6 +1,6 @@
 [[server-installation]]
-Server Installation
-===================
+服务器安装
+=====
 
 Neo4j can be installed as a server, running either as a headless application or system service.
 

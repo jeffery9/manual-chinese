@@ -2,18 +2,16 @@
 Neo4j服务器
 ============
 
-///////////////////
 :leveloffset: 3
 
-include::server-installation.txt[]
+include::server-installation.asciidoc[]
 
-include::server-configuration.txt[]
+include::server-configuration.asciidoc[]
 
-include::server-debugging.txt[]
+include::server-debugging.asciidoc[]
 
-include::server-embedded.txt[]
+include::server-embedded.asciidoc[]
 
-include::server-performance.txt[]
+include::server-performance.asciidoc[]
 
-include::server-cloud.txt[]
-///////////////////
+include::server-cloud.asciidoc[]

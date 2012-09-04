@@ -2,7 +2,7 @@ NEO4J-COORDINATOR(1)
 ====================
 :author: The Neo4j Team
 
-NAME
+名称
 ----
 neo4j-coordinator - Neo4j Coordinator for High-Availability clusters
 

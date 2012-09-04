@@ -2,24 +2,24 @@ NEO4J(1)
 ========
 :author: The Neo4j Team
 
-NAME
+名称
 ----
-neo4j - Neo4j Server control and management
+neo4j - Neo4j服务器控制和管理
 
 [[neo4j-manpage]]
-SYNOPSIS
+语法
 --------
 
 *neo4j* <command>
 
 [[neo4j-manpage-description]]
-DESCRIPTION
+描述
 -----------
 
-Neo4j is a graph database, perfect for working with highly connected data.
+Neo4j是一个图数据库，在高度关联的数据中拥有很好的性能。
 
 [[neo4j-manpage-commands]]
-COMMANDS
+命令
 --------
 
 *console*::

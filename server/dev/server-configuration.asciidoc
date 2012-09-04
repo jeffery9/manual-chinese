@@ -1,8 +1,8 @@
 [[server-configuration]]
-Server Configuration 
-====================
+服务器配置
+=====
 
-.Quick info
+.快速浏览信息
 ***********
 * The server's primary configuration file is found under 'conf/neo4j-server.properties'
 * The 'conf/log4j.properties' file contains the default server logging configuration
@@ -11,7 +11,7 @@ Server Configuration
 * HTTP logging configuration is found in 'conf/neo4j-http-logging.xml'
 ***********
 
-== Important server configurations parameters ==
+== 重要的服务器配置参数 ==
 
 The main configuration file for the server can be found at 'conf/neo4j-server.properties'.
 This file contains several important settings, and although the defaults are sensible
@@ -80,7 +80,7 @@ If this property isn't set, and there is no 'neo4j.properties' file in the defau
 configuration directory, then the server will log a warning. Subsequently at runtime the
 database engine will attempt tune itself based on the prevailing conditions.
 
-== Neo4j Database performance configuration ==
+== Neo4j数据库性能配置 ==
 
 The fine-tuning of the low-level Neo4j graph database engine is specified in a separate
 properties file, 'conf/neo4j.properties'.
@@ -91,7 +91,7 @@ when performance tuning a server, including general server load, memory and file
 and even garbage collection penalties on the JVM, though such considerations are beyond the scope
 of this configuration document.
 
-== Server logging configuration ==
+== 服务器日志配置 ==
 
 Application events within Neo4j server are processed with
  +http://download.oracle.com/javase/6/docs/technotes/guides/logging/overview.html[java.util.logging]+ and
@@ -125,7 +125,7 @@ through various frameworks.
 Zookeeper is hardwired to use the log4j logging framework. The bundled 'conf/log4j.properties' applies for this use only and uses a rolling appender and outputs logs by default to the
 'data/log' directory.
 
-== HTTP logging configuration ==
+== HTTP日志配置 ==
 
 As well as logging events happening within the Neo4j server, it is possible to log the HTTP requests and responses
 that the server consumes and produces. Configuring HTTP logging requires operators to enable and configure the
@@ -154,9 +154,9 @@ If logging is set up to use log files then the server will check that the log fi
 this check fails, then the server will not startup and wil report the failure another available channel like standard out.
 
 
-== Other configuration options ==
+== 其他配置选项 ==
 
-=== Enabling logging from the garbage collector ===
+=== 启用来自垃圾收集器日志记录 ===
 
 To get garbage collection logging output you have to pass the corresponding option to the server JVM 
 executable by setting in 'conf/neo4j-wrapper.conf' the value
@@ -168,7 +168,7 @@ This line is already present and needs uncommenting. Note also that logging is n
 You will find the logging statements in 'data/log/ne4j-gc.log' or whatever directory you set at the option.
 
 
-=== Disabling console types in Webadmin ===
+=== 在Webadmin中禁用控制台类型 ===
 
 You may, for security reasons, want to disable the Gremlin console and/or the Neo4j Shell in Webadmin.
 Both of them allow arbitrary code execution, and so they could constitute a security risk if you do not trust all users of your Neo4j Server.

@@ -1,0 +1,16 @@
+[[server-installation-cloud]]
+在云计算环境中的服务器安装
+=============
+
+在各种云服务上的Neo4j，要么是用户自己建立的，要么是Neo Technology云。下面是关于这些的介绍。
+
+== Heroku ==
+
+了解一个基本的安装设置，请参考：https://devcenter.heroku.com/articles/quickstart[the Heroku 快速入门教程]。
+
+为了增加Neo4j到你的Heroku应用中，如下操作：
+
+[source,shell]
+----
+heroku addons:add neo4j
+----

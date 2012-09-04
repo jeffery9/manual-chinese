@@ -1,6 +1,6 @@
 [[server-debugging]]
-Setup for remote debugging
-==========================
+设置远程调试
+======
 
 In order to configure the Neo4j server for remote debugging sessions, the Java debugging 
 parameters need to be passed to the Java process through the configuration.

@@ -23,166 +23,161 @@ Asciidoc文档的扩展名是 +.txt+ 。
 文档可以使用来自项目的扩展代码的代码片段。
 相应的代码必须部署到'sources.jar' 或者 'test-sources.jar'文件中。
 
-By setting up a unit test accordingly, documentation can be written directly in the JavaDoc comment.
+通过建立相应的单元测试，文档可以正JavaDoc备注中直接书写。
 
-The above files are all consumed by the build of the manual (by adding them as dependencies).
-To get content included in the manual, it has to be explicitly included by a document in the manual as well.
+上面的文件都用来构建手册（通过增加它们作为依赖）使用。
+为了得到包括在手册中的内容，它必须被明确列入是手册中的文件。
 
-Note that different ways to add documentation works best for different cases:
+注意为不同场景增加文档工作的不同方法：
 
-* For detail level documentation, it works well to write the documentation as part of unit tests (in the JavaDoc comment).
-  In this case, you typically do not want to link to the source code in the documentation.
-* For tutorial level documentation, the result will be best by writing a +.txt+ file containing the text.
-  Source snippets and output examples can then be included from there.
-  In this case you typically want to link to the source code, and users should be able to run it without any special setup.
+* 为了生成详细的文档， 必须把文档写来作为单元测试的一部分（包括在JavaDoc中）。
+  在这种情况下，你一般不想在文档中链接到源代码。  
+* 为了教学级的文档，通过书写一个 +.txt+ 的文件来包括在文本中是最好的方式。
+  源码片段和输出范例都能从那个地方引入。
+  在这种情况下，你一般想链接到源代码，而用户应该能不用任何额外的设置就可以运行它。
 
-== File Structure in 'docs.jar' ==
+== 在'docs.jar'中的文件结构 ==
 
 [options="header", cols="e,d"]
 |========================
-| Directory | Contents
-| dev/ | content aimed at developers
-| dev/images/ | images used by the dev docs
-| ops/ | content aimed at operations
-| ops/images/ | images used by the ops docs
-| man/ | manpages
+| 目录 | 内容
+| dev/ | 面向开发人员的内容
+| dev/images/ | 面向开发人员的内容需要的图片
+| ops/ | 面向管理员的内容
+| ops/images/ | 面向管理员的内容需要的图片
+| man/ | 联机帮助页
 |========================
 
-Additional subdirectories are used as needed to structure the documents,
-like 'dev/tutorial/', 'ops/tutorial/' etc.
+额外子目录被用来作为文档所必须的结构，比如'dev/tutorial/'，'ops/tutorial/'等等。
 
-== Headings and document structure ==
 
-Each document starts over with headings from level zero (the document title).
-Each document should have an id.
-In some cases sections in the document need to have id's as well, this depends on where they fit in the overall structure.
-To be able to link to content, it has to have an id.
-Missing id's in mandatory places will fail the build.
+== 标题和文档结构 ==
 
-This is how a document should start:
+每一个文档都带有标题并从等级0开始。
+每一个文档应该有一个ID。
+在一些情况下，在文档中的片段也需要它们的ID，这依赖与它们是否会填充到整体结构中。
+为了能链接到这些内容，必须有一个ID。
+在强制性地方如果缺少ID在构建时将会失败。
+
+这是一个文档的开始：
 
 [source]
 ----
 [[unique-id-verbose-is-ok]]
-The Document Title
-==================
+文档标题
+====
 ----
 
-To push the headings down to the right level in the output, the +leveloffset+ 
-attribute is used when including the document inside of another document.
+为了把标题放到正确的等级下面，当在一个文件中引入另外文件时，属性 +leveloffset+ 将会被使用。
 
 Subsequent headings in a document should use the following syntax:
 
 [source]
 ----
-== Subheading ==
+== 二级标题 ==
 
-... content here ...
+... 这是内容 ...
 
-=== Subsubheading ===
+=== 三级标题 ===
 
-content here ...
+这是内容 ...
 
 ----
 
-Asciidoc comes with one more syntax for headings, but in this project it's not used.
+Asciidoc对头部分的语法不止一个，但在这个项目中它不会被使用。
 
-== Writing ==
+== 撰写 ==
 
-Put one sentence on each line.
-This makes it easy to move content around, and also easy to spot (too) long sentences.
+一行写一句。
+这让很容易移动内容，并且很容易分拆长句。
 
-== Gotchas ==
+== 陷阱 ==
 
-* A chapter can't be empty. (the build will fail on the docbook xml validity check)
-* The document title should be "underlined" by the same
-  number of +=+ as there are characters in the title.
-* Always leave a blank line at the end of documents
-  (or the title of the next document might end up in the last
-  paragraph of the document)
-* As +{}+ are used for Asciidoc attributes, everything inside will be treated as an attribute.
-  What you have to do is to escape the opening brace: +\\{+.
-  If you don't, the braces and the text inside them will be removed without any warning being issued!
+* 一个章节不能是空的。 (构建时做 docbook xml合法性校验时会失败)。
+* 文档标题应该有下划线，由与标题字符个数相同的 +=+ 组成。
+* 在文档末尾总是留一个空行（或者说下一个文档的标题会在文档的最后一段后结束）。
+* 因为 +{}+ 用来作为Asciidoc的属性，每一个内嵌正里面的都被认为是一个属性。
+  当你必须用它的时候，请使用：+\\{+。
+  如果你不这样做，在没有任何提示或者警告的情况下，括号里面的文字会被移除。
 
-== Links ==
+== 链接 ==
 
-To link to other parts of the manual the id of the target is used.
-This is how such a reference looks:
+为了链接到手册给定Id的其他部分，下面展示如何链接到一个参考页面：
 
 [source]
 ----
 <<community-docs-overall-flow>>
 ----
 
-Which will render like: <<community-docs-overall-flow>>
+输出结果：<<community-docs-overall-flow>>
 
 [NOTE]
-Just write "see \<<target-id>>" and similar, that should suffice in most cases.
+只需要简单写 "看 \<<target-id>>" ，在大多数情况下，这应该足够。
 
-If you need to link to another document with your own link text, this is what to do:
+如果你修养链接到其他你自定义链接文本的文档，如下操作：
 
 [source]
 ----
 <<target-id, link text that fits in the context>>
 ----
 
-NOTE: Having lots of linked text may work well in a web context but is a pain in print, and we aim for both!
+NOTE: 有大量的链接文本在web环境工作得很好但普通文本用于打印，而我们的目标是两个都可以。
 
-External links are added like this:
+外部链接如下：
 
 [source]
 ----
 http://neo4j.org/[Link text here]
 ----
 
-Which renders like: http://neo4j.org/[Link text here]
+输出像这样： http://neo4j.org/[Link text here]
 
-For short links it may be better not to add a link text, just do:
+对于一个短地址可能不需要增加链接文本，像这样：
 
 [source]
 ----
 http://neo4j.org/
 ----
 
-Which renders like: http://neo4j.org/
+输出像这样： http://neo4j.org/
 
-NOTE: It's ok to have a dot right after the URL, it won't be part of the link.
+NOTE: 在链接后面有一个标点符号是不受影响的，它不会被认为是链接的一部分。
 
-== Text Formatting ==
+== 文本格式 ==
 
-* \_Italics_ is rendered as _Italics_ and used for emphasis.
-* \*Bold* is rendered as *Bold* and used sparingly, for strong emphasis only.
-* \+methodName()+ is rendered as +methodName()+ and is used for literals as well
-  (note: the content between the `+` signs _will_ be parsed).
-* \`command` is rendered as `command` (typically used for command-line)
-  (note: the content between the +`+ signs _will not_ be parsed).
-* \'my/path/' is rendered as 'my/path/' (used for file names and paths).
-* \\``Double quoted'' (that is two grave accents to the left and two acute accents to the right) renders as ``Double quoted''.
-* \`Single quoted' (that is a single grave accent to the left and a single acute accent to the right) renders as `Single quoted'.
+* \_Italics_ 显示为 _Italics_ 表示重点。
+* \*Bold* 显示为 *Bold* 用来加强，仅用于加强重点。
+* \+methodName()+ 显示为 +methodName()+ 也被用于文字（注意：在 `+` 符号之间的文字 _会_ 被解析）。
+* \`command` 显示为 `command` (一般用于命令行)。
+  （注意：在 +`+ 符号之间的文字 _会_ 被解析）。  
+* \'my/path/' 显示为 'my/path/' (用来表示文件名或者路径)。
+* \\``Double quoted'' (that is two grave accents to the left and two acute accents to the right) 表示为 ``Double quoted''。
+* \`Single quoted' (that is a single grave accent to the left and a single acute accent to the right) 表示为 `Single quoted'。
 
-== Admonitions ==
+== 告诫 ==
 
-These are very useful and should be used where appropriate.
-Choose from the following (write all caps and no, we can't easily add new ones):
+这些非常有用而且应该正适合的地方使用。
+从下面选择进行使用（保持全部都大写或者都不）：
 
-NOTE: Note.
 
-TIP: Tip.
+NOTE: 注意。
 
-IMPORTANT: Important
+TIP: 提示。
 
-CAUTION: Caution
+IMPORTANT: 重要。
 
-WARNING: Warning
+CAUTION: 注意。
 
-Here's how it's done:
+WARNING: 警告。
+
+这儿是它们的范例:
 
 [source]
 ----
 NOTE: Note.
 ----
 
-A multiline variation:
+多行输出：
 
 [source]
 ----
@@ -191,53 +186,53 @@ Tiptext.
 Line 2.
 ----
 
-Which is rendered as:
+输出效果：
 
 [TIP]
 Tiptext.
 Line 2.
 
-== Images ==
+== 图片 ==
 
-IMPORTANT: _All images in the entire manual share the same namespace._
-  You know how to handle that.
+IMPORTANT: _正整个手册中的图片都有相同的命名空间。_
+  你指定如何管理控制它们。
 
-=== Images Files ===
+=== 图片文件 ===
 
-To include an image file, make sure it resides in the 'images/' directory relative to the document you're including it from. Then go:
+为了引入一个图片文件，确保图包括在文档目录的子目录'images/'中，然后，你可以：
 
 [source]
 ----
 image::neo4j-logo.png[]
 ----
 
-Which is rendered as:
+输出结果：
 
 image::neo4j-logo.png[]
 
-=== Static Graphviz/DOT ===
+=== 静态的Graphviz/ DOT ===
 
-We use the Graphviz/DOT language to describe graphs.
-For documentation see http://graphviz.org/.
+我们使用Graphviz/DOT语言来描述图数据库。
+要获取更多的细节，请参考：http://graphviz.org/。
 
-This is how to include a simple example graph:
+这是如何引入一个简单范例数据库：
 
 [source]
 ----
  ["dot", "community-docs-graphdb-rels.svg"]
  ----
- "Start node" -> "End node" [label="relationship"]
+ "开始节点" -> "结束节点" [label="关系"]
  ----
 ----
 
-Which is rendered as:
+输出结果：
 
 ["dot", "community-docs-graphdb-rels.svg"]
 ----
 "Start node" -> "End node" [label="relationship"]
 ----
 
-Here's an example using some predefined variables available in the build:
+这儿是一个在构建中使用一些预置参数的范例：
 
 [source]
 ----
@@ -253,7 +248,7 @@ Here's an example using some predefined variables available in the build:
  ----
 ----
 
-Which is rendered as:
+输出结果：
 
 ["dot", "community-docs-graphdb-rels-overview.svg", "meta"]
 ----
@@ -266,49 +261,48 @@ Name [TEXTNODE]
 "Relationship type" -> Name [label="uniquely identified by" color="EDGEHIGHLIGHT" fontcolor="EDGEHIGHLIGHT"]
 ----
 
-The optional second argument given to the dot filter defines the style to use:
+传递给点过滤器的可选第二个参数定义了使用的风格：
+* 当没定义时: 节点空间的默认样式。
+* +neoviz+: 通过Neoviz生成节点空间样式。
+* +meta+: 图数据库不会显示内容，更像是展示概念。
 
-* when not defined: Default styling for nodespace examples.
-* +neoviz+: Nodespace view generated by Neoviz.
-* +meta+: Graphs that don't resemble db contents, but rather concepts.
-
-CAUTION: Keywords of the DOT language have to be surrounded by double quotes when used for other purposes.
-  The keywords include _node, edge, graph, digraph, subgraph,_ and _strict_.
+CAUTION: DOT语言的关键字用于其他用途时，必须用双引号括起来。
+  关键字包括： _node， edge， graph， digraph， subgraph，_ 和 _strict_.
 
 
-== Attributes ==
+== 属性 ==
 
-Common attributes you can use in documents:
+你能在文档中使用的普通属性：
 
-* \{neo4j-version} - rendered as "{neo4j-version}"
-* \{neo4j-git-tag} - rendered as "{neo4j-git-tag}"
-* \{lucene-version} - rendered as "{lucene-version}"
+* \{neo4j-version} - 表示为 "{neo4j-version}"
+* \{neo4j-git-tag} - 表示为 "{neo4j-git-tag}"
+* \{lucene-version} - 表示为 "{lucene-version}"
 
-These can substitute part of URLs that point to for example APIdocs or source code.
-Note that neo4j-git-tag also handles the case of snapshot/master.
+这些可以用来替代指向范例 APIDocs或者源代码的URL的部分。
+注意neo4j-git-tag也能控制snapshot/master。
 
-Sample Asciidoc attributes which can be used:
+能被使用的Asciidoc范例属性：
 
-* \{docdir} - root directory of the documents
-* \{nbsp} - non-breaking space
+* \{docdir} - 指向文档的根目录
+* \{nbsp} - 不间断空格
 
-== Comments ==
+== 备注 ==
 
-There's a separate build including comments.
-The comments show up with a yellow background.
-This build doesn't run by default, but after a normal build, you can use `make annotated` to build it.
-You can also use the resulting page to search for content, as the full manual is on a single page.
+有一个独立的构件来引入备注。
+备注用一个黄色背景表示。
+默认它是不会被构建的，但在一个普通构建之后，你可以使用 `make annotated` 来构建它。
+你也能使用结果页来搜索内容，以及在一个单页面上的完整手册。
 
-Here's how to write a comment:
+下面是范例：
 
 [source]
 ----
 // this is a comment
 ----
 
-The comments are not visible in the normal build.
-Comment blocks won't be included in the output of any build at all.
-Here's a comment block:
+备注在一般构建结果文档中是不可见的。
+备注块根本不会包括在任何构建输出里面。
+这是一个范例：
 
 [source]
 ----
@@ -319,14 +313,14 @@ That is, missing includes here will still break the build!
 ----
 
 
-== Code Snippets ==
+== 代码片段 ==
 
-=== Explicitly defined in the document ===
+=== 在文件中明确定义 ===
 
-WARNING: Use this kind of code snippets as little as possible.
-  They are well known to get out of sync with reality after a while.
+WARNING: 尽可能少的使用代码片段。
+  众所周知的，它们以及很长时间没有更新了。
 
-This is how to do it:
+下面是范例：
 
 [source]
 ----
@@ -336,16 +330,16 @@ This is how to do it:
  ----
 ----
 
-Which is rendered as:
+输出结果：
 
 [source,cypher]
 ----
 start n=(2, 1) where (n.age < 30 and n.name = "Tobias") or not(n.name = "Tobias")  return n
 ----
 
-If there's no suitable syntax highlighter, just omit the language: +[source]+.
+如果没有合适的高亮语法，就省略语言设置： +[source]+。
 
-Currently the following syntax highlighters are enabled:
+目前下面的语言的高亮是支持的：
 
 * Bash
 * Cypher
@@ -355,28 +349,28 @@ Currently the following syntax highlighters are enabled:
 * Python
 * XML
 
-For other highlighters we could add see http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/.
+更多我们能使用的高亮语言，请参考： http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/。
 
 
-=== Fetched from source code ===
+=== 源代码中抽取 ===
 
-Code can be automatically fetched from source files.
-You need to define:
+代码可以自动的从源文件中抽取。
+你需要定义：
 
-* component: the +artifactId+ of the Maven coordinates,
-* source: path to the file inside the jar it's deployed to,
-* classifier: +sources+ or +test-sources+ or any other classifier pointing to the artifact,
-* tag: tag name to search the file for,
-* the language of the code, if a corresponding syntax highlighter is available.
+* component: Maven坐标的 +artifactId+ 。
+* source: 指向部署的jar文件的文件路径。
+* classifier: +sources+ 或者 +test-sources+ 或者任何指向构件的分类。
+* tag: 用于搜索文件的tag标签。
+* 代码语言，如果需要相应的语法高亮显示。
 
-Note that the artifact has to be included as a Maven dependency of the Manual project so that the files can be found.
+注意构件必须作为一个手册项目的Maven依赖被引入以便文件可以被找到。
 
-The file will be searched for lines including +START SNIPPET: {tag}+ and +END SNIPPET: {tag}+, the lines between those will go into the output. 
-Be aware of that the tag "abc" will match "abcd" as well.
-It's a simple on/off switch, meaning that multiple occurrences will be assembled into a single code snippet in the output.
-This behavior can be user to hide away assertions from code examples sourced from tests.
+会在+开始片段: {tag}+ 和 +结束片段: {tag}+ 之间搜索文件，这些行将被输出。
+注意标签“ABC”将匹配“ABCD”。
+有一个非常简单的 on/off开关，让多个出现的装配进一个单独的代码片段输出。
+这个行为能被用户用来当来自代码范例测试的时候隐藏断言。
 
-This is how to define a code snippet inclusion:
+这是一个定义如何包含代码片段的范例：
 
 [source]
 ----
@@ -389,7 +383,7 @@ This is how to define a code snippet inclusion:
  ----
 ----
 
-This is how it renders:
+输出结果：
 
 [snippet,java]
 ----
@@ -400,14 +394,14 @@ tag=getStartTime
 ----
 
 
-=== Query Results ===
+=== 查询结果 ===
 
-There's a special filter for Cypher query results.
-This is how to tag a query result:
+对于Cypher查询结果有一个特殊的过滤器。
+这是如何标记一个查询结果：
 
 [source]
 ----
- .Result
+ .结果
  [queryresult]
  ----
  +----------------------------------+
@@ -421,9 +415,9 @@ This is how to tag a query result:
  ----
 ----
 
-This is how it renders:
+输出结果：
 
-.Result
+.结果
 [queryresult]
 ----
 +----------------------------------+
@@ -433,48 +427,47 @@ This is how it renders:
 | Derrick               | 1        |
 | Jill                  | 1        |
 +----------------------------------+
-3 rows, 12 ms
+3 行, 12 毫秒
 ----
 
 
-== A sample Java based documentation test ==
+== 基于文档测试的一个简单Java范例 ==
 
-For Java, there are a couple of premade utilities that keep code and documentation together in
-Javadocs and code snippets that generate Asciidoc for the rest of the toolchain.
+对于Java来说，有几个预置工具用来保持代码和文档都在Javadocs和代码片段中，这些代码片段生成了其它工具的的Asciidoc文档。
 
-To illustrate this, look at the following documentation that generates the Asciidoc file +hello-world-title.txt+ with a content of:
+为了说明这个，看看下面的文档，用文件  +hello-world-title.asciidoc+ 生成的内容是：
 
 [source]
 ------------------------------
-include::{importdir}/neo4j-examples-docs-jar/dev/examples/hello-world-sample-chapter.txt[]
+include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[]
 ------------------------------
 
-this file is included in this documentation via
+这个文件通过下面的代码被引入到这个文档中：
 
 [source]
 ----
   :leveloffset: 3
-  include::{importdir}/neo4j-examples-docs-jar/dev/examples/hello-world-sample-chapter.txt[] 
+  include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[] 
 ----
 
-which renders the following chapter: 
+输出结果：
 
 :leveloffset: 3
 
-include::{importdir}/neo4j-examples-docs-jar/dev/examples/hello-world-sample-chapter.txt[]
+include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[]
 
 :leveloffset: 2
 
-== Integrated Live Console ==
+== 集成远程控制台 ==
 
-An interactive console can be added and will show up in the online HTML version.
-An optional title can be added, which will be used for the text of the button.
+一个交互控制台可以被新增并出现正在线HTML版本中。
+一个可选的标题被增加，用于按钮的文本。
 
-This is how to do it, using Geoff to define the data, with an empty line to separate it from the query:
+这里是做法，使用Geoff来定义数据，使用空行来从查询中分割它们：
 
 [source]
 ----
- .Interactive Matrix Example
+ .与黑客帝国交互的范例
  [console]
  ----
  (A) {"name" : "Neo"}; 
@@ -486,9 +479,9 @@ This is how to do it, using Geoff to define the data, with an empty line to sepa
  ----
 ----
 
-And this is the result:
+输出结果:
 
-.Interactive Matrix Example
+.与黑客帝国交互的范例
 [console]
 ----
 (A) {"name" : "Neo"};
@@ -501,9 +494,9 @@ return n
 
 
 
-== Toolchain ==
+== 工具链 ==
 
-Useful links when configuring the docbook toolchain:
+当配置docbook工具链时一些有用的链接：
 
 * http://www.docbook.org/tdg/en/html/docbook.html
 * http://www.sagehill.net/docbookxsl/index.html

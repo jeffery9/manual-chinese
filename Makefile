@@ -138,8 +138,8 @@ simple-asciidoc: initialize installextensions
 	mkdir -p "$(SINGLEHTMLDIR)/css"
 	mkdir -p "$(SINGLEHTMLDIR)/js"
 	"$(ASCIIDOC)" $(ASCIIDOC_FLAGS) --conf-file="$(TOOLSCONFDIR)/asciidoc.conf"  --conf-file="$(CONFDIR)/asciidoc.conf" --attribute docinfo1 --attribute toc --out-file "$(SINGLEHTMLFILE)" "$(SRCFILE)"
-	rsync -u "$(IMGTARGETDIR)/"* "$(SINGLEHTMLDIR)/images"
-	rsync -u "$(CSSDIR)/"* "$(SINGLEHTMLDIR)/css"
-	rsync -u "$(JSDIR)/"* "$(SINGLEHTMLDIR)/js"
+	rsync -ru "$(IMGTARGETDIR)/"* "$(SINGLEHTMLDIR)/images"
+	rsync -ru "$(CSSDIR)/"* "$(SINGLEHTMLDIR)/css"
+	rsync -ru "$(JSDIR)/"* "$(SINGLEHTMLDIR)/js"
 
 

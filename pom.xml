@@ -84,7 +84,7 @@
             <configuration>
               <executable>make</executable>
               <arguments>
-                <argument>preview</argument>
+                <argument>dist</argument>
                 <argument>VERSION=${project.version}</argument>
                 <argument>IMPORTDIR=${docs.importdir}</argument>
               </arguments>

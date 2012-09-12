@@ -1,29 +1,29 @@
-NEO4J-SHELL(1)
-==============
+neo4j-shell
+===========
 :author: The Neo4j Team
 
-NAME
-----
+名称
+--
 neo4j-shell - a command-line tool for exploring and manipulating a graph database
 
 
 [[shell-manpage]]
-SYNOPSIS
---------
+语法
+--
 *neo4j-shell* ['REMOTE OPTIONS']
 
 *neo4j-shell* ['LOCAL OPTIONS']
 
 [[shell-manpage-description]]
-DESCRIPTION
------------
+描述
+--
 Neo4j shell is a command-line shell for browsing the graph, much like how the Unix shell along with commands like +cd+, +ls+ and +pwd+ can be used to browse your local file system.
 The shell can connect directly to a graph database on the file system.
 To access local a local database used by other processes, use the readonly mode.
 
 [[shell-manpage-remote-options]]
-REMOTE OPTIONS
---------------
+远程选项
+----
 *-port* 'PORT'::
   Port of host to connect to (default: 1337).
 
@@ -37,8 +37,8 @@ REMOTE OPTIONS
   Access the database in read-only mode.
 
 [[shell-manpage-local-options]]    
-LOCAL OPTIONS
---------------
+本地选项
+----
 *-path* 'PATH'::
   The path to the database directory.
   If there is no database at the location, a new one will e created.
@@ -56,10 +56,10 @@ LOCAL OPTIONS
   The path to the Neo4j configuration file to be used.
 
 [[shell-manpage-examples]]
-EXAMPLES
---------
+范例
+--
 
-Examples for remote:
+远程使用范例：
 ....
   neo4j-shell
   neo4j-shell -port 1337
@@ -67,7 +67,7 @@ Examples for remote:
   neo4j-shell -host localhost -readonly
 ....
 
-Examples for local:
+本地使用范例：
 ....
   neo4j-shell -path /path/to/db
   neo4j-shell -path /path/to/db -config /path/to/neo4j.config

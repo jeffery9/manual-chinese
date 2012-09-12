@@ -1,54 +1,54 @@
-NEO4J(1)
-========
+neo4j
+=====
 :author: The Neo4j Team
 
 名称
-----
+--
 neo4j - Neo4j服务器控制和管理
 
 [[neo4j-manpage]]
 语法
---------
+--
 
 *neo4j* <command>
 
 [[neo4j-manpage-description]]
 描述
------------
+--
 
 Neo4j是一个图数据库，在高度关联的数据中拥有很好的性能。
 
 [[neo4j-manpage-commands]]
 命令
---------
+--
 
 *console*::
-  Start the server as an application, running as a foreground proces. Stop the server using `CTRL-C`.
+  将服务器作为一个前台进程启动运行，停止服务器请使用 `CTRL-C`。
 
 *start*::
-  Start server as daemon, running as a background process.
+  以后台服务形式启动服务器。
 
 *stop*::
-  Stops a running daemonized server.
+  停止一个后台运行的服务器。
 
 *restart*::
-  Restarts the server.
+  重启服务器
 
 *status*::
-  Current running state of the server.
+  返回当前运行的服务器状态。
 
 *install*::
-  Installs the server as a platform-appropriate system service.
+  安装服务器作为一个平台相关的系统服务。
 
 *remove*::
-  Uninstalls the system service.
+  卸载系统服务。
 
 *info*::
-  Displays configuration information, such as the current NEO4J_HOME and CLASSPATH.
+  显示配置信息，比如当前的NEO4J_HOME和CLASSPATH。
 
 [[neo4j-manpage-usage-windows]]
-Usage - Windows
----------------
+用法 - Windows
+------------
 
 *Neo4j.bat*
 
@@ -61,10 +61,10 @@ Neo4j can be installed and run as a Windows Service, running without a console
 window. You'll need to run the scripts with Administrator priveleges.
 Just use the Neo4j.bat script with the proper argument:
 
-* Neo4j.bat install - install as a Windows service
-** will install the service 
-* Neo4j.bat remove - remove the Neo4j service
-** will stop and remove the Neo4j service
+* Neo4j.bat install - 安装作为一个windows系统服务
+** 将安装作为一个windows系统服务
+* Neo4j.bat remove - 移除Neo4j服务
+** 将停止和移除Neo4j服务
 * Neo4j.bat start - will start the Neo4j service
 ** will start the Neo4j service if installed or a console
 ** session otherwise.
@@ -75,16 +75,16 @@ Just use the Neo4j.bat script with the proper argument:
 
 
 [[neo4j-manpage-files]]
-FILES
------
+涉及到的配置文件
+--------
 
 *conf/neo4j-server.properties*::
-  Server configuration.
+  服务器配置。
 
 *conf/neo4j-wrapper.conf*::
-  Configuration for service wrapper.
+  服务封装配置
 
 *conf/neo4j.properties*::
-  Tuning configuration for the database.
+  数据库调优配置
 
 

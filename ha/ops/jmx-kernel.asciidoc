@@ -1,0 +1,33 @@
+[[jmx-kernel]]
+.MBean Kernel (org.neo4j.jmx.Kernel) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the Neo4j kernel
+|KernelStartTime|The time from which this Neo4j instance was in operational mode.|Date (java.util.Date)|yes|no
+|KernelVersion|The version of Neo4j|String|yes|no
+|MBeanQuery|An ObjectName that can be used as a query for getting all management beans for this Neo4j instance.|javax.management.ObjectName|yes|no
+|ReadOnly|Whether this is a read only instance|boolean|yes|no
+|StoreCreationDate|The time when this Neo4j graph store was created.|Date (java.util.Date)|yes|no
+|StoreDirectory|The location where the Neo4j store is located|String|yes|no
+|StoreId|An identifier that, together with store creation time, uniquely identifies this Neo4j graph store.|String|yes|no
+|StoreLogVersion|The current version of the Neo4j store logical log.|long|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the Neo4j kernel
+|KernelStartTime|The time from which this Neo4j instance was in operational mode.|Date (java.util.Date)|yes|no
+|KernelVersion|The version of Neo4j|String|yes|no
+|MBeanQuery|An ObjectName that can be used as a query for getting all management beans for this Neo4j instance.|javax.management.ObjectName|yes|no
+|ReadOnly|Whether this is a read only instance|boolean|yes|no
+|StoreCreationDate|The time when this Neo4j graph store was created.|Date (java.util.Date)|yes|no
+|StoreDirectory|The location where the Neo4j store is located|String|yes|no
+|StoreId|An identifier that, together with store creation time, uniquely identifies this Neo4j graph store.|String|yes|no
+|StoreLogVersion|The current version of the Neo4j store logical log.|long|yes|no
+|===
+endif::nonhtmloutput[]
+

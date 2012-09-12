@@ -7,7 +7,7 @@
 工具集部分描述了可以使用的Neo4j工具以及如何使用它们。
 --
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::webadmin.asciidoc[]
 

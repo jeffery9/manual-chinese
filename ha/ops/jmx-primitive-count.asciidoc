@@ -1,0 +1,25 @@
+[[jmx-primitive-count]]
+.MBean Primitive count (org.neo4j.jmx.Primitives) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Estimates of the numbers of different kinds of Neo4j primitives
+|NumberOfNodeIdsInUse|An estimation of the number of nodes used in this Neo4j instance|long|yes|no
+|NumberOfPropertyIdsInUse|An estimation of the number of properties used in this Neo4j instance|long|yes|no
+|NumberOfRelationshipIdsInUse|An estimation of the number of relationships used in this Neo4j instance|long|yes|no
+|NumberOfRelationshipTypeIdsInUse|The number of relationship types used in this Neo4j instance|long|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Estimates of the numbers of different kinds of Neo4j primitives
+|NumberOf NodeIds InUse|An estimation of the number of nodes used in this Neo4j instance|long|yes|no
+|NumberOf PropertyIds InUse|An estimation of the number of properties used in this Neo4j instance|long|yes|no
+|NumberOf RelationshipIds InUse|An estimation of the number of relationships used in this Neo4j instance|long|yes|no
+|NumberOf RelationshipTypeIds InUse|The number of relationship types used in this Neo4j instance|long|yes|no
+|===
+endif::nonhtmloutput[]
+

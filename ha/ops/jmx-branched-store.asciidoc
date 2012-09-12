@@ -1,0 +1,19 @@
+[[jmx-branched-store]]
+.MBean Branched Store (org.neo4j.management.BranchedStore) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the branched stores present in this HA cluster member
+|BranchedStores|A list of the branched stores|http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/management/BranchedStoreInfo.html[org.neo4j.management.BranchedStoreInfo][] as http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/CompositeData.html[CompositeData][]|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the branched stores present in this HA cluster member
+|BranchedStores|A list of the branched stores|org.neo4j.management.BranchedStoreInfo[] as CompositeData[]|yes|no
+|===
+endif::nonhtmloutput[]
+

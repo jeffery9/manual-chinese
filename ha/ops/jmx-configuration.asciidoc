@@ -1,0 +1,171 @@
+[[jmx-configuration]]
+.MBean Configuration (org.neo4j.jmx.impl.ConfigurationBean) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|The configuration parameters used to configure Neo4j
+|allow_store_upgrade|Configuration attribute|String|yes|yes
+|array_block_size|Specifies the block size for storing arrays. This parameter is only honored when the store is created, otherwise it is ignored. The default block size is 120 bytes, and the overhead of each block is the same as for string blocks, i.e., 8 bytes.. 1 < array_block_size|String|yes|yes
+|backup_slave|Mark this database as a backup slave.|String|yes|yes
+|cache_type|The type of cache to use for nodes and relationships.. Valid options:[gcr, soft, weak, strong, none]|String|yes|yes
+|dump_configuration|Print out the effective Neo4j configuration after startup.|String|yes|yes
+|ephemeral|Configuration attribute|String|yes|yes
+|execution_guard_enabled|Configuration attribute|String|yes|yes
+|forced_kernel_id|An identifier that uniquely identifies this graph database instance within this JVM. Defaults to an auto-generated number depending on how many instance are started in this JVM.|String|yes|yes
+|gc_monitor_threshold|The amount of time in ms the monitor thread has to be blocked before logging a message it was blocked.|String|yes|yes
+|gc_monitor_wait_time|Amount of time in ms the GC monitor thread will wait before taking another measurement.|String|yes|yes
+|gcr_cache_min_log_interval|The minimal time that must pass in between logging statistics from the cache (when using the 'gcr' cache).|String|yes|yes
+|grab_file_lock|Whether to grab locks on files or not.|String|yes|yes
+|ha.allow_init_cluster|Configuration attribute|String|yes|yes
+|ha.branched_data_policy|Configuration attribute|String|yes|yes
+|ha.cluster_name|Configuration attribute|String|yes|yes
+|ha.com_chunk_size|Configuration attribute|String|yes|yes
+|ha.coordinator_fetch_info_timeout|Configuration attribute|String|yes|yes
+|ha.coordinators|Configuration attribute|String|yes|yes
+|ha.max_concurrent_channels_per_slave|Configuration attribute|String|yes|yes
+|ha.pull_interval|Configuration attribute|String|yes|yes
+|ha.read_timeout|Configuration attribute|String|yes|yes
+|ha.server_id|Configuration attribute|String|yes|yes
+|ha.server|Configuration attribute|String|yes|yes
+|ha.slave_coordinator_update_mode|Configuration attribute|String|yes|yes
+|ha.tx_push_factor|Configuration attribute|String|yes|yes
+|ha.tx_push_strategy|Configuration attribute|String|yes|yes
+|ha.zk_session_timeout|Configuration attribute|String|yes|yes
+|intercept_committing_transactions|Determines whether any TransactionInterceptors loaded will intercept prepared transactions before they reach the logical log.|String|yes|yes
+|intercept_deserialized_transactions|Determines whether any TransactionInterceptors loaded will intercept externally received transactions (e.g. in HA) before they reach the logical log and are applied to the store.|String|yes|yes
+|jmx.port|Configuration attribute|String|yes|yes
+|keep_logical_logs|Make Neo4j keep the logical transaction logs for being able to backup the database.Can be used for specifying the threshold to prune logical logs after. For example "10 days" will prune logical logs that only contains transactions older than 10 days from the current time, or "100k txs" will keep the 100k latest transactions and prune any older transactions.|String|yes|yes
+|load_kernel_extensions|Configuration attribute|String|yes|yes
+|logging.threshold_for_rotation|Threshold in bytes for when database logs (text logs, for debugging, that is) are rotated.. 1 < logging.threshold_for_rotation|String|yes|yes
+|logical_log|The base name for the logical log files, either an absolute path or relative to the store_dir setting. This should generally not be changed.|String|yes|yes
+|lucene_searcher_cache_size|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.enabled|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.first_delay|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.host|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.interval|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.reg|Configuration attribute|String|yes|yes
+|neo_store|The base name for the Neo4j Store files, either an absolute path or relative to the store_dir setting. This should generally not be changed.|String|yes|yes
+|neostore.nodestore.db.mapped_memory|The size to allocate for memory mapping the node store.|String|yes|yes
+|neostore.propertystore.db.arrays.mapped_memory|The size to allocate for memory mapping the array property store.|String|yes|yes
+|neostore.propertystore.db.index.keys.mapped_memory|The size to allocate for memory mapping the store for property key strings.|String|yes|yes
+|neostore.propertystore.db.index.mapped_memory|The size to allocate for memory mapping the store for property key indexes.|String|yes|yes
+|neostore.propertystore.db.mapped_memory|The size to allocate for memory mapping the property value store.|String|yes|yes
+|neostore.propertystore.db.strings.mapped_memory|The size to allocate for memory mapping the string property store.|String|yes|yes
+|neostore.relationshipstore.db.mapped_memory|The size to allocate for memory mapping the relationship store.|String|yes|yes
+|node_auto_indexing|Controls the auto indexing feature for nodes. Setting to false shuts it down unconditionally, while true enables it for every property, subject to restrictions in the configuration.|String|yes|yes
+|node_cache_array_fraction|The fraction of the heap (1%-10%) to use for the base array in the node cache (when using the 'gcr' cache).. 1.0 < node_cache_array_fraction < 10.0|String|yes|yes
+|node_cache_size|The amount of memory to use for the node cache (when using the 'gcr' cache).|String|yes|yes
+|online_backup_enabled|Configuration attribute|String|yes|yes
+|online_backup_port|Configuration attribute|String|yes|yes
+|read_only|Only allow read operations from this Neo4j instance.|String|yes|yes
+|rebuild_idgenerators_fast|Use a quick approach for rebuilding the ID generators. This give quicker recovery time, but will limit the ability to reuse the space of deleted entities.|String|yes|yes
+|relationship_auto_indexing|Controls the auto indexing feature for relationships. Setting to false shuts it down unconditionally, while true enables it for every property, subject to restrictions in the configuration.|String|yes|yes
+|relationship_cache_array_fraction|The fraction of the heap (1%-10%) to use for the base array in the relationship cache (when using the 'gcr' cache).. 1.0 < relationship_cache_array_fraction < 10.0|String|yes|yes
+|relationship_cache_size|The amount of memory to use for the relationship cache (when using the 'gcr' cache).|String|yes|yes
+|relationship_grab_size|Configuration attribute|String|yes|yes
+|remote_logging_enabled|Configuration attribute|String|yes|yes
+|remote_logging_host|Host for remote logging using LogBack SocketAppender.|String|yes|yes
+|remote_logging_port|Port for remote logging using LogBack SocketAppender.. 1 < remote_logging_port < 65535|String|yes|yes
+|remote_shell_enabled|Configuration attribute|String|yes|yes
+|remote_shell_name|Configuration attribute|String|yes|yes
+|remote_shell_port|Configuration attribute|String|yes|yes
+|remote_shell_read_only|Configuration attribute|String|yes|yes
+|store_dir|The directory where the database files are located.|String|yes|yes
+|string_block_size|Specifies the block size for storing strings. This parameter is only honored when the store is created, otherwise it is ignored. Note that each character in a string occupies two bytes, meaning that a block size of 120 (the default size) will hold a 60 character long string before overflowing into a second block. Also note that each block carries an overhead of 8 bytes. This means that if the block size is 120, the size of the stored records will be 128 bytes.. 1 < string_block_size|String|yes|yes
+|use_memory_mapped_buffers|Tell Neo4j to use memory mapped buffers for accessing the native storage layer.|String|yes|yes
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|The configuration parameters used to configure Neo4j
+|allow_ store_ upgrade|Configuration attribute|String|yes|yes
+|array_ block_ size|Specifies the block size for storing arrays. This parameter is only honored when the store is created, otherwise it is ignored. The default block size is 120 bytes, and the overhead of each block is the same as for string blocks, i.e., 8 bytes.. 1 < array_block_size|String|yes|yes
+|backup_ slave|Mark this database as a backup slave.|String|yes|yes
+|cache_ type|The type of cache to use for nodes and relationships.. Valid options:[gcr, soft, weak, strong, none]|String|yes|yes
+|dump_ configuration|Print out the effective Neo4j configuration after startup.|String|yes|yes
+|ephemeral|Configuration attribute|String|yes|yes
+|execution_ guard_ enabled|Configuration attribute|String|yes|yes
+|forced_ kernel_ id|An identifier that uniquely identifies this graph database instance within this JVM. Defaults to an auto-generated number depending on how many instance are started in this JVM.|String|yes|yes
+|gc_ monitor_ threshold|The amount of time in ms the monitor thread has to be blocked before logging a message it was blocked.|String|yes|yes
+|gc_ monitor_ wait_ time|Amount of time in ms the GC monitor thread will wait before taking another measurement.|String|yes|yes
+|gcr_ cache_ min_ log_ interval|The minimal time that must pass in between logging statistics from the cache (when using the 'gcr' cache).|String|yes|yes
+|grab_ file_ lock|Whether to grab locks on files or not.|String|yes|yes
+|ha.allow_ init_ cluster|Configuration attribute|String|yes|yes
+|ha.branched_ data_ policy|Configuration attribute|String|yes|yes
+|ha.cluster_ name|Configuration attribute|String|yes|yes
+|ha.com_ chunk_ size|Configuration attribute|String|yes|yes
+|ha.coordinator_ fetch_ info_ timeout|Configuration attribute|String|yes|yes
+|ha.coordinators|Configuration attribute|String|yes|yes
+|ha.max_ concurrent_ channels_ per_ slave|Configuration attribute|String|yes|yes
+|ha.pull_ interval|Configuration attribute|String|yes|yes
+|ha.read_ timeout|Configuration attribute|String|yes|yes
+|ha.server_ id|Configuration attribute|String|yes|yes
+|ha.server|Configuration attribute|String|yes|yes
+|ha.slave_ coordinator_ update_ mode|Configuration attribute|String|yes|yes
+|ha.tx_ push_ factor|Configuration attribute|String|yes|yes
+|ha.tx_ push_ strategy|Configuration attribute|String|yes|yes
+|ha.zk_ session_ timeout|Configuration attribute|String|yes|yes
+|intercept_ committing_ transactions|Determines whether any TransactionInterceptors loaded will intercept prepared transactions before they reach the logical log.|String|yes|yes
+|intercept_ deserialized_ transactions|Determines whether any TransactionInterceptors loaded will intercept externally received transactions (e.g. in HA) before they reach the logical log and are applied to the store.|String|yes|yes
+|jmx.port|Configuration attribute|String|yes|yes
+|keep_ logical_ logs|Make Neo4j keep the logical transaction logs for being able to backup the database.Can be used for specifying the threshold to prune logical logs after. For example "10 days" will prune logical logs that only contains transactions older than 10 days from the current time, or "100k txs" will keep the 100k latest transactions and prune any older transactions.|String|yes|yes
+|load_ kernel_ extensions|Configuration attribute|String|yes|yes
+|logging.threshold_ for_ rotation|Threshold in bytes for when database logs (text logs, for debugging, that is) are rotated.. 1 < logging.threshold_for_rotation|String|yes|yes
+|logical_ log|The base name for the logical log files, either an absolute path or relative to the store_dir setting. This should generally not be changed.|String|yes|yes
+|lucene_ searcher_ cache_ size|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.enabled|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.first_ delay|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.host|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.interval|Configuration attribute|String|yes|yes
+|neo4j.ext.udc.reg|Configuration attribute|String|yes|yes
+|neo_ store|The base name for the Neo4j Store files, either an absolute path or relative to the store_dir setting. This should generally not be changed.|String|yes|yes
+|neostore.nodestore.db.mapped_ memory|The size to allocate for memory mapping the node store.|String|yes|yes
+|neostore.propertystore.db.arrays.mapped_ memory|The size to allocate for memory mapping the array property store.|String|yes|yes
+|neostore.propertystore.db.index.keys.mapped_ memory|The size to allocate for memory mapping the store for property key strings.|String|yes|yes
+|neostore.propertystore.db.index.mapped_ memory|The size to allocate for memory mapping the store for property key indexes.|String|yes|yes
+|neostore.propertystore.db.mapped_ memory|The size to allocate for memory mapping the property value store.|String|yes|yes
+|neostore.propertystore.db.strings.mapped_ memory|The size to allocate for memory mapping the string property store.|String|yes|yes
+|neostore.relationshipstore.db.mapped_ memory|The size to allocate for memory mapping the relationship store.|String|yes|yes
+|node_ auto_ indexing|Controls the auto indexing feature for nodes. Setting to false shuts it down unconditionally, while true enables it for every property, subject to restrictions in the configuration.|String|yes|yes
+|node_ cache_ array_ fraction|The fraction of the heap (1%-10%) to use for the base array in the node cache (when using the 'gcr' cache).. 1.0 < node_cache_array_fraction < 10.0|String|yes|yes
+|node_ cache_ size|The amount of memory to use for the node cache (when using the 'gcr' cache).|String|yes|yes
+|online_ backup_ enabled|Configuration attribute|String|yes|yes
+|online_ backup_ port|Configuration attribute|String|yes|yes
+|read_ only|Only allow read operations from this Neo4j instance.|String|yes|yes
+|rebuild_ idgenerators_ fast|Use a quick approach for rebuilding the ID generators. This give quicker recovery time, but will limit the ability to reuse the space of deleted entities.|String|yes|yes
+|relationship_ auto_ indexing|Controls the auto indexing feature for relationships. Setting to false shuts it down unconditionally, while true enables it for every property, subject to restrictions in the configuration.|String|yes|yes
+|relationship_ cache_ array_ fraction|The fraction of the heap (1%-10%) to use for the base array in the relationship cache (when using the 'gcr' cache).. 1.0 < relationship_cache_array_fraction < 10.0|String|yes|yes
+|relationship_ cache_ size|The amount of memory to use for the relationship cache (when using the 'gcr' cache).|String|yes|yes
+|relationship_ grab_ size|Configuration attribute|String|yes|yes
+|remote_ logging_ enabled|Configuration attribute|String|yes|yes
+|remote_ logging_ host|Host for remote logging using LogBack SocketAppender.|String|yes|yes
+|remote_ logging_ port|Port for remote logging using LogBack SocketAppender.. 1 < remote_logging_port < 65535|String|yes|yes
+|remote_ shell_ enabled|Configuration attribute|String|yes|yes
+|remote_ shell_ name|Configuration attribute|String|yes|yes
+|remote_ shell_ port|Configuration attribute|String|yes|yes
+|remote_ shell_ read_ only|Configuration attribute|String|yes|yes
+|store_ dir|The directory where the database files are located.|String|yes|yes
+|string_ block_ size|Specifies the block size for storing strings. This parameter is only honored when the store is created, otherwise it is ignored. Note that each character in a string occupies two bytes, meaning that a block size of 120 (the default size) will hold a 60 character long string before overflowing into a second block. Also note that each block carries an overhead of 8 bytes. This means that if the block size is 120, the size of the stored records will be 128 bytes.. 1 < string_block_size|String|yes|yes
+|use_ memory_ mapped_ buffers|Tell Neo4j to use memory mapped buffers for accessing the native storage layer.|String|yes|yes
+|===
+endif::nonhtmloutput[]
+
+.MBean Configuration (org.neo4j.jmx.impl.ConfigurationBean) Operations
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|apply|Apply settings|void|(no parameters)
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|apply|Apply settings|void|(no parameters)
+|===
+endif::nonhtmloutput[]
+

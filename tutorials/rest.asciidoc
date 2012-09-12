@@ -8,7 +8,7 @@ Neo4j远程客户端库
 
 include::{docdir}/community/rest-clients.asciidoc[]
 
-:leveloffset: 3
+:leveloffset: 2
 
 include::{docdir}/server-examples/server-java-rest-client.asciidoc[]
 

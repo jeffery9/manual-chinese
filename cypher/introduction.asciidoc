@@ -41,7 +41,7 @@ The query language is comprised of several distinct clauses.
 
 Let's see three of them in action.
 
-include::intro-examples.txt[]
+include::intro-examples.asciidoc[]
 
 To use Cypher from Java, see <<tutorials-cypher-java>>.
 For more Cypher examples, see <<data-modeling-examples>> as well.

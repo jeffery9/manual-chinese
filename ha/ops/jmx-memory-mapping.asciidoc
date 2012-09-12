@@ -1,0 +1,19 @@
+[[jmx-memory-mapping]]
+.MBean Memory Mapping (org.neo4j.management.MemoryMapping) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|The status of Neo4j memory mapping
+|MemoryPools|Get information about each pool of memory mapped regions from store files with memory mapping enabled|http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/management/WindowPoolInfo.html[org.neo4j.management.WindowPoolInfo][] as http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/CompositeData.html[CompositeData][]|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|The status of Neo4j memory mapping
+|MemoryPools|Get information about each pool of memory mapped regions from store files with memory mapping enabled|org.neo4j.management.WindowPoolInfo[] as CompositeData[]|yes|no
+|===
+endif::nonhtmloutput[]
+

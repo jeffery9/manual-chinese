@@ -1,0 +1,39 @@
+[[jmx-diagnostics]]
+.MBean Diagnostics (org.neo4j.management.Diagnostics) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Diagnostics provided by Neo4j
+|DiagnosticsProviders|A list of the ids for the registered diagnostics providers.|List (java.util.List)|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Diagnostics provided by Neo4j
+|DiagnosticsProviders|A list of the ids for the registered diagnostics providers.|List (java.util.List)|yes|no
+|===
+endif::nonhtmloutput[]
+
+.MBean Diagnostics (org.neo4j.management.Diagnostics) Operations
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|dumpToLog|Dump diagnostics information to the log.|void|(no parameters)
+|dumpToLog|Dump diagnostics information to the log.|void|java.lang.String
+|extract|Operation exposed for management|String|java.lang.String
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|dumpToLog|Dump diagnostics information to the log.|void|(no parameters)
+|dumpToLog|Dump diagnostics information to the log.|void|java.lang.String
+|extract|Operation exposed for management|String|java.lang.String
+|===
+endif::nonhtmloutput[]
+

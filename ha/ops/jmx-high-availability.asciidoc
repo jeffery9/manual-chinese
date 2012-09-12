@@ -1,0 +1,43 @@
+[[jmx-high-availability]]
+.MBean High Availability (org.neo4j.management.HighAvailability) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about an instance participating in a HA cluster
+|ConnectedSlaves|(If this is a master) Information about the instances connected to this instance|http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/management/SlaveInfo.html[org.neo4j.management.SlaveInfo][] as http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/CompositeData.html[CompositeData][]|yes|no
+|InstancesInCluster|Information about all instances in this cluster|http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/management/InstanceInfo.html[org.neo4j.management.InstanceInfo][] as http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/CompositeData.html[CompositeData][]|yes|no
+|LastUpdateTime|The time when the data on this instance was last updated from the master|String|yes|no
+|MachineId|The identifier used to identify this machine in the HA cluster|String|yes|no
+|Master|Whether this instance is master or not|boolean|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about an instance participating in a HA cluster
+|ConnectedSlaves|(If this is a master) Information about the instances connected to this instance|org.neo4j.management.SlaveInfo[] as CompositeData[]|yes|no
+|InstancesInCluster|Information about all instances in this cluster|org.neo4j.management.InstanceInfo[] as CompositeData[]|yes|no
+|LastUpdateTime|The time when the data on this instance was last updated from the master|String|yes|no
+|MachineId|The identifier used to identify this machine in the HA cluster|String|yes|no
+|Master|Whether this instance is master or not|boolean|yes|no
+|===
+endif::nonhtmloutput[]
+
+.MBean High Availability (org.neo4j.management.HighAvailability) Operations
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|update|(If this is a slave) Update the database on this instance with the latest transactions from the master|String|(no parameters)
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|update|(If this is a slave) Update the database on this instance with the latest transactions from the master|String|(no parameters)
+|===
+endif::nonhtmloutput[]
+

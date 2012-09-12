@@ -2,7 +2,7 @@
 Neo4j服务器
 ============
 
-:leveloffset: 3
+:leveloffset: 2
 
 include::server-installation.asciidoc[]
 

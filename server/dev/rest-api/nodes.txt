@@ -1,15 +1,15 @@
 [[rest-api-nodes]]
 == Nodes ==
 
-include::create-node.txt[]
+include::create-node.asciidoc[]
 
-include::create-node-with-properties.txt[]
+include::create-node-with-properties.asciidoc[]
 
-include::get-node.txt[]
+include::get-node.asciidoc[]
 
-include::get-non-existent-node.txt[]
+include::get-non-existent-node.asciidoc[]
 
-include::delete-node.txt[]
+include::delete-node.asciidoc[]
 
-include::nodes-with-relationships-can-not-be-deleted.txt[]
+include::nodes-with-relationships-can-not-be-deleted.asciidoc[]
 

@@ -1,0 +1,29 @@
+[[jmx-transactions]]
+.MBean Transactions (org.neo4j.management.TransactionManager) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the Neo4j transaction manager
+|LastCommittedTxId|The id of the latest committed transaction|long|yes|no
+|NumberOfCommittedTransactions|The total number of committed transactions|long|yes|no
+|NumberOfOpenedTransactions|The total number started transactions|int|yes|no
+|NumberOfOpenTransactions|The number of currently open transactions|int|yes|no
+|NumberOfRolledBackTransactions|The total number of rolled back transactions|long|yes|no
+|PeakNumberOfConcurrentTransactions|The highest number of transactions ever opened concurrently|int|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the Neo4j transaction manager
+|LastCommittedTxId|The id of the latest committed transaction|long|yes|no
+|NumberOf Committed Transactions|The total number of committed transactions|long|yes|no
+|NumberOf Opened Transactions|The total number started transactions|int|yes|no
+|NumberOf Open Transactions|The number of currently open transactions|int|yes|no
+|NumberOf RolledBack Transactions|The total number of rolled back transactions|long|yes|no
+|PeakNumberOf Concurrent Transactions|The highest number of transactions ever opened concurrently|int|yes|no
+|===
+endif::nonhtmloutput[]
+

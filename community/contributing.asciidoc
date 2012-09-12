@@ -15,23 +15,23 @@ Neo4j工程是一个致力于带给我们快速复杂数据存储的开源工程
 
 如果你想在文档方面作贡献，我们非常推荐你先阅读：<<community-docs,社区文档>>。
 
-:leveloffset: 3
+:leveloffset: 2
 
 include::cla.asciidoc[]
 
-:leveloffset: 3
+:leveloffset: 2
 
 include::contribution-areas.asciidoc[]
 
-:leveloffset: 3
+:leveloffset: 2
 
 include::docs.asciidoc[]
 
-:leveloffset: 3
+:leveloffset: 2
 
 include::contributing-code.asciidoc[]
 
-:leveloffset: 3
+:leveloffset: 2
 
 include::contributors.asciidoc[]
 

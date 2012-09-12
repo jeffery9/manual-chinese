@@ -5,26 +5,26 @@ This section is showing how to create some of the http://en.wikipedia.org/wiki/G
 
 :leveloffset: 2
 
-include::star-graph.txt[]
+include::star-graph.asciidoc[]
 
-include::cypher-prettygraphsstar-graph.txt[]
-
-:leveloffset: 2
-
-include::wheel-graph.txt[]
-
-include::cypher-prettygraphswheel-graph.txt[]
+include::cypher-prettygraphsstar-graph.asciidoc[]
 
 :leveloffset: 2
 
-include::complete-graph.txt[]
+include::wheel-graph.asciidoc[]
 
-include::cypher-prettygraphscompletegraph-graph.txt[]
+include::cypher-prettygraphswheel-graph.asciidoc[]
 
 :leveloffset: 2
 
-include::friendship-graph.txt[]
+include::complete-graph.asciidoc[]
 
-include::cypher-prettygraphsfriendshipgraph-graph.txt[]
+include::cypher-prettygraphscompletegraph-graph.asciidoc[]
+
+:leveloffset: 2
+
+include::friendship-graph.asciidoc[]
+
+include::cypher-prettygraphsfriendshipgraph-graph.asciidoc[]
 
 

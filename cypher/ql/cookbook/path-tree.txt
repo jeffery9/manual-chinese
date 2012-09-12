@@ -16,11 +16,11 @@ The graph below depicts a structure with 3 Events being attached to an index str
 
 :leveloffset: 2
 
-include::path-tree-layout.txt[]
+include::path-tree-layout.asciidoc[]
 
-include::return-zero-range.txt[]
+include::return-zero-range.asciidoc[]
 
-include::return-the-full-range.txt[]
+include::return-the-full-range.asciidoc[]
 
-include::return-partly-shared-path-ranges.txt[]
+include::return-partly-shared-path-ranges.asciidoc[]
 

@@ -4,7 +4,7 @@ In this case, the range goes from the first to the last leaf of the index tree. 
 +startPath+ (color +Greenyellow+) and +endPath+  (color +Green+) span up the range, +valuePath+  (color +Blue+) is then connecting the leafs, and the values can
 be read from the +middle+ node, hanging off the +values+ (color +Red+) path.
 
-include::path-tree-layout-full-range.txt[]
+include::path-tree-layout-full-range.asciidoc[]
 
 
 

@@ -1,0 +1,41 @@
+[[jmx-cache-nodecache]]
+.MBean Cache/NodeCache (org.neo4j.management.Cache) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the caching in Neo4j
+|CacheSize|The size of this cache (nr of entities or total size in bytes)|long|yes|no
+|CacheType|The type of cache used by Neo4j|String|yes|no
+|HitCount|The number of times a cache query returned a result|long|yes|no
+|MissCount|The number of times a cache query did not return a result|long|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the caching in Neo4j
+|CacheSize|The size of this cache (nr of entities or total size in bytes)|long|yes|no
+|CacheType|The type of cache used by Neo4j|String|yes|no
+|HitCount|The number of times a cache query returned a result|long|yes|no
+|MissCount|The number of times a cache query did not return a result|long|yes|no
+|===
+endif::nonhtmloutput[]
+
+.MBean Cache/NodeCache (org.neo4j.management.Cache) Operations
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|clear|Clears the Neo4j caches|void|(no parameters)
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|clear|Clears the Neo4j caches|void|(no parameters)
+|===
+endif::nonhtmloutput[]
+

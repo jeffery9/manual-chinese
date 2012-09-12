@@ -3,7 +3,7 @@
 Here, only the events indexed under one leaf (2010-12-31) are returned.
 The query only needs one path segment +rootPath+  (color +Green+) through the index.
 
-include::path-tree-layout-zero-range.txt[]
+include::path-tree-layout-zero-range.asciidoc[]
 
 
 

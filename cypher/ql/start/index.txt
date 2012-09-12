@@ -8,14 +8,14 @@ You can either introduce starting points by id, or by
 index lookups. Note that trying to use an index that doesn't exist will throw
 an exception.
 
-include::cypher-start-graph.txt[]
+include::cypher-start-graph.asciidoc[]
 
-include::node-by-id.txt[]
-include::relationship-by-id.txt[]
-include::multiple-nodes-by-id.txt[]
-include::all-nodes.txt[]
-include::node-by-index-lookup.txt[]
-include::relationship-by-index-lookup.txt[]
-include::node-by-index-query.txt[]
-include::multiple-starting-points.txt[]
+include::node-by-id.asciidoc[]
+include::relationship-by-id.asciidoc[]
+include::multiple-nodes-by-id.asciidoc[]
+include::all-nodes.asciidoc[]
+include::node-by-index-lookup.asciidoc[]
+include::relationship-by-index-lookup.asciidoc[]
+include::node-by-index-query.asciidoc[]
+include::multiple-starting-points.asciidoc[]
 

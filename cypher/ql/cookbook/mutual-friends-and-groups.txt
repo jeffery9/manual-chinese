@@ -3,7 +3,7 @@
 
 :leveloffset: 2
 
-include::cypher-mutualfriendsandgroups-graph.txt[]
+include::cypher-mutualfriendsandgroups-graph.asciidoc[]
 
-include::find-mutual-friends-and-groups.txt[]
+include::find-mutual-friends-and-groups.asciidoc[]
 

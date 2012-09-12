@@ -3,9 +3,9 @@
 
 CAUTION: Batch support is currently _experimental_. Expect this part of the API to change.
 
-include::execute-multiple-operations-in-batch.txt[]
+include::execute-multiple-operations-in-batch.asciidoc[]
 
-include::refer-to-items-created-earlier-in-the-same-batch-job.txt[]
+include::refer-to-items-created-earlier-in-the-same-batch-job.asciidoc[]
 
-include::execute-multiple-operations-in-batch-streaming.txt[]
+include::execute-multiple-operations-in-batch-streaming.asciidoc[]
 

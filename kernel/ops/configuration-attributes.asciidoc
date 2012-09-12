@@ -1,0 +1,311 @@
+.Allow store upgrade
+["configsetting"]
+----
+allow_store_upgrade: false
+Whether to allow a store upgrade in case the current version of the database starts against an older store version. Setting this to true does not guarantee successful upgrade, justthat it allows an attempt at it.
+----
+
+.Array block size
+["configsetting","min"]
+----
+array_block_size: 120
+Specifies the block size for storing arrays. This parameter is only honored when the store is created, otherwise it is ignored. The default block size is 120 bytes, and the overhead of each block is the same as for string blocks, i.e., 8 bytes.
+1
+----
+
+.Backup slave
+["configsetting"]
+----
+backup_slave: false
+Mark this database as a backup slave.
+----
+
+.Cache type
+["configsetting"]
+----
+cache_type: soft
+The type of cache to use for nodes and relationships.
+soft: Provides optimal utilization of the available memory. Suitable for high performance traversal.  May run into GC issues under high load if the frequently accessed parts of the graph does not fit in the cache.
+weak: Use weak reference cache.
+strong: Use strong references.
+none: Don't use caching.
+----
+
+.Cypher parser version
+["configsetting"]
+----
+cypher_parser_version
+Enable this to specify a parser other than the default one.
+1.5: Cypher v1.5 syntax.
+1.6: Cypher v1.6 syntax.
+1.7: Cypher v1.7 syntax.
+----
+
+.Dump configuration
+["configsetting"]
+----
+dump_configuration: false
+Print out the effective Neo4j configuration after startup.
+----
+
+.Forced kernel id
+["configsetting"]
+----
+forced_kernel_id: 
+An identifier that uniquely identifies this graph database instance within this JVM. Defaults to an auto-generated number depending on how many instance are started in this JVM.
+----
+
+.Gc monitor threshold
+["configsetting"]
+----
+gc_monitor_threshold: 200ms
+The amount of time in ms the monitor thread has to be blocked before logging a message it was blocked.
+----
+
+.Gc monitor wait time
+["configsetting"]
+----
+gc_monitor_wait_time: 100ms
+Amount of time in ms the GC monitor thread will wait before taking another measurement.
+----
+
+.Gcr cache min log interval
+["configsetting"]
+----
+gcr_cache_min_log_interval: 60s
+The minimal time that must pass in between logging statistics from the cache (when using the 'gcr' cache).
+----
+
+.Grab file lock
+["configsetting"]
+----
+grab_file_lock: true
+Whether to grab locks on files or not.
+----
+
+.Intercept committing transactions
+["configsetting"]
+----
+intercept_committing_transactions: false
+Determines whether any TransactionInterceptors loaded will intercept prepared transactions before they reach the logical log.
+----
+
+.Intercept deserialized transactions
+["configsetting"]
+----
+intercept_deserialized_transactions: false
+Determines whether any TransactionInterceptors loaded will intercept externally received transactions (e.g. in HA) before they reach the logical log and are applied to the store.
+----
+
+.Keep logical logs
+["configsetting"]
+----
+keep_logical_logs: true
+Make Neo4j keep the logical transaction logs for being able to backup the database.Can be used for specifying the threshold to prune logical logs after. For example "10 days" will prune logical logs that only contains transactions older than 10 days from the current time, or "100k txs" will keep the 100k latest transactions and prune any older transactions.
+----
+
+.Logging.threshold for rotation
+["configsetting","min"]
+----
+logging.threshold_for_rotation: 104857600
+Threshold in bytes for when database logs (text logs, for debugging, that is) are rotated.
+1
+----
+
+.Logical log
+["configsetting"]
+----
+logical_log: nioneo_logical.log
+The base name for the logical log files, either an absolute path or relative to the store_dir setting. This should generally not be changed.
+----
+
+.Lucene searcher cache size
+["configsetting","min"]
+----
+lucene_searcher_cache_size: 2147483647
+Integer value that sets the maximum number of open lucene index searchers.
+1
+----
+
+.Neo store
+["configsetting"]
+----
+neo_store: neostore
+The base name for the Neo4j Store files, either an absolute path or relative to the store_dir setting. This should generally not be changed.
+----
+
+.Neostore.nodestore.db.mapped memory
+["configsetting"]
+----
+neostore.nodestore.db.mapped_memory: 20M
+The size to allocate for memory mapping the node store.
+----
+
+.Neostore.propertystore.db.arrays.mapped memory
+["configsetting"]
+----
+neostore.propertystore.db.arrays.mapped_memory: 130M
+The size to allocate for memory mapping the array property store.
+----
+
+.Neostore.propertystore.db.index.keys.mapped memory
+["configsetting"]
+----
+neostore.propertystore.db.index.keys.mapped_memory: 1M
+The size to allocate for memory mapping the store for property key strings.
+----
+
+.Neostore.propertystore.db.index.mapped memory
+["configsetting"]
+----
+neostore.propertystore.db.index.mapped_memory: 1M
+The size to allocate for memory mapping the store for property key indexes.
+----
+
+.Neostore.propertystore.db.mapped memory
+["configsetting"]
+----
+neostore.propertystore.db.mapped_memory: 90M
+The size to allocate for memory mapping the property value store.
+----
+
+.Neostore.propertystore.db.strings.mapped memory
+["configsetting"]
+----
+neostore.propertystore.db.strings.mapped_memory: 130M
+The size to allocate for memory mapping the string property store.
+----
+
+.Neostore.relationshipstore.db.mapped memory
+["configsetting"]
+----
+neostore.relationshipstore.db.mapped_memory: 100M
+The size to allocate for memory mapping the relationship store.
+----
+
+.Node auto indexing
+["configsetting"]
+----
+node_auto_indexing: false
+Controls the auto indexing feature for nodes. Setting to false shuts it down unconditionally, while true enables it for every property, subject to restrictions in the configuration.
+----
+
+.Node cache array fraction
+["configsetting","minmax"]
+----
+node_cache_array_fraction: 1.0
+The fraction of the heap (1%-10%) to use for the base array in the node cache (when using the 'gcr' cache).
+1.0
+10.0
+----
+
+.Node cache size
+["configsetting"]
+----
+node_cache_size
+The amount of memory to use for the node cache (when using the 'gcr' cache).
+----
+
+.Node keys indexable
+["configsetting"]
+----
+node_keys_indexable
+A list of property names (comma separated) that will be indexed by default. This applies to Nodes only.
+----
+
+.Read only database
+["configsetting"]
+----
+read_only: false
+Only allow read operations from this Neo4j instance.
+----
+
+.Rebuild idgenerators fast
+["configsetting"]
+----
+rebuild_idgenerators_fast: true
+Use a quick approach for rebuilding the ID generators. This give quicker recovery time, but will limit the ability to reuse the space of deleted entities.
+----
+
+.Relationship auto indexing
+["configsetting"]
+----
+relationship_auto_indexing: false
+Controls the auto indexing feature for relationships. Setting to false shuts it down unconditionally, while true enables it for every property, subject to restrictions in the configuration.
+----
+
+.Relationship cache array fraction
+["configsetting","minmax"]
+----
+relationship_cache_array_fraction: 1.0
+The fraction of the heap (1%-10%) to use for the base array in the relationship cache (when using the 'gcr' cache).
+1.0
+10.0
+----
+
+.Relationship cache size
+["configsetting"]
+----
+relationship_cache_size
+The amount of memory to use for the relationship cache (when using the 'gcr' cache).
+----
+
+.Relationship keys indexable
+["configsetting"]
+----
+relationship_keys_indexable
+ A list of property names (comma separated) that will be indexed by default. This applies to Relationships only.
+----
+
+.Remote logging enabled
+["configsetting"]
+----
+remote_logging_enabled: false
+Whether to enable logging to a remote server or not.
+----
+
+.Remote logging host
+["configsetting"]
+----
+remote_logging_host: 127.0.0.1
+Host for remote logging using LogBack SocketAppender.
+----
+
+.Remote logging port
+["configsetting","minmax"]
+----
+remote_logging_port: 4560
+Port for remote logging using LogBack SocketAppender.
+1
+65535
+----
+
+.Store dir
+["configsetting"]
+----
+store_dir
+The directory where the database files are located.
+----
+
+.String block size
+["configsetting","min"]
+----
+string_block_size: 120
+Specifies the block size for storing strings. This parameter is only honored when the store is created, otherwise it is ignored. Note that each character in a string occupies two bytes, meaning that a block size of 120 (the default size) will hold a 60 character long string before overflowing into a second block. Also note that each block carries an overhead of 8 bytes. This means that if the block size is 120, the size of the stored records will be 128 bytes.
+1
+----
+
+.Tx manager impl
+["configsetting"]
+----
+tx_manager_impl
+The name of the Transaction Manager service to use as defined in the TM service provider constructor, defaults to native.
+----
+
+.Use memory mapped buffers
+["configsetting"]
+----
+use_memory_mapped_buffers
+Tell Neo4j to use memory mapped buffers for accessing the native storage layer.
+----
+

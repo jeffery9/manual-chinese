@@ -3,9 +3,9 @@
 
 Imagine an example graph like the following one:
 
-include::cypher-collabfiltering-graph.txt[]
+include::cypher-collabfiltering-graph.asciidoc[]
 
 :leveloffset: 2
 
-include::simple-friend-finder.txt[]
+include::simple-friend-finder.asciidoc[]
 

@@ -28,7 +28,7 @@
 
 === 我们可以讨论一些CLA里面的条款吗？ ===
 
-绝对可以的！请告诉我们你的反馈！But let's keep the legalese off the mailing lists。请把你的反馈信息直接发送邮件到cla@neotechnology.com，我们会尽快回复你的。
+绝对可以的！请告诉我们你的反馈！But let's keep the legalese off the mailing lists。请把你的反馈信息直接发送邮件到 cla@neotechnology.com[cla@neotechnology.com]，我们会尽快回复你的。
 
 === 我仍然不喜欢CLA协议。 ===
 

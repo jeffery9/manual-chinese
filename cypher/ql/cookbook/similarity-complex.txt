@@ -3,7 +3,7 @@
 
 :leveloffset: 2
 
-include::calculate-similarities-by-complex-calculations.txt[]
+include::calculate-similarities-by-complex-calculations.asciidoc[]
 
-include::cypher-complexsimilarity-graph.txt[]
+include::cypher-complexsimilarity-graph.asciidoc[]
 

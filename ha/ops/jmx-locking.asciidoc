@@ -1,0 +1,37 @@
+[[jmx-locking]]
+.MBean Locking (org.neo4j.management.LockManager) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the Neo4j lock status
+|Locks|Information about all locks held by Neo4j|java.util.List<http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/kernel/info/LockInfo.html[org.neo4j.kernel.info.LockInfo]> as http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/CompositeData.html[CompositeData][]|yes|no
+|NumberOfAdvertedDeadlocks|The number of lock sequences that would have lead to a deadlock situation that Neo4j has detected and adverted (by throwing DeadlockDetectedException).|long|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the Neo4j lock status
+|Locks|Information about all locks held by Neo4j|java.util.List<org.neo4j.kernel.info.LockInfo> as CompositeData[]|yes|no
+|NumberOf AdvertedDeadlocks|The number of lock sequences that would have lead to a deadlock situation that Neo4j has detected and adverted (by throwing DeadlockDetectedException).|long|yes|no
+|===
+endif::nonhtmloutput[]
+
+.MBean Locking (org.neo4j.management.LockManager) Operations
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|getContendedLocks|getContendedLocks|java.util.List<http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/kernel/info/LockInfo.html[org.neo4j.kernel.info.LockInfo]> as http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/CompositeData.html[CompositeData][]|long
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,40,20m,20m"]
+|===
+|Name|Description|ReturnType|Signature
+|getContendedLocks|getContendedLocks|java.util.List<org.neo4j.kernel.info.LockInfo> as CompositeData[]|long
+|===
+endif::nonhtmloutput[]
+

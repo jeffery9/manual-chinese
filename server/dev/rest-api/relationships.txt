@@ -11,30 +11,30 @@ GET http://localhost:7474/db/data/node/123/relationships/{dir}/{-list|&|types}
 Where +dir+ is one of +all+, +in+, +out+ and +types+ is an ampersand-separated list of types.
 See the examples below for more information.
 
-include::get-relationship-by-id.txt[]
+include::get-relationship-by-id.asciidoc[]
 
-include::create-relationship.txt[]
+include::create-relationship.asciidoc[]
 
-include::create-a-relationship-with-properties.txt[]
+include::create-a-relationship-with-properties.asciidoc[]
 
-include::delete-relationship.txt[]
+include::delete-relationship.asciidoc[]
 
-include::get-all-properties-on-a-relationship.txt[]
+include::get-all-properties-on-a-relationship.asciidoc[]
 
-include::set-all-properties-on-a-relationship.txt[]
+include::set-all-properties-on-a-relationship.asciidoc[]
 
-include::get-single-property-on-a-relationship.txt[]
+include::get-single-property-on-a-relationship.asciidoc[]
 
-include::set-single-property-on-a-relationship.txt[]
+include::set-single-property-on-a-relationship.asciidoc[]
 
-include::get-all-relationships.txt[]
+include::get-all-relationships.asciidoc[]
 
-include::get-incoming-relationships.txt[]
+include::get-incoming-relationships.asciidoc[]
 
-include::get-outgoing-relationships.txt[]
+include::get-outgoing-relationships.asciidoc[]
 
-include::get-typed-relationships.txt[]
+include::get-typed-relationships.asciidoc[]
 
-include::get-relationships-on-a-node-without-relationships.txt[]
+include::get-relationships-on-a-node-without-relationships.asciidoc[]
 
 

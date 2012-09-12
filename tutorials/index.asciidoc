@@ -8,35 +8,35 @@
 它将从最简单的Hello World到图数据库的高级应用逐一介绍。
 --
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/examples/index.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/cypher/java/index.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::rest.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/examples/traversal-framework.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/examples/data-modeling-examples.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::languages.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/python-embedded/tutorial/index.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/server/dev/index.asciidoc[]
 

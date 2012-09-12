@@ -439,7 +439,7 @@ tag=getStartTime
 
 [source]
 ------------------------------
-include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[]
+include::{docdir}/examples/examples/hello-world-sample-chapter.asciidoc[]
 ------------------------------
 
 这个文件通过下面的代码被引入到这个文档中：
@@ -447,14 +447,14 @@ include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[]
 [source]
 ----
   :leveloffset: 3
-  include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[] 
+  include::{docdir}/examples/examples/hello-world-sample-chapter.asciidoc[] 
 ----
 
 输出结果：
 
 :leveloffset: 3
 
-include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[]
+include::{docdir}/examples/examples/hello-world-sample-chapter.asciidoc[]
 
 :leveloffset: 2
 

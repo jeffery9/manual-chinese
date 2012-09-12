@@ -5,23 +5,23 @@
 
 Neo4j一些工具说明包括在下面页面中。
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/server/man/neo4j.1.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/shell/man/neo4j-shell.1.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
-include::{docdir}/shell/man/neo4j-backup.1.asciidoc[]
+include::{docdir}/backup/man/neo4j-backup.1.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/server/man/neo4j-coordinator.1.asciidoc[]
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::{docdir}/server/man/neo4j-coordinator-shell.1.asciidoc[]
 

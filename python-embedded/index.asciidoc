@@ -8,7 +8,7 @@ Python嵌入绑定
 
 这个工程在GitHub上面的源代码地址： https://github.com/neo4j/python-embedded
 
-:leveloffset: 2
+:leveloffset: 1
 
 include::installation.asciidoc[]
 

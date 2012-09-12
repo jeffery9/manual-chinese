@@ -101,11 +101,11 @@ $ neo4j-shell -c "trav -r KNOWS" | less
 参数是没有 +-+ 前缀的字符串。
 让我们把 +ls+ 作为一个范例看看：
 
-+ls -r -f KNOWS:out -v 12345+ 将生成一个带有输出关系 +KNOWS+ 的节点 +12345+'关联的节点详细列表。
++ls -r -f KNOWS:out -v 12345+ 将生成一个带有输出关系 +KNOWS+ 的节点 +12345+' 关联的节点详细列表。
 节点， +12345+，是 +ls+ 的一个参数，告诉它是要显示这个指定的节点而不是当前节点（默认是当前节点，使用命令： +pwd+ 查看当前节点）。
 然而这个也有一个简短的版本：
 
-+ls -rfv KNOWS:out 12345+。这儿三个选项都写在一个单独的前缀 '+-+' 后面合并在一起的。
++ls -rfv KNOWS:out 12345+ 。这儿三个选项都写在一个单独的前缀 '+-+' 后面合并在一起的。
 虽然 +f+ 在中间，它也知道是 +KNOWS:out+ 需要的值。
 这是因为  +ls+命令的选项 +r+ 或者 +v+ 并不期望任何值。
 因此，它能推断出正确的选项和对应的值。
@@ -304,7 +304,7 @@ public class LsRelTypes extends GraphDatabaseApp
 [[shell-sample-session]]
 == 一个Shell会话范例 ==
 
-include::shell/sample-session.txt[]
+include::shell/sample-session.asciidoc[]
 
 [[shell-matrix-example]]
 == 黑客帝国范例 ==

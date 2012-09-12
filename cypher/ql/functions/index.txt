@@ -5,7 +5,7 @@ Most functions in Cypher will return +null+ if the input parameter is +null+.
 
 Here is a list of the functions in Cypher, seperated into three different sections: Predicates, Scalar functions and Aggregated functions
 
-include::cypher-functions-graph.txt[]
+include::cypher-functions-graph.asciidoc[]
 
 :leveloffset: 2
 
@@ -15,10 +15,10 @@ They are most commonly used to filter out subgraphs in the +WHERE+ part of a que
 
 :leveloffset: 3
 
-include::all.txt[]
-include::any.txt[]
-include::none.txt[]
-include::single.txt[]
+include::all.asciidoc[]
+include::any.asciidoc[]
+include::none.asciidoc[]
+include::single.asciidoc[]
 
 :leveloffset: 2
 
@@ -27,12 +27,12 @@ Scalar functions return a single value.
 
 :leveloffset: 3
 
-include::length.txt[]
-include::type.txt[]
-include::id.txt[]
-include::coalesce.txt[]
-include::head.txt[]
-include::last.txt[]
+include::length.asciidoc[]
+include::type.asciidoc[]
+include::id.asciidoc[]
+include::coalesce.asciidoc[]
+include::head.asciidoc[]
+include::last.asciidoc[]
 
 :leveloffset: 2
 
@@ -41,12 +41,12 @@ Collection functions return collections of things -- nodes in a path, and so on.
 
 :leveloffset: 3
 
-include::nodes.txt[]
-include::relationships.txt[]
-include::extract.txt[]
-include::filter.txt[]
-include::tail.txt[]
-include::range.txt[]
+include::nodes.asciidoc[]
+include::relationships.asciidoc[]
+include::extract.asciidoc[]
+include::filter.asciidoc[]
+include::tail.asciidoc[]
+include::range.asciidoc[]
 
 :leveloffset: 2
 
@@ -56,7 +56,7 @@ error if used on any other values.
 
 :leveloffset: 3
 
-include::abs.txt[]
-include::round.txt[]
-include::sqrt.txt[]
-include::sign.txt[]
+include::abs.asciidoc[]
+include::round.asciidoc[]
+include::sqrt.asciidoc[]
+include::sign.asciidoc[]

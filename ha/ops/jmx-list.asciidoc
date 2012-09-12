@@ -1,0 +1,37 @@
+[[jmx-list]]
+.MBeans exposed by Neo4j
+ifndef::nonhtmloutput[]
+[options="header", cols="m,"]
+|===
+|Name|Description
+|<<jmx-branched-store,Branched Store>>|Information about the branched stores present in this HA cluster member
+|<<jmx-cache-nodecache,Cache/NodeCache>>|Information about the caching in Neo4j
+|<<jmx-cache-relationshipcache,Cache/RelationshipCache>>|Information about the caching in Neo4j
+|<<jmx-configuration,Configuration>>|The configuration parameters used to configure Neo4j
+|<<jmx-diagnostics,Diagnostics>>|Diagnostics provided by Neo4j
+|<<jmx-high-availability,High Availability>>|Information about an instance participating in a HA cluster
+|<<jmx-kernel,Kernel>>|Information about the Neo4j kernel
+|<<jmx-locking,Locking>>|Information about the Neo4j lock status
+|<<jmx-memory-mapping,Memory Mapping>>|The status of Neo4j memory mapping
+|<<jmx-primitive-count,Primitive count>>|Estimates of the numbers of different kinds of Neo4j primitives
+|<<jmx-store-file-sizes,Store file sizes>>|Information about the sizes of the different parts of the Neo4j graph store
+|<<jmx-transactions,Transactions>>|Information about the Neo4j transaction manager
+|<<jmx-xa-resources,XA Resources>>|Information about the XA transaction manager
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+* <<jmx-branched-store,Branched Store>>: Information about the branched stores present in this HA cluster member
+* <<jmx-cache-nodecache,Cache/NodeCache>>: Information about the caching in Neo4j
+* <<jmx-cache-relationshipcache,Cache/RelationshipCache>>: Information about the caching in Neo4j
+* <<jmx-configuration,Configuration>>: The configuration parameters used to configure Neo4j
+* <<jmx-diagnostics,Diagnostics>>: Diagnostics provided by Neo4j
+* <<jmx-high-availability,High Availability>>: Information about an instance participating in a HA cluster
+* <<jmx-kernel,Kernel>>: Information about the Neo4j kernel
+* <<jmx-locking,Locking>>: Information about the Neo4j lock status
+* <<jmx-memory-mapping,Memory Mapping>>: The status of Neo4j memory mapping
+* <<jmx-primitive-count,Primitive count>>: Estimates of the numbers of different kinds of Neo4j primitives
+* <<jmx-store-file-sizes,Store file sizes>>: Information about the sizes of the different parts of the Neo4j graph store
+* <<jmx-transactions,Transactions>>: Information about the Neo4j transaction manager
+* <<jmx-xa-resources,XA Resources>>: Information about the XA transaction manager
+endif::nonhtmloutput[]
+

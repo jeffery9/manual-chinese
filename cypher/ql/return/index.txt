@@ -5,14 +5,14 @@ Return
 In the `RETURN` part of your query, you define which parts of the pattern you are
 interested in. It can be nodes, relationships, or properties on these.
 
-include::cypher-return-graph.txt[]
+include::cypher-return-graph.asciidoc[]
 
-include::return-nodes.txt[]
-include::return-relationships.txt[]
-include::return-property.txt[]
-include::return-all-elements.txt[]
-include::identifier-with-uncommon-characters.txt[]
-include::column-alias.txt[]
-include::optional-properties.txt[]
-include::unique-results.txt[]
+include::return-nodes.asciidoc[]
+include::return-relationships.asciidoc[]
+include::return-property.asciidoc[]
+include::return-all-elements.asciidoc[]
+include::identifier-with-uncommon-characters.asciidoc[]
+include::column-alias.asciidoc[]
+include::optional-properties.asciidoc[]
+include::unique-results.asciidoc[]
 

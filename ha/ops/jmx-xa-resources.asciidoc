@@ -1,0 +1,19 @@
+[[jmx-xa-resources]]
+.MBean XA Resources (org.neo4j.management.XaManager) Attributes
+ifndef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the XA transaction manager
+|XaResources|Information about all XA resources managed by the transaction manager|http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/management/XaResourceInfo.html[org.neo4j.management.XaResourceInfo][] as http://docs.oracle.com/javase/6/docs/api/javax/management/openmbean/CompositeData.html[CompositeData][]|yes|no
+|===
+endif::nonhtmloutput[]
+ifdef::nonhtmloutput[]
+[options="header", cols="20m,36,20m,7,7"]
+|===
+|Name|Description|Type|Read|Write
+5.1+^e|Information about the XA transaction manager
+|XaResources|Information about all XA resources managed by the transaction manager|org.neo4j.management.XaResourceInfo[] as CompositeData[]|yes|no
+|===
+endif::nonhtmloutput[]
+

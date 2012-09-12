@@ -20,9 +20,9 @@
 
 -->
 <authorgroup>
-  <corpauthor>The Neo4j Team
-    <ulink url="http://neo4j.org/"><citetitle>neo4j.org</citetitle></ulink>
-    <ulink url="http://www.neotechnology.com/"><citetitle>www.neotechnology.com</citetitle></ulink>
+  <corpauthor>Neo4j汉化团队
+    <ulink url="http://www.neo4j.org.cn/"><citetitle>Neo4j中文站</citetitle></ulink>
+    <ulink url="http://www.neo4j.org/"><citetitle>Neo4j官方</citetitle></ulink>
   </corpauthor>
 </authorgroup>
 
@@ -31,6 +31,7 @@
   <holder>Neo Technology</holder>
 </copyright>
 
+<!--
 <abstract>
   <title>Starting points</title>
   <para>
@@ -40,7 +41,7 @@
           <link linkend="preface">preface</link>
         </para>
       </listitem>
-      <!--
+      
       <listitem>
         <para>
           <link linkend="cypher-query-lang">Cypher Query Language</link>
@@ -76,10 +77,12 @@
           <link linkend="rest-api">REST API</link>
         </para>
       </listitem>
-      -->
+      
+      
     </itemizedlist>
   </para>
 </abstract>
+
 
 <legalnotice>
   <title>License: Creative Commons 3.0</title>
@@ -134,4 +137,4 @@
     </simpara>
   </note>
 </legalnotice>
-
+-->

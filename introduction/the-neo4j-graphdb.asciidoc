@@ -198,10 +198,9 @@ Primitive [shape="record" label="Primitive |{boolean|byte|short|int|long|float|d
 Neo4j提供了遍历的API，可以让你指定遍历规则。
 最简单的设置就是设置遍历是宽度优先还是深度优先。
 
-想对遍历框架有一个深入的了解，请参考章节：tutorial-traversal。
+想对遍历框架有一个深入的了解，请参考章节：<<tutorial-traversal>>。
 
-想了解更多的Java代码范例，请参考章节：tutorials-java-embedded-traversal。
+想了解更多的Java代码范例，请参考章节：<<tutorials-java-embedded-traversal>>。
 
-其他查询图的方式还有cypher-query-lang, Cypher和gremlin-plugin, Gremlin。
-
+其他查询图的方式还有<<cypher-query-lang, Cypher>>和<<gremlin-plugin, Gremlin>>。
 

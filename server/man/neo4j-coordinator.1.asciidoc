@@ -1,28 +1,28 @@
-neo4j-coordinator
-=================
+NEO4J-COORDINATOR(1)
+====================
 :author: The Neo4j Team
 
 名称
---
-neo4j-coordinator - 为Neo4j的高可用性集群提供的协调员
+----
+neo4j-coordinator - Neo4j Coordinator for High-Availability clusters
 
 
 [[neo4j-coordinator-manpage]]
-语法
---
+SYNOPSIS
+--------
 
 *neo4j-coordinator* <command>
 
 [[neo4j-coordinator-manpage-description]]
-描述
---
+DESCRIPTION
+-----------
 Neo4j Coordinator is a server which provides coordination for a Neo4j High Availability Data cluster.
 A "coordination cluster" must be started and available before the "data cluster" can be started. 
 This server is a member of the cluster.
 
 [[neo4j-coordinator-manpage-commands]]
-命令
---
+COMMANDS
+--------
 
 *console*::
   Start the server as an application, running as a foreground proces. Stop the server using `CTRL-C`.
@@ -46,8 +46,8 @@ This server is a member of the cluster.
   Uninstalls the system service
 
 [[neo4j-coordinator-manpage-files]]
-涉及到的相关配置文件
-----------
+FILES
+-----
 
 *conf/coord.cfg*::
   Coordination server configuration.

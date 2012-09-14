@@ -34,7 +34,7 @@ CHUNKEDSHORTINFOTARGET = $(BUILDDIR)/$(PROJECTNAME)-html.chunked
 MANPAGES         = $(BUILDDIR)/manpages
 UPGRADE          = $(BUILDDIR)/upgrade
 EXTENSIONSRC     = $(TOOLSDIR)/bin/extensions
-EXTENSIONDEST    = ~/.asciidoc
+EXTENSIONDEST    = $(HOME)/.asciidoc
 ASCIDOCDIR       = $(TOOLSDIR)/bin/asciidoc
 ASCIIDOC         = $(ASCIDOCDIR)/asciidoc.py
 A2X              = $(ASCIDOCDIR)/a2x.py
@@ -130,6 +130,7 @@ installextensions: initialize
 	#
 	mkdir -p $(EXTENSIONDEST)
 	cp -fr "$(EXTENSIONSRC)/"* $(EXTENSIONDEST)
+	cp "$(CONFDIR)/queryresult.py" "$(EXTENSIONDEST)/filters/queryresult/"
 
 simple-asciidoc: initialize installextensions
 	#
@@ -193,9 +194,9 @@ docbook-html:  manpages copyimages
 	# Checking for missing include files.
 	# Checking DocBook validity.
 	#
-	#
+	# --attribute lang=cn
 	mkdir -p "$(BUILDDIR)"
-	"$(ASCIIDOC)" $(ASCIIDOC_FLAGS) --backend docbook --attribute lang=cn --attribute docinfo1 --attribute console=1 --doctype book --conf-file="$(CONFDIR)/asciidoc.conf" --conf-file="$(CONFDIR)/docbook45.conf" --conf-file="$(CONFDIR)/linkedimages.conf" --out-file "$(DOCBOOKFILEHTML)" "$(SRCFILE)" 2>&1 | "$(SCRIPTDIR)/outputcheck-includefiles.sh"
+	"$(ASCIIDOC)" $(ASCIIDOC_FLAGS) --backend docbook --attribute docinfo1 --attribute console=1 --doctype book --conf-file="$(CONFDIR)/asciidoc.conf" --conf-file="$(CONFDIR)/docbook45.conf" --conf-file="$(CONFDIR)/linkedimages.conf" --out-file "$(DOCBOOKFILEHTML)" "$(SRCFILE)" 2>&1 | "$(SCRIPTDIR)/outputcheck-includefiles.sh"
 	xmllint --nonet --noout --xinclude --postvalid "$(DOCBOOKFILEHTML)"
 
 offline-html:  manpages copyimages docbook-html

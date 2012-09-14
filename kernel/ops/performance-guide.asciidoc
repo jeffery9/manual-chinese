@@ -1,7 +1,7 @@
 
 [[performance-guide]]
-Performance Guide
-=================
+性能向导
+====
 
 This is the Neo4j performance guide. It will attempt to guide you in how to use Neo4j to achieve maximum performance.
 
@@ -102,7 +102,7 @@ Another source of writes slow down can be the transaction size. Many small
 transactions result in a lot of I/O writes to disc and should be avoided. 
 Too big transactions can result in OutOfMemory errors, since the uncommitted 
 transaction data is held on the Java Heap in memory. On details about transaction 
-management in Neo4j, please read the <<transactions>> guidelines.
+management in Neo4j, please read the ##transactions## guidelines.
 
 The Neo4j kernel makes use of several store files and a logical log file 
 to store the graph on disk. The store files contain the actual graph and the 

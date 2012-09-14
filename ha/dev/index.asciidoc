@@ -1,6 +1,6 @@
 [[ha]]
-High Availability
-=================
+高可用性
+====
 
 NOTE: The High Availability features are only available in the Neo4j Enterprise Edition.
 
@@ -10,7 +10,7 @@ Neo4j High Availability or “Neo4j HA” provides the following two main featur
   This allows the end-user system to be fully functional and both read and write to the database in the event of hardware failure.
 . It enables a _horizontally scaling read-mostly architecture_ that enables the system to handle more read load than a single Neo4j database instance can handle.
 
-:leveloffset: 1
+:leveloffset: 2
 
 include::architecture.asciidoc[]
 

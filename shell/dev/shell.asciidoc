@@ -1,7 +1,7 @@
 
 [[shell]]
-Neo4j Shell
-===========
+Neo4j命令行
+========
 // 如果你只是想看看范例请参考：<<shell-example>>，否则请继续阅读。
 
 Neo4j shell是一个用来浏览图数据库的命令行shell，就像在Unix Shell中你可以使用像 +cd+, +ls+ 和 +pwd+来浏览你的本地文件系统一样。
@@ -33,7 +33,7 @@ Neo4j shell是一个用来浏览图数据库的命令行shell，就像在Unix Sh
 [[shell-enabling-remote]]
 === 使能Shell服务器 ===
 
-Shell从Neo4j内核配置中设置是否启动，请参考：<<server-configuration,服务器配置>>。
+Shell从Neo4j内核配置中设置是否启动，请参考：##server-configuration,服务器配置##。
 这儿是一个范例配置：
 
 [source,plain]
@@ -44,7 +44,7 @@ enable_remote_shell = true
 enable_remote_shell = port=1234
 ----
 
-当使用Neo4j服务器时，看<<server-configuration,服务器配置>>了解如何在这种情况下新增配置设置。
+当使用Neo4j服务器时，看##server-configuration,服务器配置##了解如何在这种情况下新增配置设置。
 
 有两个方法启动Shell，要么是连接到一个远端Shell服务器又或者直接指向一个Neo4j的存储路径。
 

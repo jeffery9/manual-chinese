@@ -1,6 +1,6 @@
 [[configuration-caches]]
-Caches in Neo4j
-=============
+Neo4j的缓存设置
+==========
 
 For how to provide custom configuration to Neo4j, see <<configuration-introduction>>.
 

@@ -4,7 +4,7 @@
 
 在各种云服务上的Neo4j，要么是用户自己建立的，要么是Neo Technology云。下面是关于这些的介绍。
 
-== Heroku ==
+= Heroku =
 
 了解一个基本的安装设置，请参考：https://devcenter.heroku.com/articles/quickstart[the Heroku 快速入门教程]。
 

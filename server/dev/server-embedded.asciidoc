@@ -1,6 +1,6 @@
 [[server-embedded]]
-Using the server (with web interface) with an embedded database
-===============================================================
+使用Neo4j服务器（带Web管理控制台）连接一个Neo4j嵌入数据库
+===================================
 
 Even if you are using the Neo4j Java API directly, for instance via +EmbeddedGraphDatabase+ or +HighlyAvailableGraphDatabase+, you can still use the features the server provides.
 
@@ -95,12 +95,12 @@ tag=usingWrappingNeoServerBootstrapper
 classifier=test-sources
 ----
 
-Once you have the server up and running, see <<tools-webadmin>> and <<rest-api>> for how to use it!
+Once you have the server up and running, see <<tools-webadmin>> and ##rest-api## for how to use it!
 
 == Providing custom configuration ==
 
 You can modify the server settings programmatically and, within reason, the same settings
-are available to you here as those outlined in <<server-configuration>>.
+are available to you here as those outlined in ##server-configuration##.
 
 The settings that are not available (or rather, that are ignored) are those that concern
 the underlying database, such as database location and database configuration path.

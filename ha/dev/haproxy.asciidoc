@@ -1,6 +1,6 @@
 [[ha-haproxy]]
-Setting up HAProxy as a load balancer
-=======================================
+安装HAProxy作为一个负载均衡器
+==================
 
 In the Neo4j HA architecture, the cluster is typically fronted by a load balancer. In this section we will explore
 how to set up HAProxy to perform load balancing across the HA cluster.

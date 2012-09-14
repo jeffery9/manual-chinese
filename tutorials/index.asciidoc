@@ -10,11 +10,10 @@
 
 :leveloffset: 1
 
-include::{docdir}/examples/index.asciidoc[]
+include::{docdir}/examples/dev/index.asciidoc[]
 
-:leveloffset: 1
-
-include::{docdir}/cypher/java/index.asciidoc[]
+:leveloffset: 2
+include::{docdir}/cypher/dev/java/index.asciidoc[]
 
 :leveloffset: 1
 
@@ -22,11 +21,11 @@ include::rest.asciidoc[]
 
 :leveloffset: 1
 
-include::{docdir}/examples/traversal-framework.asciidoc[]
+include::{docdir}/examples/dev/traversal-framework.asciidoc[]
 
 :leveloffset: 1
 
-include::{docdir}/examples/data-modeling-examples.asciidoc[]
+include::{docdir}/examples/dev/data-modeling-examples.asciidoc[]
 
 :leveloffset: 1
 
@@ -34,11 +33,9 @@ include::languages.asciidoc[]
 
 :leveloffset: 1
 
-include::{docdir}/python-embedded/tutorial/index.asciidoc[]
+include::{docdir}/python-embedded/dev/tutorial/index.asciidoc[]
 
 :leveloffset: 1
 
-include::{docdir}/server/dev/index.asciidoc[]
-
-
+include::{docdir}/server-examples/dev/index.asciidoc[]
 

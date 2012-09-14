@@ -10,7 +10,7 @@
 - 浏览管理对象(JMX MBeans)
 
 在你安装了<<server,Neo4j服务器>>后，这个工具可以通过地址： http://127.0.0.1:7474/ 访问。
-要使用它与嵌入模式的Neo4j图数据库交互，请参考：<<server-embedded>>。
+要使用它与嵌入模式的Neo4j图数据库交互，请参考：##server-embedded##。
 
 [[webadmin-dashboard]]
 == 仪表盘选项 ==
@@ -51,7 +51,7 @@ image::operations/webadmin-databrowser.png["节点属性", scaledwidth="75%"]
 控制面板可以让你：
 
 * 通过http://gremlin.tinkerpop.com[Gremlin]脚本引擎访问数据库。
-* 通过<<cypher-query-lang,Cypher>>查询数据。
+* 通过##cypher-query-lang,Cypher##查询数据。
 * 通过HTTP控制台进行HTTP请求。
 
 .使用Gremlin遍历数据
@@ -72,7 +72,7 @@ image::operations/webadmin-console-http.png["通过HTTP进行交互", scaledwidt
 [[webadmin-serverinfo]]
 == 服务器信息面板 ==
 
-服务器信息面板提供访问所有的管理对象（详细的细节请参考：<<operations-monitoring>>）。
+服务器信息面板提供访问所有的管理对象（详细的细节请参考：##operations-monitoring##）。
 
 
 .JMX 属性

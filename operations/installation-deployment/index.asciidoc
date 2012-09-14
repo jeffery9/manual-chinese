@@ -1,6 +1,6 @@
 [[deployment]]
-Installation & Deployment
-=========================
+安装和部署
+=====
 
 :leveloffset: 2
 
@@ -16,9 +16,8 @@ include::installation.asciidoc[]
 
 :leveloffset: 2
 
-include::{importdir}/neo4j-docs-jar/ops/upgrades.asciidoc[]
+include::upgrades.asciidoc[]
 
 :leveloffset: 2
 
-include::{importdir}/neo4j-udc-docs-jar/ops/index.asciidoc[]
-
+include::{docdir}/udc/ops/index.asciidoc[]

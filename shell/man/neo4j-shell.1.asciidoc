@@ -1,3 +1,4 @@
+[[command-neo4j-shell]]
 neo4j-shell
 ===========
 :author: The Neo4j Team

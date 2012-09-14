@@ -28,7 +28,7 @@
 
 === 我们可以讨论一些CLA里面的条款吗？ ===
 
-绝对可以的！请告诉我们你的反馈！But let's keep the legalese off the mailing lists。请把你的反馈信息直接发送邮件到 cla@neotechnology.com[cla@neotechnology.com]，我们会尽快回复你的。
+绝对可以的！请告诉我们你的反馈！But let's keep the legalese off the mailing lists。请把你的反馈信息直接发送邮件到 cla (@t) neotechnology.com，我们会尽快回复你的。
 
 === 我仍然不喜欢CLA协议。 ===
 
@@ -36,7 +36,7 @@
 
 ==  如何签署CLA协议 ==
 
-当你已经阅读完了CLA，请你发送一份邮件到：cla@neotechnology.com。包括下面一些信息：
+当你已经阅读完了CLA，请你发送一份邮件到：cla (@t) neotechnology.com。包括下面一些信息：
 
 * 你的完整姓名（包括中文名和英文名）。
 * 你的常用电子邮件。

@@ -32,16 +32,17 @@ include::tutorials/index.asciidoc[]
 
 ///////////////////
 参考
-:leveloffset: 0
-include::reference/index.asciidoc[]
 ///////////////////
+:leveloffset: 0
 
+include::reference/index.asciidoc[]
 
 ///////////////////
 操作
-:leveloffset: 0
-include::operations/index.asciidoc[]
 ///////////////////
+:leveloffset: 0
+
+include::operations/index.asciidoc[]
 
 ///////////////////
 工具

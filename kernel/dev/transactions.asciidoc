@@ -1,6 +1,6 @@
 [[transactions]]
-Transaction Management
-======================
+事务管理
+====
 
 In order to fully maintain data integrity and ensure good transactional behavior, Neo4j supports the ACID properties:
 

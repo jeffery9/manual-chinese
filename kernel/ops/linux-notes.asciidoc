@@ -1,6 +1,6 @@
 [[configuration-linux-notes]]
-Linux specific notes
-====================
+Linux特有的注意事项
+============
 
 == File system tuning for high IO ==
 

@@ -1,6 +1,6 @@
 [[configuration-io-examples]]
-Memory mapped IO settings
-=========================
+内存I映射配置
+=======
 
 Each file in the Neo4j store can use memory mapped I/O for reading/writing.
 Best performance is achieved if the full file can be memory mapped but if 
@@ -72,7 +72,7 @@ neostore.propertystore.db.arrays.mapped_memory=0M
 [[configuration-batchinsert]]
 == Batch insert example ==
 
-Read general information on batch insertion in <<batchinsert>>.
+Read general information on batch insertion in ##batchinsert##.
 
 The configuration should suit the data set you are about to inject using BatchInsert. Lets say we have a random-like graph with 10M nodes and 100M relationships. Each node (and maybe some relationships) have different properties of string and Java primitive types (but no arrays). The important thing with a random graph will be to give lots of memory to the relationship and node store:
 

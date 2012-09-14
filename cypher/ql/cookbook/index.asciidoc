@@ -1,7 +1,0 @@
-
-:leveloffset: 1
-
-include::linked-list.asciidoc[]
-
-
-

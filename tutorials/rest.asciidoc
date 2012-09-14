@@ -6,10 +6,14 @@ Neo4j远程客户端库
 
 要获取更多信息，请浏览下面的介绍。
 
+:leveloffset: 2
+
 include::{docdir}/community/rest-clients.asciidoc[]
 
 :leveloffset: 2
 
-include::{docdir}/server-examples/server-java-rest-client.asciidoc[]
+include::{docdir}/server-examples/dev/server-java-rest-client.asciidoc[]
+
+
 
 

@@ -1,13 +1,13 @@
 [[capabilities]]
-Capabilities
-============
+性能
+==
 
 /////////
 Details, originally contained in the capabilities document.
 /////////
 
 [[capabilities-data-security]]
-== Data Security ==
+== 数据安全性 ==
 
 Some data may need to be protected from unauthorized access (e.g., theft, modification). 
 Neo4j does not deal with data encryption explicitly, but supports all means built into the Java programming language and the JVM to protect data by encrypting it before storing.
@@ -16,13 +16,13 @@ Furthermore, data can be easily secured by running on an encrypted datastore at 
 Finally, data protection should be considered in the upper layers of the surrounding system in order to prevent problems with scraping, malicious data insertion, and other threats.
 
 [[capabilities-data-integrity]]
-== Data Integrity ==
+== 数据完整性 ==
 
 In order to keep data consistent, there needs to be mechanisms and structures that guarantee the integrity of all stored data.
 In Neo4j, data integrity is maintained for the core graph engine together with other data sources - see below.
 
 [[capabilities-core-graph-engine]]
-=== Core Graph Engine ===
+=== 核心图引擎 ===
 
 In Neo4j, the whole data model is stored as a graph on disk and persisted as 
 part of every committed transaction.
@@ -30,7 +30,7 @@ In the storage layer, Relationships, Nodes, and Properties have direct pointers 
 This maintains integrity without the need for data duplication between the different backend store files.
  
 [[capabilities-different-data-sources]]
-=== Different Data Sources ===
+=== 不同的数据源 ===
 
 In a number of scenarios, the core graph engine is combined with other systems 
 in order to achieve optimal performance for non-graph lookups.
@@ -42,7 +42,7 @@ sources.
 Thus, failed index insertions into Lucene can be transparently rolled back in all data sources and thus keep data up-to-date.
 
 [[capabilities-data-integration]]
-== Data Integration ==
+== 数据集成 ==
 
 Most enterprises rely primarily on relational databases to store their data, but 
 this may cause performance limitations.
@@ -80,7 +80,7 @@ Thus, a full export from the RDBMS and import into Neo4j becomes possible.
 If the propagation lag between the RDBMS and Neo4j is not a big issue, this is a very viable solution.
 
 [[capabilities-availability]]
-== Availability and Reliability ==
+== 可用性和可靠性 ==
 
 Most mission-critical systems require the database subsystem to be accessible at all 
 times.
@@ -143,7 +143,7 @@ and take over new requests.
   Alternatively, a new server can be inserted by copying an existing server and applying the latest updates to it.
 
 [[capabilities-capacity]]
-== Capacity ==
+== 容量 ==
 
 [[capabilities-file-sizes]]
 === File Sizes ===

@@ -38,7 +38,7 @@ Specify the client accept pattern for the webserver (default is +127.0.0.1+, loc
 org.neo4j.server.webserver.address=0.0.0.0
 ----
 
-For securing the Neo4j Server, see also <<security-server>>
+For securing the Neo4j Server, see also ##security-server##
 
 
 Set the location of the round-robin database directory which gathers metrics on the running server instance:
@@ -86,7 +86,7 @@ The fine-tuning of the low-level Neo4j graph database engine is specified in a s
 properties file, 'conf/neo4j.properties'.
 
 The graph database engine has a range of performance tuning options which are enumerated in
-<<server-performance>>. Note that other factors than Neo4j tuning should be considered
+##server-performance##. Note that other factors than Neo4j tuning should be considered
 when performance tuning a server, including general server load, memory and file contention, 
 and even garbage collection penalties on the JVM, though such considerations are beyond the scope
 of this configuration document.

@@ -1,6 +1,6 @@
 [[deployment-requirements]]
-System Requirements
-===================
+系统要求
+====
 
 Memory constrains graph size, disk I/O constrains read/write performance, as always. 
 

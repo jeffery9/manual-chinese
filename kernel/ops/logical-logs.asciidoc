@@ -1,6 +1,6 @@
 [[configuration-logical-logs]]
-Logical logs
-============
+逻辑日志
+====
 
 Logical logs in Neo4j are the journal of which operations happens and are the source of truth in scenarios where the database needs to be recovered after a crash or similar.
 Logs are rotated every now and then (defaults to when they surpass 25 Mb in size) and the amount of legacy logs to keep can be configured.

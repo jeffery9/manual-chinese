@@ -1,6 +1,6 @@
 [[operations-backup]]
-Backup
-======
+备份
+==
 
 NOTE: The Backup features are only available in the Neo4j Enterprise Edition.
 

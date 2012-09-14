@@ -1,6 +1,6 @@
 [[batchinsert]]
-Batch Insertion
-===============
+批量插入
+====
 
 Neo4j has a batch insertion facility intended for initial imports, which bypasses transactions and other checks in favor of performance.
 This is useful when you have a big dataset that needs to be loaded once.

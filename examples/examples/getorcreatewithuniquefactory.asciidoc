@@ -1,6 +1,0 @@
-[[examples-getorcreatewithuniquefactory]]
-GetOrCreateWithUniqueFactory
-============================
-
-
-

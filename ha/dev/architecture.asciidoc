@@ -1,6 +1,6 @@
 [[ha-architecture]]
-Architecture
-============
+架构
+==
 
 Neo4j HA has been designed to make the transition from single machine to multi machine operation simple, by not having to change the already existing application.
 

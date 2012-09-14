@@ -20,7 +20,7 @@
 
 <xsl:param name="local.l10n.xml" select="document('')"/>
 <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
-  <l:l10n language="cn">
+  <l:l10n language="en">
     <l:context name="title">
       <l:template name="table" text="%t"/>
     </l:context>

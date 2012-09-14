@@ -1,6 +1,6 @@
 [[kernel-configuration]]
-Kernel configuration
-====================
+内核配置
+====
 
 These are the configuration options you can pass to the neo4j kernel. They
 can either be passed as a map when using the embedded database, or in the

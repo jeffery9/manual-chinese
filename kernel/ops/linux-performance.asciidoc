@@ -1,7 +1,7 @@
 
 [[linux-performance-guide]]
-Linux Performance Guide
-=======================
+Linux性能向导
+=========
 
 The key to achieve good performance on reads and writes is to have lots of RAM since disks are so slow. This guide will focus on achieving good write performance on a Linux kernel based operating system.
 

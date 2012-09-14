@@ -4,7 +4,8 @@
 
 注意：比起撰写文档，你也可以通过在 http://docs.neo4j.org/chunked/snapshot/[在线HTML版本]页面提交评论来帮助我们。
 
-要获取如何编译手册，请参考：https://github.com/neo4j/manual/blob/master/README.asciidoc[编译说明]。
+要获取如何编译手册，请参考：
+https://github.com/neo4j/manual/blob/master/README.asciidoc[编译说明]。
 
 文档采用了asciidoc格式，请参考：
 
@@ -48,8 +49,8 @@ Asciidoc文档的扩展名是 +.txt+ 。
 | man/ | 联机帮助页
 |========================
 
-额外子目录被用来作为文档所必须的结构，比如'dev/tutorial/'，'ops/tutorial/'等等。
-
+额外子目录被用来作为文档所必须的结构，
+比如'dev/tutorial/'，'ops/tutorial/'等等。
 
 == 标题和文档结构 ==
 
@@ -68,7 +69,8 @@ Asciidoc文档的扩展名是 +.txt+ 。
 ====
 ----
 
-为了把标题放到正确的等级下面，当在一个文件中引入另外文件时，属性 +leveloffset+ 将会被使用。
+为了把标题放到正确的等级下面，
+当在一个文件中引入另外文件时，属性 +leveloffset+ 将会被使用。
 
 Subsequent headings in a document should use the following syntax:
 
@@ -94,15 +96,19 @@ Asciidoc对头部分的语法不止一个，但在这个项目中它不会被使
 == 陷阱 ==
 
 * 一个章节不能是空的。 (构建时做 docbook xml合法性校验时会失败)。
-* 文档标题应该有下划线，由与标题字符个数相同的 +=+ 组成。
-* 在文档末尾总是留一个空行（或者说下一个文档的标题会在文档的最后一段后结束）。
+* 文档标题应该有下划线，
+  由与标题字符个数相同的 +=+ 组成。
+* 在文档末尾总是留一个空行
+  （或者说下一个文档的标题会在
+  文档的最后一段后结束）。
 * 因为 +{}+ 用来作为Asciidoc的属性，每一个内嵌正里面的都被认为是一个属性。
   当你必须用它的时候，请使用：+\\{+。
   如果你不这样做，在没有任何提示或者警告的情况下，括号里面的文字会被移除。
 
 == 链接 ==
 
-为了链接到手册给定Id的其他部分，下面展示如何链接到一个参考页面：
+为了链接到手册给定Id的其他部分，
+下面展示如何链接到一个参考页面：
 
 [source]
 ----
@@ -147,7 +153,8 @@ NOTE: 在链接后面有一个标点符号是不受影响的，它不会被认�
 
 * \_Italics_ 显示为 _Italics_ 表示重点。
 * \*Bold* 显示为 *Bold* 用来加强，仅用于加强重点。
-* \+methodName()+ 显示为 +methodName()+ 也被用于文字（注意：在 `+` 符号之间的文字 _会_ 被解析）。
+* \+methodName()+ 显示为 +methodName()+ 也被用于文字
+  （注意：在 `+` 符号之间的文字 _会_ 被解析）。
 * \`command` 显示为 `command` (一般用于命令行)。
   （注意：在 +`+ 符号之间的文字 _会_ 被解析）。  
 * \'my/path/' 显示为 'my/path/' (用来表示文件名或者路径)。
@@ -158,7 +165,6 @@ NOTE: 在链接后面有一个标点符号是不受影响的，它不会被认�
 
 这些非常有用而且应该正适合的地方使用。
 从下面选择进行使用（保持全部都大写或者都不）：
-
 
 NOTE: 注意。
 
@@ -262,6 +268,7 @@ Name [TEXTNODE]
 ----
 
 传递给点过滤器的可选第二个参数定义了使用的风格：
+
 * 当没定义时: 节点空间的默认样式。
 * +neoviz+: 通过Neoviz生成节点空间样式。
 * +meta+: 图数据库不会显示内容，更像是展示概念。
@@ -349,7 +356,7 @@ start n=(2, 1) where (n.age < 30 and n.name = "Tobias") or not(n.name = "Tobias"
 * Python
 * XML
 
-更多我们能使用的高亮语言，请参考： http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/。
+更多我们能使用的高亮语言，请参考： http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/ 。
 
 
 === 源代码中抽取 ===
@@ -433,13 +440,14 @@ tag=getStartTime
 
 == 基于文档测试的一个简单Java范例 ==
 
-对于Java来说，有几个预置工具用来保持代码和文档都在Javadocs和代码片段中，这些代码片段生成了其它工具的的Asciidoc文档。
+对于Java来说，有几个预置工具用来保持代码和文档都在Javadocs和代码片段中，
+这些代码片段生成了其它工具的的Asciidoc文档。
 
 为了说明这个，看看下面的文档，用文件  +hello-world-title.asciidoc+ 生成的内容是：
 
 [source]
 ------------------------------
-include::{docdir}/examples/examples/hello-world-sample-chapter.asciidoc[]
+include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[]
 ------------------------------
 
 这个文件通过下面的代码被引入到这个文档中：
@@ -447,14 +455,14 @@ include::{docdir}/examples/examples/hello-world-sample-chapter.asciidoc[]
 [source]
 ----
   :leveloffset: 3
-  include::{docdir}/examples/examples/hello-world-sample-chapter.asciidoc[] 
+  include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[] 
 ----
 
 输出结果：
 
 :leveloffset: 3
 
-include::{docdir}/examples/examples/hello-world-sample-chapter.asciidoc[]
+include::{docdir}/examples/dev/examples/hello-world-sample-chapter.asciidoc[]
 
 :leveloffset: 2
 
@@ -502,5 +510,3 @@ return n
 * http://www.sagehill.net/docbookxsl/index.html
 * http://docbook.sourceforge.net/release/xsl/1.76.1/doc/html/index.html
 * http://docbook.sourceforge.net/release/xsl/1.76.1/doc/fo/index.html
-
-

@@ -2,14 +2,14 @@
 
   <xsl:import href="breadcrumbs.xsl"/>
   
-<xsl:template name="user.head.content">
+<xsl:template name="user.head.content">    
 <xsl:text disable-output-escaping="yes">
 <![CDATA[
 
 <!-- favicon -->
 
-<link rel="shortcut icon" href="http://neo4j.org/favicon.ico" type="image/vnd.microsoft.icon" />
-<link rel="icon" href="http://neo4j.org/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="http://neo4j.org.cn/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="icon" href="http://neo4j.org.cn/favicon.ico" type="image/x-icon" />
 
 <!-- style -->
 
@@ -71,7 +71,6 @@
 </xsl:text>
 
   <xsl:call-template name="breadcrumbs"/>
-
 </xsl:template>
 
 </xsl:stylesheet>

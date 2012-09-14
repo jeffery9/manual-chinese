@@ -1,6 +1,6 @@
 [[ha-setup-tutorial]]
-High Availability setup tutorial
-================================
+HA安装向导
+======
 
 This is a guide to set up a Neo4j HA cluster and run embedded Neo4j or Neo4j Server instances participating as cluster nodes.
 
@@ -13,7 +13,7 @@ before working with the Neo4j database HA instances.
 
 [TIP]
 Neo4j Server (see <<server>>) and Neo4j Embedded (see <<configuration-introduction>>) can both be used as nodes in the same HA cluster.
-This opens for scenarios where one application can insert and update data via a Java or JVM language based application, and other instances can run Neo4j Server and expose the data via the REST API (<<rest-api>>).
+This opens for scenarios where one application can insert and update data via a Java or JVM language based application, and other instances can run Neo4j Server and expose the data via the REST API (##rest-api##).
 
 Below, there will be 3 coordinator instances set up on one local machine.
 

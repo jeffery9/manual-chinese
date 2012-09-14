@@ -1,6 +1,0 @@
-[source]
-----
-n.name: reference node; n: Node[0]; 
-
-----
-

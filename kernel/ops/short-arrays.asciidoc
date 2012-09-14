@@ -1,6 +1,6 @@
 [[short-arrays]]
-Compressed storage of short arrays
-===================================
+短数组的压缩存储
+========
 
 Neo4j will try to store your primitive arrays in a compressed way, so as to save disk space and possibly an I/O operation.
 To do that, it employs a "bit-shaving" algorithm that tries to reduce the number of bits required for storing the members

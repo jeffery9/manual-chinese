@@ -1,6 +1,6 @@
 [[configuration-introduction]]
-Introduction
-===========
+介绍
+==
 
 To gain good performance, these are the things to look into first:
 
@@ -41,4 +41,4 @@ On Linux, Unix and Mac OS X each element in the path list are separated by a col
 
 //You can even look at the [[Performance Guide for a further discussion of Neo4j performance.
 
-When using the Neo4j REST server, see <<server-configuration>> for how to add configuration settings for the database to the server.
+When using the Neo4j REST server, see ##server-configuration## for how to add configuration settings for the database to the server.

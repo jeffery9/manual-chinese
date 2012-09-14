@@ -1,6 +1,6 @@
 [[short-strings]]
-Compressed storage of short strings
-===================================
+短字符串的压缩存储
+=========
 
 Neo4j will try to classify your strings in a short string class and if it manages that it will treat it accordingly.
 In that case, it will be stored without indirection in the property store, inlining it instead in the property record,

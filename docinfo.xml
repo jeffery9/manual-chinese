@@ -31,53 +31,51 @@
   <holder>Neo Technology</holder>
 </copyright>
 
-<!--
+
 <abstract>
-  <title>Starting points</title>
+  <title>入门要点</title>
   <para>
     <itemizedlist>
       <listitem>
         <para>
-          <link linkend="preface">preface</link>
-        </para>
-      </listitem>
-      
-      <listitem>
-        <para>
-          <link linkend="cypher-query-lang">Cypher Query Language</link>
+          <link linkend="what-is-a-graphdb">什么是图数据库?</link>
         </para>
       </listitem>
       <listitem>
         <para>
-          <link linkend="tutorials-java-embedded">Using Neo4j embedded in Java applications</link>
+          <link linkend="cypher-query-lang">Cypher查询语言</link>
         </para>
       </listitem>
       <listitem>
         <para>
-          <link linkend="tutorials-python-embedded">Using Neo4j embedded in Python applications</link>
+          <link linkend="tutorials-java-embedded">在Java应用中使用Neo4j</link>
         </para>
       </listitem>
       <listitem>
         <para>
-          <link linkend="tutorials-rest">Remote Client Libraries</link>
+          <link linkend="tutorials-python-embedded">在Python应用中使用Neo4j</link>
         </para>
       </listitem>
       <listitem>
         <para>
-          <link linkend="languages">Languages</link>
+          <link linkend="tutorials-rest">远程客户端访问库</link>
         </para>
       </listitem>
       <listitem>
         <para>
-          <link linkend="server">Neo4j Server</link>
+          <link linkend="languages">多语言支持</link>
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <link linkend="server">Neo4j服务器</link>
         </para>
       </listitem>
       <listitem>
         <para>
           <link linkend="rest-api">REST API</link>
         </para>
-      </listitem>
-      
+      </listitem>   
       
     </itemizedlist>
   </para>
@@ -85,7 +83,7 @@
 
 
 <legalnotice>
-  <title>License: Creative Commons 3.0</title>
+  <title>许可证：知识共享协议 3.0</title>
   <simpara>This book is presented in open source and licensed through
     Creative Commons 3.0.
     You are free to copy, distribute, transmit,
@@ -137,4 +135,4 @@
     </simpara>
   </note>
 </legalnotice>
--->
+

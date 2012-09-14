@@ -1,6 +1,6 @@
 [[operations-monitoring]]
-Monitoring
-==========
+监视服务器
+=====
 
 NOTE: Most of the monitoring features are only available in the Advanced and Enterprise editions of Neo4j.
 
@@ -74,6 +74,6 @@ Once you have access to this information, you can use it to for instance expose 
 [[jmx-mxbeans]]
 == Reference of supported JMX MBeans ==
 
-include::{importdir}/ha/ops/jmx.asciidoc[]
+include::{docdir}/ha/ops/jmx.asciidoc[]
 
 

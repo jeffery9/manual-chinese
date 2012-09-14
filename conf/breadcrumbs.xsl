@@ -7,7 +7,7 @@
     <xsl:if test="name(.) != 'book'">
       <div class="breadcrumbs">
           <span class="breadcrumb-link">
-            <a href="index.html">The Neo4j Manual</a>
+            <a href="index.html">Neo4j简体中文手册</a>
           </span>
           <xsl:text> &gt; </xsl:text>
         <xsl:for-each select="$this.node/ancestor::*[parent::*]">

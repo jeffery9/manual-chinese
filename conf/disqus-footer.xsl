@@ -7,7 +7,7 @@
 <script type="text/javascript">
 // DISQUS
   var disqus_identifier = "manual";
-  var disqus_title = "The Neo4j Manual";
+  var disqus_title = "Neo4j简体中文手册";
   function getIdFromHeading ( headingElement )
   {
     var id = disqus_identifier;

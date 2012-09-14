@@ -1,6 +1,6 @@
 [[import]]
-Data Import
-===========
+数据导入
+====
 
 For high-performance data import, the batch insert facilities described in this chapter are recommended.
 
@@ -9,10 +9,10 @@ Other ways to import data into Neo4j include using Gremlin graph import (see <<r
 
 :leveloffset: 2
 
-include::{importdir}/neo4j-kernel-docs-jar/dev/batchinsert.asciidoc[]
+include::{docdir}/kernel/dev/batchinsert.asciidoc[]
 
 :leveloffset: 3
 
-include::{importdir}/neo4j-lucene-index-docs-jar/dev/batchinsertindex.asciidoc[]
+include::{docdir}/lucene-index/dev/batchinsertindex.asciidoc[]
 
 

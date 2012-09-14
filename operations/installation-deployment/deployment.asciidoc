@@ -1,6 +1,6 @@
 [[deployment-scenarios]]
-Deployment Scenarios
-====================
+部署方案
+====
 
 Neo4j can be embedded into your application, run as a standalone server or deployed on several machines to provide high availability. 
 

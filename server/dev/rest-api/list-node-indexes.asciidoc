@@ -1,0 +1,34 @@
+[[rest-api-list-node-indexes]]
+=== List node indexes ===
+
+.Final Graph
+["dot", "Final-Graph-List-node-indexes.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/index/node/+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "node_auto_index" : {
+    "template" : "http://localhost:7474/db/data/index/node/node_auto_index/{key}/{value}",
+    "provider" : "lucene",
+    "type" : "exact"
+  },
+  "favorites" : {
+    "template" : "http://localhost:7474/db/data/index/node/favorites/{key}/{value}",
+    "provider" : "lucene",
+    "type" : "exact"
+  }
+}
+----
+
+

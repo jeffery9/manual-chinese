@@ -1,0 +1,62 @@
+[[rest-api-send-queries-with-syntax-errors]]
+=== Send queries with syntax errors ===
+
+Sending a query with syntax errors will give a bad request (HTTP 400)
+response together with an error message.
+
+
+[source,cypher]
+----
+START x  = node:node_auto_index(name={startName}) matc path = (x-[r]-friend)
+WHERE friend.name = {name}
+RETURN TYPE(r)
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Send-queries-with-syntax-errors.svg", "neoviz", ""]
+----
+  N23 [
+    label = "{Node\[23\]|name = \'you\'\l}"
+  ]
+  N24 [
+    label = "{Node\[24\]|name = \'I\'\l}"
+  ]
+  N24 -> N23 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/cypher+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x  = node:node_auto_index(name={startName}) matc path = (x-[r]-friend) where friend.name = {name} return TYPE(r)",
+  "params" : {
+    "startName" : "I",
+    "name" : "you"
+  }
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "string matching regex `$' expected but `m' found\n\nThink we should have better error message here? Help us by sending this query to cypher@neo4j.org.\n\nThank you, the Neo4j Team.\n\n\"start x  = node:node_auto_index(name={startName}) matc path = (x-[r]-friend) where friend.name = {name} return TYPE(r)\"\n                                                   ^",
+  "exception" : "SyntaxException",
+  "stacktrace" : [ "org.neo4j.cypher.internal.parser.v1_8.CypherParserImpl.parse(CypherParserImpl.scala:46)", "org.neo4j.cypher.CypherParser.parse(CypherParser.scala:44)", "org.neo4j.cypher.ExecutionEngine$$anonfun$prepare$1.apply(ExecutionEngine.scala:61)", "org.neo4j.cypher.ExecutionEngine$$anonfun$prepare$1.apply(ExecutionEngine.scala:61)", "org.neo4j.cypher.internal.LRUCache.getOrElseUpdate(LRUCache.scala:31)", "org.neo4j.cypher.ExecutionEngine.prepare(ExecutionEngine.scala:61)", "org.neo4j.cypher.ExecutionEngine.execute(ExecutionEngine.scala:55)", "org.neo4j.cypher.ExecutionEngine.execute(ExecutionEngine.scala:58)", "org.neo4j.cypher.javacompat.ExecutionEngine.execute(ExecutionEngine.java:86)", "org.neo4j.server.rest.web.CypherService.cypher(CypherService.java:79)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

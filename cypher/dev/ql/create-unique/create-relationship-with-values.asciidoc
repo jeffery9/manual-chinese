@@ -1,0 +1,52 @@
+[[create-unique-create-relationship-with-values]]
+== Create relationship with values ==
+Relationships to be created can also be matched on values.
+
+_Query_
+
+[source,cypher]
+----
+START root=node(2)
+CREATE UNIQUE root-[r:X {since:'forever'}]-()
+RETURN r
+----
+
+
+In this example, we want the relationship to have a value, and since no such relationship can be found, a new node and relationship are created. Note that since we are not interested in the created node, we don't name it.
+
+.Result
+[queryresult]
+----
++-------------------------+
+| r                       |
++-------------------------+
+| :X[4] {since:"forever"} |
++-------------------------+
+1 row
+Nodes created: 1
+Relationships created: 1
+Properties set: 1
+1 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"A"}
+(2) {"name":"root"}
+(3) {"name":"B"}
+(4) {"name":"C"}
+(5) {}
+(1)-[:KNOWS]->(4) {}
+(2)-[:X]->(1) {}
+(2)-[:X]->(3) {}
+(2)-[:X]->(4) {}
+(5)-[:X]->(2) {"since":"forever"}
+
+
+start root=node(2) create unique root-[r:X {since:'forever'}]-() return r
+----
+

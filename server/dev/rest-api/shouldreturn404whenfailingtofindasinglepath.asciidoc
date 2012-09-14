@@ -1,0 +1,111 @@
+[[rest-api-shouldreturn404whenfailingtofindasinglepath]]
+=== ShouldReturn404WhenFailingToFindASinglePath ===
+
+.Final Graph
+["dot", "Final-Graph-shouldReturn404WhenFailingToFindASinglePath.svg", "neoviz", ""]
+----
+  N151 [
+    label = "{Node\[151\]|name = \'f\'\l}"
+  ]
+  N151 -> N152 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N152 [
+    label = "{Node\[152\]|name = \'g\'\l}"
+  ]
+  N153 [
+    label = "{Node\[153\]|name = \'d\'\l}"
+  ]
+  N153 -> N154 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N153 -> N152 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N154 [
+    label = "{Node\[154\]|name = \'e\'\l}"
+  ]
+  N154 -> N152 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N155 [
+    label = "{Node\[155\]|name = \'b\'\l}"
+  ]
+  N155 -> N151 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N156 [
+    label = "{Node\[156\]|name = \'c\'\l}"
+  ]
+  N156 -> N155 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N156 -> N151 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N156 -> N152 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N157 [
+    label = "{Node\[157\]|name = \'a\'\l}"
+  ]
+  N157 -> N156 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N157 -> N153 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/157/path+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "to" : "http://localhost:7474/db/data/node/152",
+  "max_depth" : 1,
+  "relationships" : {
+    "type" : "dummy",
+    "direction" : "in"
+  },
+  "algorithm" : "shortestPath"
+}
+----
+
+
+_Example response_
+
+* *+404:+* +Not Found+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "exception" : "NotFoundException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.findSinglePath(DatabaseActions.java:1332)", "org.neo4j.server.rest.web.RestfulGraphDatabase.singlePath(RestfulGraphDatabase.java:1339)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

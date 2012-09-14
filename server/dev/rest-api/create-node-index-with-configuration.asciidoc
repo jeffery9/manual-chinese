@@ -1,0 +1,47 @@
+[[rest-api-create-node-index-with-configuration]]
+=== Create node index with configuration ===
+
+This request is only necessary if
+you want to customize the index settings. If you are happy with the
+defaults, you can just start indexing nodes/relationships, as
+non-existent indexes will automatically be created as you do. See
+<<indexing-create-advanced>> for more information on index configuration.
+
+
+.Final Graph
+["dot", "Final-Graph-Create-node-index-with-configuration.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/index/node/+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "name" : "fulltext",
+  "config" : {
+    "type" : "fulltext",
+    "provider" : "lucene"
+  }
+}
+----
+
+
+_Example response_
+
+* *+201:+* +Created+
+* *+Content-Type:+* +application/json+
+* *+Location:+* +http://localhost:7474/db/data/index/node/fulltext/+
+[source,javascript]
+----
+{
+  "template" : "http://localhost:7474/db/data/index/node/fulltext/{key}/{value}",
+  "type" : "fulltext",
+  "provider" : "lucene"
+}
+----
+
+

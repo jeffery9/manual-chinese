@@ -1,0 +1,44 @@
+[[rest-api-providing-bad-json]]
+=== Providing bad JSON ===
+
+.Final Graph
+["dot", "Final-Graph-providing-bad-JSON.svg", "neoviz", ""]
+----
+  N75 [
+    label = "{Node\[75\]|name = \'Sara\'\l}"
+  ]
+  N76 [
+    label = "{Node\[76\]|name = \'Joe\'\l}"
+  ]
+  N76 -> N75 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/76/relationships+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{"to" : "http://localhost:7474/db/data/node/76", "type" : "LOVES", "data" : {"foo" : **BAD JSON HERE*** "bar"}}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "Unexpected character ('*' (code 42)): expected a valid value (number, String, array, object, 'true', 'false' or 'null')\n at [Source: java.io.StringReader@516b9e1; line: 1, column: 87]",
+  "exception" : "BadInputException",
+  "stacktrace" : [ "org.neo4j.server.rest.repr.formats.JsonFormat.readMap(JsonFormat.java:92)", "org.neo4j.server.rest.web.RestfulGraphDatabase.createRelationship(RestfulGraphDatabase.java:391)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

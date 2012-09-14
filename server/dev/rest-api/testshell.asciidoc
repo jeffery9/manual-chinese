@@ -1,0 +1,40 @@
+[[rest-api-testshell]]
+=== TestShell ===
+
+Paths can be returned
+together with other return types by just
+specifying returns.
+
+
+.Final Graph
+["dot", "Final-Graph-testShell.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/manage/server/console+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "command" : "ls",
+  "engine" : "shell"
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ "", "neo4j-sh (0)$ " ]
+----
+
+

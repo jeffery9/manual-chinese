@@ -1,0 +1,119 @@
+[[rest-api-find-one-of-the-shortest-paths-between-nodes]]
+=== Find one of the shortest paths between nodes ===
+
+If no path algorithm is specified, a +ShortestPath+ algorithm with a max
+depth of 1 will be chosen. In this example, the +max_depth+ is set to +3+
+in order to find the shortest path between 3 linked nodes.
+
+
+.Final Graph
+["dot", "Final-Graph-Find-one-of-the-shortest-paths-between-nodes.svg", "neoviz", ""]
+----
+  N126 [
+    label = "{Node\[126\]|name = \'f\'\l}"
+  ]
+  N126 -> N127 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N127 [
+    label = "{Node\[127\]|name = \'g\'\l}"
+  ]
+  N128 [
+    label = "{Node\[128\]|name = \'d\'\l}"
+  ]
+  N128 -> N129 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N128 -> N127 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N129 [
+    label = "{Node\[129\]|name = \'e\'\l}"
+  ]
+  N129 -> N127 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N130 [
+    label = "{Node\[130\]|name = \'b\'\l}"
+  ]
+  N130 -> N126 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N131 [
+    label = "{Node\[131\]|name = \'c\'\l}"
+  ]
+  N131 -> N130 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N131 -> N126 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N131 -> N127 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N132 [
+    label = "{Node\[132\]|name = \'a\'\l}"
+  ]
+  N132 -> N131 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N132 -> N128 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/132/path+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "to" : "http://localhost:7474/db/data/node/127",
+  "max_depth" : 3,
+  "relationships" : {
+    "type" : "to",
+    "direction" : "out"
+  },
+  "algorithm" : "shortestPath"
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "start" : "http://localhost:7474/db/data/node/132",
+  "nodes" : [ "http://localhost:7474/db/data/node/132", "http://localhost:7474/db/data/node/128", "http://localhost:7474/db/data/node/127" ],
+  "length" : 2,
+  "relationships" : [ "http://localhost:7474/db/data/relationship/84", "http://localhost:7474/db/data/relationship/90" ],
+  "end" : "http://localhost:7474/db/data/node/127"
+}
+----
+
+

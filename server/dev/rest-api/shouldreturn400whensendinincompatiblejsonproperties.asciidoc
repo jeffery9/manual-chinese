@@ -1,0 +1,47 @@
+[[rest-api-shouldreturn400whensendinincompatiblejsonproperties]]
+=== ShouldReturn400WhenSendinIncompatibleJsonProperties ===
+
+.Final Graph
+["dot", "Final-Graph-shouldReturn400WhenSendinIncompatibleJsonProperties.svg", "neoviz", ""]
+----
+  N3 [
+    label = "{Node\[3\]|name = \'jim\'\l}"
+  ]
+  N3 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N4 [
+    label = "{Node\[4\]|name = \'joe\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+PUT+*  +http://localhost:7474/db/data/node/3/properties+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "jim" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "Could not set property \"jim\", unsupported type: {}",
+  "exception" : "PropertyValueException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.set(DatabaseActions.java:155)", "org.neo4j.server.rest.web.DatabaseActions.setAllNodeProperties(DatabaseActions.java:338)", "org.neo4j.server.rest.web.RestfulGraphDatabase.setAllNodeProperties(RestfulGraphDatabase.java:261)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

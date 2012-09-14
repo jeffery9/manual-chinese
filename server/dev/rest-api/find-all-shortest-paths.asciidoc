@@ -1,0 +1,124 @@
+[[rest-api-find-all-shortest-paths]]
+=== Find all shortest paths ===
+
+The +shortestPath+ algorithm can find multiple paths between the same
+nodes, like in this example.
+
+
+.Final Graph
+["dot", "Final-Graph-Find-all-shortest-paths.svg", "neoviz", ""]
+----
+  N119 [
+    label = "{Node\[119\]|name = \'f\'\l}"
+  ]
+  N119 -> N120 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N120 [
+    label = "{Node\[120\]|name = \'g\'\l}"
+  ]
+  N121 [
+    label = "{Node\[121\]|name = \'d\'\l}"
+  ]
+  N121 -> N122 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N121 -> N120 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N122 [
+    label = "{Node\[122\]|name = \'e\'\l}"
+  ]
+  N122 -> N120 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N123 [
+    label = "{Node\[123\]|name = \'b\'\l}"
+  ]
+  N123 -> N119 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N124 [
+    label = "{Node\[124\]|name = \'c\'\l}"
+  ]
+  N124 -> N123 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N124 -> N119 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N124 -> N120 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N125 [
+    label = "{Node\[125\]|name = \'a\'\l}"
+  ]
+  N125 -> N124 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+  N125 -> N121 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/125/paths+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "to" : "http://localhost:7474/db/data/node/120",
+  "max_depth" : 3,
+  "relationships" : {
+    "type" : "to",
+    "direction" : "out"
+  },
+  "algorithm" : "shortestPath"
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "start" : "http://localhost:7474/db/data/node/125",
+  "nodes" : [ "http://localhost:7474/db/data/node/125", "http://localhost:7474/db/data/node/124", "http://localhost:7474/db/data/node/120" ],
+  "length" : 2,
+  "relationships" : [ "http://localhost:7474/db/data/relationship/73", "http://localhost:7474/db/data/relationship/82" ],
+  "end" : "http://localhost:7474/db/data/node/120"
+}, {
+  "start" : "http://localhost:7474/db/data/node/125",
+  "nodes" : [ "http://localhost:7474/db/data/node/125", "http://localhost:7474/db/data/node/121", "http://localhost:7474/db/data/node/120" ],
+  "length" : 2,
+  "relationships" : [ "http://localhost:7474/db/data/relationship/74", "http://localhost:7474/db/data/relationship/80" ],
+  "end" : "http://localhost:7474/db/data/node/120"
+} ]
+----
+
+

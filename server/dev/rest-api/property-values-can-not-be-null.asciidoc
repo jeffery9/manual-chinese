@@ -1,0 +1,39 @@
+[[rest-api-property-values-can-not-be-null]]
+=== Property values can not be null ===
+
+This example shows the response you get when trying to set a property to
++null+.
+
+
+.Final Graph
+["dot", "Final-Graph-Property-values-can-not-be-null.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "foo" : null
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "Could not set property \"foo\", unsupported type: null",
+  "exception" : "PropertyValueException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.set(DatabaseActions.java:155)", "org.neo4j.server.rest.web.DatabaseActions.createNode(DatabaseActions.java:213)", "org.neo4j.server.rest.web.RestfulGraphDatabase.createNode(RestfulGraphDatabase.java:195)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

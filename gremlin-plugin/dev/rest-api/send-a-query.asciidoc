@@ -1,0 +1,39 @@
+[[rest-api-send-a-query]]
+=== Send a Query ===
+
+A simple query returning all nodes connected to node 1, returning the
+node and the name property, if it exists, otherwise `null`:
+
+
+.Final Graph
+["dot", "Final-Graph-Send-a-Query.svg", "neoviz", ""]
+----
+  N78 [
+    label = "{Node\[78\]|name = \'foo\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/manage/server/console/+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "command" : "g.addVertex([name:'foo'])",
+  "engine" : "gremlin"
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ "v[78]\n", null ]
+----
+
+

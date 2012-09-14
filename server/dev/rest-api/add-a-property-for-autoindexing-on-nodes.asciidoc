@@ -1,0 +1,28 @@
+[[rest-api-add-a-property-for-autoindexing-on-nodes]]
+=== Add a property for autoindexing on nodes ===
+
+.Final Graph
+["dot", "Final-Graph-Add-a-property-for-autoindexing-on-nodes.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/index/auto/node/properties+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+myProperty1
+----
+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

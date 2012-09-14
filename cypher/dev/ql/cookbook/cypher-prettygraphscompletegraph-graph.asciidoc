@@ -1,0 +1,101 @@
+
+_Graph_
+
+["dot", "cypher-prettygraphscompletegraph-graph.txt.svg", "neoviz", "graph [layout=circo]"]
+----
+  N2 [
+    label = "{Node\[2\]|count = 1\l}"
+  ]
+  N2 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N2 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N2 -> N5 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N2 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N2 -> N7 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N3 [
+    label = "{Node\[3\]|count = 2\l}"
+  ]
+  N3 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N3 -> N5 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N3 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N3 -> N7 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N4 [
+    label = "{Node\[4\]|count = 3\l}"
+  ]
+  N4 -> N5 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N4 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N4 -> N7 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N5 [
+    label = "{Node\[5\]|count = 4\l}"
+  ]
+  N5 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N5 -> N7 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N6 [
+    label = "{Node\[6\]|count = 5\l}"
+  ]
+  N6 -> N7 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "X\n"
+  ]
+  N7 [
+    label = "{Node\[7\]|count = 6\l}"
+  ]
+
+----
+

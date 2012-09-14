@@ -1,0 +1,50 @@
+[[ops-using-wildcards-to-target-security-rules]]
+=== Using Wildcards to Target Security Rules ===
+
+In this example, a (dummy) failing security rule is registered to deny
+access to all URIs to the server by listing the rule(s) class(es) in
++neo4j-server.properties+
+In this case, the rule is registered
+using a wildcard URI path (where * characters can be used to signify
+any part of the path). For example +/users*+ means the rule
+will be bound to any resources under the +/users+ root path. Similarly
++/users*type*+ will bind the rule to resources matching
+the URIs like +/users/fred/type/premium+
+
+
+[source]
+----
+org.neo4j.server.rest.security_rules=my.rules.PermanentlyFailingSecurityRuleWithWildcardPath
+----
+
+with the rule source code of:
+
+[snippet,java]
+----
+component=neo4j-server
+source=org/neo4j/server/rest/security/PermanentlyFailingSecurityRuleWithWildcardPath.java
+classifier=test-sources
+tag=failingRuleWithWildcardPath
+----
+
+With this rule registered, any access to the server will be
+denied. Using wildcards allows flexible targeting of security rules to
+arbitrary parts of the server's API, including any unmanaged extensions or managed
+plugins that have been registered.
+
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/protected/wildcard_replacement/x/y/z/something/else/more_wildcard_replacement/a/b/c/final/bit/more/stuff+
+* *+Accept:+* +text/plain+
+
+_Example response_
+
+* *+401:+* +Unauthorized+
+* *+WWW-Authenticate:+* +Basic realm="WallyWorld"+
+[source,javascript]
+----
+
+----
+
+

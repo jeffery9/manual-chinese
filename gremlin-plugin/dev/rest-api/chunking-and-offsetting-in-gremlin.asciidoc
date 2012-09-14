@@ -1,0 +1,80 @@
+[[rest-api-chunking-and-offsetting-in-gremlin]]
+=== Chunking and offsetting in Gremlin ===
+
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.v(51).out('knows').filter{it.name == 'Sara'}[0..100]
+----
+
+
+.Final Graph
+["dot", "Final-Graph-chunking-and-offsetting-in-Gremlin.svg", "neoviz", ""]
+----
+  N49 [
+    label = "{Node\[49\]|name = \'Sara\'\l}"
+  ]
+  N50 [
+    label = "{Node\[50\]|name = \'Ian\'\l}"
+  ]
+  N51 [
+    label = "{Node\[51\]|name = \'George\'\l}"
+  ]
+  N51 -> N49 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N51 -> N50 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.v(51).out('knows').filter{it.name == 'Sara'}[0..100]",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/49/relationships/out",
+  "data" : {
+    "name" : "Sara"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/49/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/49/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/49/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/49",
+  "properties" : "http://localhost:7474/db/data/node/49/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/49/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/49/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/49/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/49/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/49/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/49/relationships/in/{-list|&|types}"
+} ]
+----
+
+

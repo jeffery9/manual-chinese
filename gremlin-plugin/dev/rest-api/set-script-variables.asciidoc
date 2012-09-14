@@ -1,0 +1,48 @@
+[[rest-api-set-script-variables]]
+=== Set script variables ===
+
+To set variables in the bindings for the Gremlin Script Engine on the
+server, you can include a +params+ parameter with a String representing a
+JSON map of variables to set to initial values. These can then be
+accessed as normal variables within the script.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+meaning_of_life
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Set-script-variables.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "meaning_of_life",
+  "params" : {
+    "meaning_of_life" : 42.0
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+42.0
+----
+
+

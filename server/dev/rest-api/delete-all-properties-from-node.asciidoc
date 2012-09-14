@@ -1,0 +1,28 @@
+[[rest-api-delete-all-properties-from-node]]
+=== Delete all properties from node ===
+
+.Final Graph
+["dot", "Final-Graph-Delete-all-properties-from-node.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N5 [
+    label = "{Node\[5\]|}"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/node/5/properties+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

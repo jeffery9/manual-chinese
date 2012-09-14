@@ -1,0 +1,52 @@
+[[match-matching-on-a-bound-relationship]]
+== Matching on a bound relationship ==
+When your pattern contains a bound relationship, and that relationship pattern doesn't specify direction,
+Cypher will try to match the relationship where the connected nodes switch sides.
+
+_Query_
+
+[source,cypher]
+----
+START r=rel(0)
+MATCH a-[r]-b
+RETURN a,b
+----
+
+
+This returns the two connected nodes, once as the start node, and once as the end node.
+
+.Result
+[queryresult]
+----
++---------------------------------------------------+
+| a                       | b                       |
++---------------------------------------------------+
+| Node[3]{name:"Anders"}  | Node[4]{name:"Bossman"} |
+| Node[4]{name:"Bossman"} | Node[3]{name:"Anders"}  |
++---------------------------------------------------+
+2 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"David"}
+(2) {"name":"Emil"}
+(3) {"name":"Anders"}
+(4) {"name":"Bossman"}
+(5) {"name":"Cesar"}
+(1)-[:KNOWS]->(3) {}
+(3)-[:KNOWS]->(4) {}
+(3)-[:BLOCKS]->(5) {}
+(4)-[:KNOWS]->(2) {}
+(4)-[:BLOCKS]->(1) {}
+(5)-[:KNOWS]->(2) {}
+
+
+start r=rel(0) match a-[r]-b return a,b
+----
+

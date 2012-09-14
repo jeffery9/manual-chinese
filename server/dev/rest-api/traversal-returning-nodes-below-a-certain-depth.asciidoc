@@ -1,0 +1,164 @@
+[[rest-api-traversal-returning-nodes-below-a-certain-depth]]
+=== Traversal returning nodes below a certain depth ===
+
+Here, all nodes at a traversal depth below 3 are returned.
+
+
+.Final Graph
+["dot", "Final-Graph-Traversal-returning-nodes-below-a-certain-depth.svg", "neoviz", ""]
+----
+  N17 [
+    label = "{Node\[17\]|name = \'Sara\'\l}"
+  ]
+  N18 [
+    label = "{Node\[18\]|name = \'Johan\'\l}"
+  ]
+  N18 -> N19 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N19 [
+    label = "{Node\[19\]|name = \'Emil\'\l}"
+  ]
+  N19 -> N22 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N19 -> N21 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N20 [
+    label = "{Node\[20\]|name = \'Root\'\l}"
+  ]
+  N20 -> N23 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N20 -> N18 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N21 [
+    label = "{Node\[21\]|name = \'Tobias\'\l}"
+  ]
+  N21 -> N17 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "loves\n"
+  ]
+  N22 [
+    label = "{Node\[22\]|name = \'Peter\'\l}"
+  ]
+  N23 [
+    label = "{Node\[23\]|name = \'Mattias\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/20/traverse/node+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "return_filter" : {
+    "body" : "position.length()<3;",
+    "language" : "javascript"
+  },
+  "prune_evaluator" : {
+    "name" : "none",
+    "language" : "builtin"
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/20/relationships/out",
+  "data" : {
+    "name" : "Root"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/20/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/20/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/20/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/20",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/20/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/20/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/20/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/20/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/20/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/20/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/20/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/23/relationships/out",
+  "data" : {
+    "name" : "Mattias"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/23/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/23/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/23/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/23",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/23/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/23/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/23/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/23/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/23/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/23/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/23/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/18/relationships/out",
+  "data" : {
+    "name" : "Johan"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/18/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/18/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/18/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/18",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/18/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/18/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/18/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/18/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/18/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/18/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/18/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/19/relationships/out",
+  "data" : {
+    "name" : "Emil"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/19/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/19/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/19/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/19",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/19/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/19/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/19/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/19/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/19/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/19/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/19/relationships/in/{-list|&|types}"
+} ]
+----
+
+

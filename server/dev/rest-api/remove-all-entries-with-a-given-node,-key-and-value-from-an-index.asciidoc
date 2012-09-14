@@ -1,0 +1,25 @@
+[[rest-api-remove-all-entries-with-a-given-node,-key-and-value-from-an-index]]
+=== Remove all entries with a given node, key and value from an index ===
+
+.Final Graph
+["dot", "Final-Graph-Remove-all-entries-with-a-given-node,-key-and-value-from-an-index.svg", "neoviz", ""]
+----
+  N111 [
+    label = "{Node\[111\]|kvkey2 = \'value2\'\lkvkey1 = \'value2\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/index/node/kvnode/kvkey1/value1/111+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

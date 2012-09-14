@@ -1,0 +1,51 @@
+[[rest-api-items-can-not-be-added-manually-to-a-relationship-autoindex]]
+=== Items can not be added manually to a relationship AutoIndex ===
+
+It is not allowed to add items manually to automatic indexes.
+
+
+.Final Graph
+["dot", "Final-Graph-Items-can-not-be-added-manually-to-a-relationship-AutoIndex.svg", "neoviz", ""]
+----
+  N17 [
+    label = "{Node\[17\]|}"
+  ]
+  N18 [
+    label = "{Node\[18\]|}"
+  ]
+  N18 -> N17 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\nsince = \'today\'\l"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/index/relationship/relationship_auto_index+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "key" : "name",
+  "value" : "I",
+  "uri" : "http://localhost:7474/db/data/relationship/5"
+}
+----
+
+
+_Example response_
+
+* *+405:+* +null+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "read only index",
+  "exception" : "UnsupportedOperationException",
+  "stacktrace" : [ "org.neo4j.kernel.AbstractAutoIndexerImpl$ReadOnlyIndexToIndexAdapter.readOnlyIndex(AbstractAutoIndexerImpl.java:253)", "org.neo4j.kernel.AbstractAutoIndexerImpl$ReadOnlyIndexToIndexAdapter.add(AbstractAutoIndexerImpl.java:259)", "org.neo4j.server.rest.web.DatabaseActions.addToRelationshipIndex(DatabaseActions.java:783)", "org.neo4j.server.rest.web.RestfulGraphDatabase.addToRelationshipIndex(RestfulGraphDatabase.java:822)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

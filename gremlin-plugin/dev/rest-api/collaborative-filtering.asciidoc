@@ -1,0 +1,110 @@
+[[rest-api-collaborative-filtering]]
+=== Collaborative filtering ===
+
+This example demonstrates basic collaborative filtering - ordering a
+traversal after occurence counts and substracting objects that are not
+interesting in the final result.
+
+Here, we are finding Friends-of-Friends that are not Joes friends
+already. The same can be applied to graphs of users that +LIKE+ things
+and others.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+x=[]
+fof=[:]
+g.v(63).out('knows').aggregate(x).out('knows').except(x).groupCount(fof).iterate()
+fof.sort{a,b -> b.value <=> a.value}
+----
+
+
+.Final Graph
+["dot", "Final-Graph-collaborative-filtering.svg", "neoviz", ""]
+----
+  N58 [
+    label = "{Node\[58\]|name = \'Bill\'\l}"
+  ]
+  N58 -> N60 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N58 -> N61 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N59 [
+    label = "{Node\[59\]|name = \'Sara\'\l}"
+  ]
+  N59 -> N58 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N59 -> N61 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N59 -> N62 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N60 [
+    label = "{Node\[60\]|name = \'Derrick\'\l}"
+  ]
+  N61 [
+    label = "{Node\[61\]|name = \'Ian\'\l}"
+  ]
+  N62 [
+    label = "{Node\[62\]|name = \'Jill\'\l}"
+  ]
+  N63 [
+    label = "{Node\[63\]|name = \'Joe\'\l}"
+  ]
+  N63 -> N58 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N63 -> N59 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "x=[];fof=[:];g.v(63).out('knows').aggregate(x).out('knows').except(x).groupCount(fof).iterate();fof.sort{a,b -> b.value <=> a.value}",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "v[61]" : 2,
+  "v[60]" : 1,
+  "v[62]" : 1
+}
+----
+
+

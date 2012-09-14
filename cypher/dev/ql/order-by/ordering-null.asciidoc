@@ -1,0 +1,46 @@
+[[order-by-ordering-null]]
+== Ordering null ==
+When sorting the result set, +null+ will always come at the end of the result set for ascending sorting, and first when doing descending sort.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(3,1,2)
+RETURN n.length?, n
+ORDER BY n.length?
+----
+
+
+The nodes are returned sorted by the length property, with a node without that property last.
+
+.Result
+[queryresult]
+----
++-------------------------------------------------+
+| n.length? | n                                   |
++-------------------------------------------------+
+| 170       | Node[1]{name:"A",age:34,length:170} |
+| 185       | Node[3]{name:"C",age:32,length:185} |
+| <null>    | Node[2]{name:"B",age:34}            |
++-------------------------------------------------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":34,"length":170,"name":"A"}
+(2) {"age":34,"name":"B"}
+(3) {"age":32,"length":185,"name":"C"}
+(1)-[:KNOWS]->(2) {}
+(2)-[:KNOWS]->(3) {}
+
+
+start n=node(3,1,2) return n.length?, n order by n.length?
+----
+

@@ -1,0 +1,53 @@
+[[rest-api-get-service-root]]
+=== Get service root ===
+
+The service root is your starting point to discover the REST API. It
+contains the basic starting points for the database, and some version and
+extension information. The +reference_node+ entry will only be present if
+there is a reference node set and that node actually exists in the
+database.
+
+
+.Final Graph
+["dot", "Final-Graph-Get-service-root.svg", "neoviz", ""]
+----
+  N192 [
+    label = "{Node\[192\]|name = \'you\'\l}"
+  ]
+  N193 [
+    label = "{Node\[193\]|name = \'I\'\l}"
+  ]
+  N193 -> N192 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "extensions" : {
+  },
+  "node" : "http://localhost:7474/db/data/node",
+  "reference_node" : "http://localhost:7474/db/data/node/193",
+  "node_index" : "http://localhost:7474/db/data/index/node",
+  "relationship_index" : "http://localhost:7474/db/data/index/relationship",
+  "extensions_info" : "http://localhost:7474/db/data/ext",
+  "relationship_types" : "http://localhost:7474/db/data/relationship/types",
+  "batch" : "http://localhost:7474/db/data/batch",
+  "cypher" : "http://localhost:7474/db/data/cypher",
+  "neo4j_version" : "1.8.M07-98-ge9ef235"
+}
+----
+
+

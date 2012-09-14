@@ -1,0 +1,48 @@
+[[rest-api-update-node-properties]]
+=== Update node properties ===
+
+This will replace all existing properties on the node with the new set
+of attributes.
+
+
+.Final Graph
+["dot", "Final-Graph-Update-node-properties.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N1 [
+    label = "{Node\[1\]|age = \'18\'\l}"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'joe\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+PUT+*  +http://localhost:7474/db/data/node/1/properties+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "age" : "18"
+}
+----
+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

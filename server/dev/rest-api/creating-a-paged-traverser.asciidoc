@@ -1,0 +1,280 @@
+[[rest-api-creating-a-paged-traverser]]
+=== Creating a paged traverser ===
+
+Paged traversers are created by +POST+-ing a
+traversal description to the link identified by the +paged_traverser+ key
+in a node representation. When creating a paged traverser, the same
+options apply as for a regular traverser, meaning that +node+, +path+,
+or +fullpath+, can be targeted.
+
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/67/paged/traverse/node+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "prune_evaluator" : {
+    "language" : "builtin",
+    "name" : "none"
+  },
+  "return_filter" : {
+    "language" : "javascript",
+    "body" : "position.endNode().getProperty('name').contains('1');"
+  },
+  "order" : "depth_first",
+  "relationships" : {
+    "type" : "NEXT",
+    "direction" : "out"
+  }
+}
+----
+
+
+_Example response_
+
+* *+201:+* +Created+
+* *+Content-Type:+* +application/json+
+* *+Location:+* +http://localhost:7474/db/data/node/67/paged/traverse/node/1ff2c67ce33a4b85bcea5ab3f4b60ee8+
+[source,javascript]
+----
+[ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/68/relationships/out",
+  "data" : {
+    "name" : "1"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/68/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/68/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/68/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/68",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/68/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/68/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/68/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/68/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/68/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/68/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/68/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/77/relationships/out",
+  "data" : {
+    "name" : "10"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/77/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/77/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/77/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/77",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/77/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/77/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/77/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/77/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/77/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/77/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/77/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/78/relationships/out",
+  "data" : {
+    "name" : "11"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/78/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/78/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/78/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/78",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/78/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/78/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/78/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/78/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/78/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/78/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/78/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/79/relationships/out",
+  "data" : {
+    "name" : "12"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/79/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/79/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/79/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/79",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/79/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/79/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/79/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/79/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/79/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/79/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/79/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/80/relationships/out",
+  "data" : {
+    "name" : "13"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/80/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/80/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/80/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/80",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/80/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/80/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/80/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/80/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/80/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/80/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/80/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/81/relationships/out",
+  "data" : {
+    "name" : "14"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/81/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/81/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/81/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/81",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/81/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/81/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/81/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/81/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/81/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/81/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/81/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/82/relationships/out",
+  "data" : {
+    "name" : "15"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/82/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/82/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/82/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/82",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/82/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/82/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/82/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/82/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/82/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/82/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/82/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/83/relationships/out",
+  "data" : {
+    "name" : "16"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/83/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/83/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/83/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/83",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/83/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/83/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/83/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/83/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/83/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/83/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/83/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/84/relationships/out",
+  "data" : {
+    "name" : "17"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/84/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/84/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/84/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/84",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/84/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/84/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/84/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/84/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/84/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/84/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/84/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/85/relationships/out",
+  "data" : {
+    "name" : "18"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/85/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/85/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/85/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/85",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/85/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/85/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/85/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/85/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/85/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/85/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/85/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/86/relationships/out",
+  "data" : {
+    "name" : "19"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/86/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/86/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/86/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/86",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/86/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/86/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/86/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/86/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/86/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/86/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/86/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/88/relationships/out",
+  "data" : {
+    "name" : "21"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/88/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/88/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/88/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/88",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/88/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/88/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/88/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/88/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/88/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/88/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/88/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/98/relationships/out",
+  "data" : {
+    "name" : "31"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/98/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/98/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/98/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/98",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/98/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/98/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/98/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/98/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/98/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/98/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/98/relationships/in/{-list|&|types}"
+} ]
+----
+
+

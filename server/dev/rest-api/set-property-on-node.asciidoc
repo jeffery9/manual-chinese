@@ -1,0 +1,37 @@
+[[rest-api-set-property-on-node]]
+=== Set property on node ===
+
+Setting different properties will retain the existing ones for this node.
+Note that a single value are submitted not as a map but just as a value
+(which is valid JSON) like in the example
+below.
+
+
+.Final Graph
+["dot", "Final-Graph-Set-property-on-node.svg", "neoviz", ""]
+----
+  N7 [
+    label = "{Node\[7\]|foo2 = \'bar2\'\lfoo = \'bar\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+PUT+*  +http://localhost:7474/db/data/node/7/properties/foo+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+"bar"
+----
+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

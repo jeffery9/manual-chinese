@@ -1,0 +1,31 @@
+[[rest-api-get-properties-for-node]]
+=== Get properties for node ===
+
+.Final Graph
+["dot", "Final-Graph-Get-properties-for-node.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N4 [
+    label = "{Node\[4\]|foo = \'bar\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/node/4/properties+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "foo" : "bar"
+}
+----
+
+

@@ -1,0 +1,48 @@
+[[rest-api-shouldhandleescapedstrings]]
+=== ShouldHandleEscapedStrings ===
+
+.Final Graph
+["dot", "Final-Graph-shouldHandleEscapedStrings.svg", "neoviz", ""]
+----
+  N137 [
+    label = "{Node\[137\]|name = \'string\\\\ and \\\"test\\\"\'\l}"
+  ]
+  N138 [
+    label = "{Node\[138\]|name = \'Peter\'\l}"
+  ]
+  N138 -> N137 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "likes\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/batch+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+* *+X-Stream:+* +true+
+[source,javascript]
+----
+[ {
+  "method" : "GET",
+  "to" : "/node/137/properties/name"
+} ]
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "from" : "/node/137/properties/name",
+  "body" : "string\\ and \"test\"",
+  "status" : 200
+} ]
+----
+
+

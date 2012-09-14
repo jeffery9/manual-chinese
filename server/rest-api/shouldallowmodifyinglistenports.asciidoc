@@ -1,0 +1,30 @@
+[[rest-api-shouldallowmodifyinglistenports]]
+=== ShouldAllowModifyingListenPorts ===
+
+_Example request_
+
+* *+GET+*  +http://10.242.198.175:7474/db/data/+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "extensions" : {
+  },
+  "node" : "http://10.242.198.175:7474/db/data/node",
+  "reference_node" : "http://10.242.198.175:7474/db/data/node/0",
+  "node_index" : "http://10.242.198.175:7474/db/data/index/node",
+  "relationship_index" : "http://10.242.198.175:7474/db/data/index/relationship",
+  "extensions_info" : "http://10.242.198.175:7474/db/data/ext",
+  "relationship_types" : "http://10.242.198.175:7474/db/data/relationship/types",
+  "batch" : "http://10.242.198.175:7474/db/data/batch",
+  "cypher" : "http://10.242.198.175:7474/db/data/cypher",
+  "neo4j_version" : "1.8.M07-98-ge9ef235"
+}
+----
+
+

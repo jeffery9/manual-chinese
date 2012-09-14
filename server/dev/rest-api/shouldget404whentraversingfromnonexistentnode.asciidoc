@@ -1,0 +1,37 @@
+[[rest-api-shouldget404whentraversingfromnonexistentnode]]
+=== ShouldGet404WhenTraversingFromNonExistentNode ===
+
+.Final Graph
+["dot", "Final-Graph-shouldGet404WhenTraversingFromNonExistentNode.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/10000/traverse/node+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+}
+----
+
+
+_Example response_
+
+* *+404:+* +Not Found+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "Node[10000]",
+  "exception" : "NotFoundException",
+  "stacktrace" : [ "org.neo4j.kernel.impl.core.NodeManager.getNodeById(NodeManager.java:367)", "org.neo4j.kernel.InternalAbstractGraphDatabase.getNodeById(InternalAbstractGraphDatabase.java:855)", "org.neo4j.server.rest.web.DatabaseActions.traverse(DatabaseActions.java:1244)", "org.neo4j.server.rest.web.RestfulGraphDatabase.traverse(RestfulGraphDatabase.java:1226)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

@@ -1,0 +1,70 @@
+[[cypher-plugin-api-send-a-query]]
+=== Send a Query ===
+
+A simple query returning all nodes connected to node 1, returning the
+node and the name property, if it exists, otherwise `null`:
+
+
+[source,cypher]
+----
+START x  = node(3)
+MATCH x -[r]-> n
+RETURN type(r), n.name?, n.age?
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Send-a-Query.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N1 [
+    label = "{Node\[1\]|name = \'you\'\l}"
+  ]
+  N2 [
+    label = "{Node\[2\]|age = 25\lname = \'him\'\l}"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'I\'\l}"
+  ]
+  N3 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+  N3 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/CypherPlugin/graphdb/execute_query+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x  = node(3) match x -[r]-> n return type(r), n.name?, n.age?",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "columns" : [ "type(r)", "n.name?", "n.age?" ],
+  "data" : [ [ "know", "him", 25 ], [ "know", "you", null ] ]
+}
+----
+
+

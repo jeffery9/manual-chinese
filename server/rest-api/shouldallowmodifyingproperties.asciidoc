@@ -1,0 +1,27 @@
+[[rest-api-shouldallowmodifyingproperties]]
+=== ShouldAllowModifyingProperties ===
+
+_Example request_
+
+* *+POST+*  +http://127.0.0.1:7575/db/manage/server/console/+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "command" : "ls",
+  "engine" : "shell"
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ "", "neo4j-sh (0)$ " ]
+----
+
+

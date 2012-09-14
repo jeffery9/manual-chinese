@@ -1,0 +1,85 @@
+[[rest-api-create-a-relationship-with-properties]]
+=== Create a relationship with properties ===
+
+Upon successful creation of a relationship, the new relationship is
+returned.
+
+
+.Starting Graph
+["dot", "Starting-Graph-Add-relationship-with-properties-before.svg", "neoviz", ""]
+----
+  N67 [
+    label = "{Node\[67\]|name = \'Sara\'\l}"
+  ]
+  N68 [
+    label = "{Node\[68\]|name = \'Joe\'\l}"
+  ]
+  N68 -> N67 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Create-a-relationship-with-properties.svg", "neoviz", ""]
+----
+  N67 [
+    label = "{Node\[67\]|name = \'Sara\'\l}"
+  ]
+  N68 [
+    label = "{Node\[68\]|name = \'Joe\'\l}"
+  ]
+  N68 -> N67 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N68 -> N67 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "LOVES\nfoo = \'bar\'\l"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/68/relationships+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "to" : "http://localhost:7474/db/data/node/67",
+  "type" : "LOVES",
+  "data" : {
+    "foo" : "bar"
+  }
+}
+----
+
+
+_Example response_
+
+* *+201:+* +Created+
+* *+Content-Type:+* +application/json+
+* *+Location:+* +http://localhost:7474/db/data/relationship/37+
+[source,javascript]
+----
+{
+  "extensions" : {
+  },
+  "start" : "http://localhost:7474/db/data/node/68",
+  "property" : "http://localhost:7474/db/data/relationship/37/properties/{key}",
+  "self" : "http://localhost:7474/db/data/relationship/37",
+  "properties" : "http://localhost:7474/db/data/relationship/37/properties",
+  "type" : "LOVES",
+  "end" : "http://localhost:7474/db/data/node/67",
+  "data" : {
+    "foo" : "bar"
+  }
+}
+----
+
+

@@ -1,0 +1,74 @@
+[[rest-api-send-a-gremlin-script-with-variables-in-a-json-map]]
+=== Send a Gremlin Script with variables in a JSON Map ===
+
+Send a Gremlin Script, as JSON payload and additional parameters
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.v(me).out
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Send-a-Gremlin-Script-with-variables-in-a-JSON-Map.svg", "neoviz", ""]
+----
+  N5 [
+    label = "{Node\[5\]|name = \'you\'\l}"
+  ]
+  N6 [
+    label = "{Node\[6\]|name = \'I\'\l}"
+  ]
+  N6 -> N5 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.v(me).out",
+  "params" : {
+    "me" : "6"
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/5/relationships/out",
+  "data" : {
+    "name" : "you"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/5/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/5/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/5/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/5",
+  "properties" : "http://localhost:7474/db/data/node/5/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/5/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/5/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/5/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/5/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/5/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/5/relationships/in/{-list|&|types}"
+} ]
+----
+
+

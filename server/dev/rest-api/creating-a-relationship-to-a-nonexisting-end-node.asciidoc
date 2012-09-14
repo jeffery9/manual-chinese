@@ -1,0 +1,49 @@
+[[rest-api-creating-a-relationship-to-a-nonexisting-end-node]]
+=== Creating a relationship to a nonexisting end node ===
+
+.Final Graph
+["dot", "Final-Graph-creating-a-relationship-to-a-nonexisting-end-node.svg", "neoviz", ""]
+----
+  N71 [
+    label = "{Node\[71\]|name = \'Sara\'\l}"
+  ]
+  N72 [
+    label = "{Node\[72\]|name = \'Joe\'\l}"
+  ]
+  N72 -> N71 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/72/relationships+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "to" : "http://localhost:7474/db/data/node/999999",
+  "type" : "LOVES",
+  "data" : {
+    "foo" : "bar"
+  }
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "exception" : "EndNodeNotFoundException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.createRelationship(DatabaseActions.java:577)", "org.neo4j.server.rest.web.RestfulGraphDatabase.createRelationship(RestfulGraphDatabase.java:406)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

@@ -1,0 +1,60 @@
+[[rest-api-set-all-properties-on-a-relationship]]
+=== Set all properties on a relationship ===
+
+
+
+.Starting Graph
+["dot", "Starting-Graph-Set-relationship-property1.svg", "neoviz", ""]
+----
+  N61 [
+    label = "{Node\[61\]|name = \'Juliet\'\l}"
+  ]
+  N62 [
+    label = "{Node\[62\]|name = \'Romeo\'\l}"
+  ]
+  N62 -> N61 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\ncost = \'high\'\lsince = \'1day\'\l"
+  ]
+----
+
+
+.Final Graph
+["dot", "Final-Graph-set-all-properties-on-a-relationship.svg", "neoviz", ""]
+----
+  N61 [
+    label = "{Node\[61\]|name = \'Juliet\'\l}"
+  ]
+  N62 [
+    label = "{Node\[62\]|name = \'Romeo\'\l}"
+  ]
+  N62 -> N61 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\nhappy = false\l"
+  ]
+----
+
+_Example request_
+
+* *+PUT+*  +http://localhost:7474/db/data/relationship/29/properties+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "happy" : false
+}
+----
+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

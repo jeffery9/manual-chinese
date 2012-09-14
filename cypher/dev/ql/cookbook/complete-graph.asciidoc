@@ -1,0 +1,64 @@
+[[cookbook-complete-graph]]
+== Complete graph ==
+For this graph, a root node is created, and used to hang a number 
+        of nodes from. Then, two nodes are selected, hanging from the center, with the requirement that the 
+        id of the first is less than the id of the next. This is to prevent double relationships and 
+        self relationships. Using said match, relationships between all these nodes are created. Lastly, 
+        the center node and all relationships connected to it are removed.
+
+_Query_
+
+[source,cypher]
+----
+CREATE center
+foreach( x in range(1,6) :
+
+CREATE leaf={count : x}, center-[:X]->leaf
+)
+==== center ====
+MATCH leaf1<--center-->leaf2
+WHERE id(leaf1)<id(leaf2)
+CREATE leaf1-[:X]->leaf2
+==== center ====
+MATCH center-[r]->()
+DELETE center,r;
+----
+
+
+Nothing is returned by this query.
+
+.Result
+[queryresult]
+----
++-------------------+
+| No data returned. |
++-------------------+
+Nodes created: 7
+Relationships created: 21
+Properties set: 6
+Nodes deleted: 1
+Relationships deleted: 6
+19 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+start n=node(*) match n-[r?]->() delete n, r;
+
+create center
+foreach( x in range(1,6) : 
+   create leaf={count : x}, center-[:X]->leaf
+)
+==== center ====
+MATCH leaf1<--center-->leaf2
+WHERE id(leaf1)<id(leaf2)
+CREATE leaf1-[:X]->leaf2
+==== center ====
+MATCH center-[r]->()
+DELETE center,r;
+----
+

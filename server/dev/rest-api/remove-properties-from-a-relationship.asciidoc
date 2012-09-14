@@ -1,0 +1,28 @@
+[[rest-api-remove-properties-from-a-relationship]]
+=== Remove properties from a relationship ===
+
+.Final Graph
+["dot", "Final-Graph-Remove-properties-from-a-relationship.svg", "neoviz", ""]
+----
+  N41 [
+    label = "{Node\[41\]|name = \'Juliet\'\l}"
+  ]
+  N42 [
+    label = "{Node\[42\]|name = \'Romeo\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/relationship/19+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

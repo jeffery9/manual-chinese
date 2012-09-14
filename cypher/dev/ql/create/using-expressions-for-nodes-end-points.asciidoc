@@ -1,0 +1,45 @@
+[[create-using-expressions-for-nodes-end-points]]
+== Using expressions for nodes end points ==
+You can use any expression as a node, as long as it returns a node. Just make sure to encase your expression in parenthesis.
+
+_Query_
+
+[source,cypher]
+----
+START a=node(1)
+WITH collect(a) as nodes
+START b=node(2)
+CREATE (head(nodes))-[r:REL]->b
+RETURN r
+----
+
+
+The created relationship is returned.
+
+.Result
+[queryresult]
+----
++------------+
+| r          |
++------------+
+| :REL[0] {} |
++------------+
+1 row
+Relationships created: 1
+2 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {}
+(2) {}
+(1)-[:REL]->(2) {}
+
+
+start a=node(1) with collect(a) as nodes start b=node(2) create (head(nodes))-[r:REL]->b return r
+----
+

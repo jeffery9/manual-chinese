@@ -1,0 +1,134 @@
+[[rest-api-returning-paths]]
+=== Returning paths ===
+
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.v(57).out().paths()
+----
+
+
+.Final Graph
+["dot", "Final-Graph-returning-paths.svg", "neoviz", ""]
+----
+  N55 [
+    label = "{Node\[55\]|name = \'Sara\'\l}"
+  ]
+  N56 [
+    label = "{Node\[56\]|name = \'Ian\'\l}"
+  ]
+  N57 [
+    label = "{Node\[57\]|name = \'George\'\l}"
+  ]
+  N57 -> N55 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N57 -> N56 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.v(57).out().paths()",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ [ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/57/relationships/out",
+  "data" : {
+    "name" : "George"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/57/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/57/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/57/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/57",
+  "properties" : "http://localhost:7474/db/data/node/57/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/57/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/57/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/57/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/57/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/57/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/57/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/55/relationships/out",
+  "data" : {
+    "name" : "Sara"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/55/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/55/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/55/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/55",
+  "properties" : "http://localhost:7474/db/data/node/55/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/55/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/55/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/55/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/55/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/55/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/55/relationships/in/{-list|&|types}"
+} ], [ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/57/relationships/out",
+  "data" : {
+    "name" : "George"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/57/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/57/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/57/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/57",
+  "properties" : "http://localhost:7474/db/data/node/57/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/57/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/57/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/57/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/57/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/57/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/57/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/56/relationships/out",
+  "data" : {
+    "name" : "Ian"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/56/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/56/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/56/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/56",
+  "properties" : "http://localhost:7474/db/data/node/56/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/56/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/56/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/56/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/56/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/56/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/56/relationships/in/{-list|&|types}"
+} ] ]
+----
+
+

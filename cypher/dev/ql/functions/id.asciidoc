@@ -1,0 +1,56 @@
+[[functions-id]]
+== ID ==
+Returns the id of the relationship or node.
+
+*Syntax:* `ID( property-container )`
+
+*Arguments:*
+
+* _property-container:_ A node or a relationship.
+
+_Query_
+
+[source,cypher]
+----
+START a=node(3, 4, 5)
+RETURN ID(a)
+----
+
+
+This returns the node id for three nodes.
+
+.Result
+[queryresult]
+----
++-------+
+| ID(a) |
++-------+
+| 3     |
+| 4     |
+| 5     |
++-------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"age":54,"eyes":"brown","name":"D"}
+(2) {"age":41,"array":["one","two","three"],"eyes":"blue","name":"E"}
+(3) {"age":38,"eyes":"brown","name":"A"}
+(4) {"age":25,"eyes":"blue","name":"B"}
+(5) {"age":53,"eyes":"green","name":"C"}
+(3)-[:KNOWS]->(4) {}
+(3)-[:KNOWS]->(5) {}
+(4)-[:KNOWS]->(1) {}
+(4)-[:MARRIED]->(2) {}
+(5)-[:KNOWS]->(1) {}
+
+
+start a=node(3, 4, 5) return ID(a)
+----
+

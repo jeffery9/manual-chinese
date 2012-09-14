@@ -1,0 +1,49 @@
+[[rest-api-return-map]]
+=== Return map ===
+
+
+
+_Raw script source_
+
+[source, groovy]
+----
+m = [name:'John',age:24, address:[number:34]]
+----
+
+
+.Final Graph
+["dot", "Final-Graph-return-map.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "m = [name:'John',age:24, address:[number:34]];",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "name" : "John",
+  "age" : 24,
+  "address" : {
+    "number" : 34
+  }
+}
+----
+
+

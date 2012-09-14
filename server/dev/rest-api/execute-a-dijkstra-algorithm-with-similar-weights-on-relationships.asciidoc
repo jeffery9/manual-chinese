@@ -1,0 +1,136 @@
+[[rest-api-execute-a-dijkstra-algorithm-with-similar-weights-on-relationships]]
+=== Execute a Dijkstra algorithm with similar weights on relationships ===
+
+.Final Graph
+["dot", "Final-Graph-Execute-a-Dijkstra-algorithm-with-similar-weights-on-relationships.svg", "neoviz", ""]
+----
+  N142 [
+    label = "{Node\[142\]|name = \'f\'\l}"
+  ]
+  N143 [
+    label = "{Node\[143\]|name = \'d\'\l}"
+  ]
+  N143 -> N150 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N143 -> N144 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N144 [
+    label = "{Node\[144\]|name = \'e\'\l}"
+  ]
+  N144 -> N150 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N144 -> N142 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N145 [
+    label = "{Node\[145\]|name = \'b\'\l}"
+  ]
+  N145 -> N150 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N145 -> N146 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N146 [
+    label = "{Node\[146\]|name = \'c\'\l}"
+  ]
+  N146 -> N150 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N146 -> N150 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N146 -> N143 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N147 [
+    label = "{Node\[147\]|name = \'start\'\l}"
+  ]
+  N147 -> N148 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N148 [
+    label = "{Node\[148\]|name = \'a\'\l}"
+  ]
+  N148 -> N150 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N148 -> N145 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+  N149 [
+    label = "{Node\[149\]|name = \'y\'\l}"
+  ]
+  N150 [
+    label = "{Node\[150\]|name = \'x\'\l}"
+  ]
+  N150 -> N149 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1\l"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/147/path+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "to" : "http://localhost:7474/db/data/node/150",
+  "cost_property" : "cost",
+  "relationships" : {
+    "type" : "to",
+    "direction" : "out"
+  },
+  "algorithm" : "dijkstra"
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "weight" : 2.0,
+  "start" : "http://localhost:7474/db/data/node/147",
+  "nodes" : [ "http://localhost:7474/db/data/node/147", "http://localhost:7474/db/data/node/148", "http://localhost:7474/db/data/node/150" ],
+  "length" : 2,
+  "relationships" : [ "http://localhost:7474/db/data/relationship/106", "http://localhost:7474/db/data/relationship/107" ],
+  "end" : "http://localhost:7474/db/data/node/150"
+}
+----
+
+

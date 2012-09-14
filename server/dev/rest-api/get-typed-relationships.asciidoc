@@ -1,0 +1,93 @@
+[[rest-api-get-typed-relationships]]
+=== Get typed relationships ===
+
+Note that the "+&+" needs to be encoded like "+%26+" for example when
+using http://curl.haxx.se/[cURL] from the terminal.
+
+
+.Final Graph
+["dot", "Final-Graph-Get-typed-relationships.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N45 [
+    label = "{Node\[45\]|}"
+  ]
+  N45 -> N46 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LIKES\n"
+  ]
+  N45 -> N48 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "HATES\n"
+  ]
+  N46 [
+    label = "{Node\[46\]|}"
+  ]
+  N47 [
+    label = "{Node\[47\]|}"
+  ]
+  N47 -> N45 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LIKES\n"
+  ]
+  N48 [
+    label = "{Node\[48\]|}"
+  ]
+  N49 [
+    label = "{Node\[49\]|}"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/node/45/relationships/all/LIKES&HATES+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "start" : "http://localhost:7474/db/data/node/45",
+  "data" : {
+  },
+  "self" : "http://localhost:7474/db/data/relationship/21",
+  "property" : "http://localhost:7474/db/data/relationship/21/properties/{key}",
+  "properties" : "http://localhost:7474/db/data/relationship/21/properties",
+  "type" : "LIKES",
+  "extensions" : {
+  },
+  "end" : "http://localhost:7474/db/data/node/46"
+}, {
+  "start" : "http://localhost:7474/db/data/node/47",
+  "data" : {
+  },
+  "self" : "http://localhost:7474/db/data/relationship/22",
+  "property" : "http://localhost:7474/db/data/relationship/22/properties/{key}",
+  "properties" : "http://localhost:7474/db/data/relationship/22/properties",
+  "type" : "LIKES",
+  "extensions" : {
+  },
+  "end" : "http://localhost:7474/db/data/node/45"
+}, {
+  "start" : "http://localhost:7474/db/data/node/45",
+  "data" : {
+  },
+  "self" : "http://localhost:7474/db/data/relationship/23",
+  "property" : "http://localhost:7474/db/data/relationship/23/properties/{key}",
+  "properties" : "http://localhost:7474/db/data/relationship/23/properties",
+  "type" : "HATES",
+  "extensions" : {
+  },
+  "end" : "http://localhost:7474/db/data/node/48"
+} ]
+----
+
+

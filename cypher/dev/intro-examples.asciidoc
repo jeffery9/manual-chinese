@@ -1,0 +1,87 @@
+
+Imagine an example graph like the following one:
+
+.Example Graph
+["dot", "Example-Graph-cypher-intro.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'Sara\'\l}"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "friend\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'Maria\'\l}"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'Steve\'\l}"
+  ]
+  N4 [
+    label = "{Node\[4\]|name = \'John\'\l}"
+  ]
+  N4 -> N1 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "friend\n"
+  ]
+  N4 -> N5 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "friend\n"
+  ]
+  N5 [
+    label = "{Node\[5\]|name = \'Joe\'\l}"
+  ]
+  N5 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "friend\n"
+  ]
+----
+For example, here is a query which finds a user called John in an index and then traverses the graph looking for friends of Johns friends (though not his direct friends) before returning both John and any friends-of-friends that are found.
+[source,cypher]
+----
+START john=node:node_auto_index(name = 'John')
+MATCH john-[:friend]->()-[:friend]->fof
+RETURN john, fof
+----
+
+Resulting in:
+[queryresult]
+----
++----------------------------------------------+
+| john                 | fof                   |
++----------------------------------------------+
+| Node[4]{name:"John"} | Node[2]{name:"Maria"} |
+| Node[4]{name:"John"} | Node[3]{name:"Steve"} |
++----------------------------------------------+
+2 rows
+3 ms
+
+----
+Next up we will add filtering to set more parts in motion:
+
+In this next example, we take a list of users (by node ID) and traverse the graph looking for those other users that have an outgoing +friend+ relationship, returning only those followed users who have a +name+ property starting with +S+.
+[source,cypher]
+----
+START user=node(5,4,1,2,3)
+MATCH user-[:friend]->follower
+WHERE follower.name =~ 'S.*'
+RETURN user, follower.name
+----
+
+Resulting in
+[queryresult]
+----
++--------------------------------------+
+| user                 | follower.name |
++--------------------------------------+
+| Node[5]{name:"Joe"}  | "Steve"       |
+| Node[4]{name:"John"} | "Sara"        |
++--------------------------------------+
+2 rows
+1 ms
+
+----

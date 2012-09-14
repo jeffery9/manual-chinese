@@ -1,0 +1,42 @@
+[[rest-api-nodes-with-relationships-can-not-be-deleted]]
+=== Nodes with relationships can not be deleted ===
+
+The relationships on a node has to be deleted before the node can be
+deleted.
+
+
+.Final Graph
+["dot", "Final-Graph-Nodes-with-relationships-can-not-be-deleted.svg", "neoviz", ""]
+----
+  N36 [
+    label = "{Node\[36\]|}"
+  ]
+  N36 -> N37 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\n"
+  ]
+  N37 [
+    label = "{Node\[37\]|}"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/node/36+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+409:+* +Conflict+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "The node with id 36 cannot be deleted. Check that the node is orphaned before deletion.",
+  "exception" : "OperationFailureException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.deleteNode(DatabaseActions.java:255)", "org.neo4j.server.rest.web.RestfulGraphDatabase.deleteNode(RestfulGraphDatabase.java:239)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

@@ -1,0 +1,84 @@
+[[rest-api-modify-the-graph-while-traversing]]
+=== Modify the graph while traversing ===
+
+This example is showing a group count in Gremlin, for instance the
+counting of the different relationship types connected to some the start
+node. The result is collected into a variable that then is returned.
+
+.Starting Graph
+["dot", "Starting-Graph-starting_graphmodify-the-graph-while-traversing.svg", "neoviz", ""]
+----
+  N43 [
+    label = "name = \'Ian\'\l"
+  ]
+  N43 -> N44 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N44 [
+    label = "name = \'Peter\'\l"
+  ]
+  N44 -> N43 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N44 -> N45 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "likes\n"
+  ]
+  N45 [
+    label = "name = \'Bikes\'\l"
+  ]
+----
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.v(44).bothE.each{g.removeEdge(it)}
+----
+
+
+.Final Graph
+["dot", "Final-Graph-modify-the-graph-while-traversing.svg", "neoviz", ""]
+----
+  N43 [
+    label = "{Node\[43\]|name = \'Ian\'\l}"
+  ]
+  N44 [
+    label = "{Node\[44\]|name = \'Peter\'\l}"
+  ]
+  N45 [
+    label = "{Node\[45\]|name = \'Bikes\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.v(44).bothE.each{g.removeEdge(it)}",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ ]
+----
+
+

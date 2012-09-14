@@ -1,0 +1,76 @@
+[[rest-api-shouldrespondwith404whenstartnodedoesnotexist]]
+=== ShouldRespondWith404WhenStartNodeDoesNotExist ===
+
+.Final Graph
+["dot", "Final-Graph-shouldRespondWith404WhenStartNodeDoesNotExist.svg", "neoviz", ""]
+----
+  N69 [
+    label = "{Node\[69\]|name = \'Sara\'\l}"
+  ]
+  N70 [
+    label = "{Node\[70\]|name = \'Joe\'\l}"
+  ]
+  N70 -> N69 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data//node/12345/relationships+
+* *+Accept:+* +text/html+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "to" : "http://localhost:7474/db/data/node/Node[70]",
+  "type" : "LOVES",
+  "data" : {
+    "foo" : "bar"
+  }
+}
+----
+
+
+_Example response_
+
+* *+404:+* +Not Found+
+* *+Content-Type:+* +text/html; charset=iso-8859-1+
+[source,javascript]
+----
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+<title>Error 404 Not Found</title>
+</head>
+<body><h2>HTTP ERROR 404</h2>
+<p>Problem accessing /db/data//node/12345/relationships. Reason:
+<pre>    Not Found</pre></p><hr /><i><small>Powered by Jetty://</small></i><br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+<br/>                                                
+
+</body>
+</html>
+
+----
+
+

@@ -1,0 +1,127 @@
+[[rest-api-send-an-arbitrary-groovy-script---lucene-sorting]]
+=== Send an arbitrary Groovy script - Lucene sorting ===
+
+This example demonstrates that you via the Groovy runtime embedded with
+the server have full access to all of the servers Java APIs. The below
+example creates Nodes in the database both via the Blueprints and the
+Neo4j API indexes the nodes via the native Neo4j Indexing API constructs
+a custom Lucene sorting and searching returns a Neo4j IndexHits result
+iterator.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+'******** Additional imports *********'
+import org.neo4j.graphdb.index.*
+import org.neo4j.graphdb.*
+import org.neo4j.index.lucene.*
+import org.apache.lucene.search.*
+
+'**** Blueprints API methods on the injected Neo4jGraph at variable g ****'
+meVertex = g.addVertex([name:'me'])
+meNode = meVertex.getRawVertex()
+
+'*** get the Neo4j raw instance ***'
+neo4j = g.getRawGraph()
+
+
+'******** Neo4j API methods: *********'
+tx = neo4j.beginTx()
+ youNode = neo4j.createNode()
+ youNode.setProperty('name','you')
+ youNode.createRelationshipTo(meNode,DynamicRelationshipType.withName('knows'))
+
+'*** index using Neo4j APIs ***'
+ idxManager = neo4j.index()
+ personIndex = idxManager.forNodes('persons')
+ personIndex.add(meNode,'name',meNode.getProperty('name'))
+ personIndex.add(youNode,'name',youNode.getProperty('name'))
+tx.success()
+tx.finish()
+
+
+'*** Prepare a custom Lucene query context with Neo4j API ***'
+query = new QueryContext( 'name:*' ).sort( new Sort(new SortField( 'name',SortField.STRING, true ) ) )
+results = personIndex.query( query )
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Send-an-arbitrary-Groovy-script---Lucene-sorting.svg", "neoviz", ""]
+----
+  N29 [
+    label = "{Node\[29\]|name = \'me\'\l}"
+  ]
+  N30 [
+    label = "{Node\[30\]|name = \'you\'\l}"
+  ]
+  N30 -> N29 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "'******** Additional imports *********';import org.neo4j.graphdb.index.*;import org.neo4j.graphdb.*;import org.neo4j.index.lucene.*;import org.apache.lucene.search.*;;'**** Blueprints API methods on the injected Neo4jGraph at variable g ****';meVertex = g.addVertex([name:'me']);meNode = meVertex.getRawVertex();;'*** get the Neo4j raw instance ***';neo4j = g.getRawGraph();;;'******** Neo4j API methods: *********';tx = neo4j.beginTx(); youNode = neo4j.createNode(); youNode.setProperty('name','you'); youNode.createRelationshipTo(meNode,DynamicRelationshipType.withName('knows'));;'*** index using Neo4j APIs ***'; idxManager = neo4j.index(); personIndex = idxManager.forNodes('persons'); personIndex.add(meNode,'name',meNode.getProperty('name')); personIndex.add(youNode,'name',youNode.getProperty('name'));tx.success();tx.finish();;;'*** Prepare a custom Lucene query context with Neo4j API ***';query = new QueryContext( 'name:*' ).sort( new Sort(new SortField( 'name',SortField.STRING, true ) ) );results = personIndex.query( query );",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/30/relationships/out",
+  "data" : {
+    "name" : "you"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/30/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/30/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/30/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/30",
+  "properties" : "http://localhost:7474/db/data/node/30/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/30/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/30/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/30/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/30/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/30/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/30/relationships/in/{-list|&|types}"
+}, {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/29/relationships/out",
+  "data" : {
+    "name" : "me"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/29/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/29/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/29/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/29",
+  "properties" : "http://localhost:7474/db/data/node/29/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/29/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/29/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/29/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/29/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/29/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/29/relationships/in/{-list|&|types}"
+} ]
+----
+
+

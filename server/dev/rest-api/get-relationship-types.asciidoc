@@ -1,0 +1,45 @@
+[[rest-api-get-relationship-types]]
+=== Get relationship types ===
+
+.Final Graph
+["dot", "Final-Graph-Get-relationship-types.svg", "neoviz", ""]
+----
+  N43 [
+    label = "{Node\[43\]|}"
+  ]
+  N43 -> N44 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "foo\n"
+  ]
+  N44 [
+    label = "{Node\[44\]|}"
+  ]
+  N45 [
+    label = "{Node\[45\]|}"
+  ]
+  N45 -> N46 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "bar\n"
+  ]
+  N46 [
+    label = "{Node\[46\]|}"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/relationship/types+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ "knows", "likes", "KNOWS", "foo", "bar", "know", "has" ]
+----
+
+

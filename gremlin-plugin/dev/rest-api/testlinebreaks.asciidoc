@@ -1,0 +1,43 @@
+[[rest-api-testlinebreaks]]
+=== TestLineBreaks ===
+
+
+
+_Raw script source_
+
+[source, groovy]
+----
+1\n2
+----
+
+
+.Final Graph
+["dot", "Final-Graph-testLineBreaks.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "1\n2",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+2
+----
+
+

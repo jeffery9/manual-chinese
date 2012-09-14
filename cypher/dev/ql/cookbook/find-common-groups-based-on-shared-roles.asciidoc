@@ -1,0 +1,98 @@
+[[cookbook-find-common-groups-based-on-shared-roles]]
+== Find common groups based on shared roles ==
+Assume a more complicated graph:
+
+1. Two user nodes +User1+, +User2+.
+2. +User1+ is in +Group1+, +Group2+, +Group3+.
+3. +User1+ has +Role1+, +Role2+ in +Group1+; +Role2+, +Role3+ in +Group2+; +Role3+, +Role4+ in +Group3+ (hyper edges).
+4. +User2+ is in +Group1+, +Group2+, +Group3+.
+5. +User2+ has +Role2+, +Role5+ in +Group1+; +Role3+, +Role4+ in +Group2+; +Role5+, +Role6+ in +Group3+ (hyper edges).
+
+The graph for this looks like the following (nodes like +U1G2R23+ representing the HyperEdges):
+
+include::cypher-hyperedgecommongroups-graph.asciidoc[]
+
+To return +Group1+ and +Group2+ as +User1+ and +User2+ share at least one common role in these two groups, the query looks like this:
+
+
+_Query_
+
+[source,cypher]
+----
+START u1=node:node_auto_index(name = "User1"),u2=node:node_auto_index(name = "User2")
+MATCH u1-[:hasRoleInGroup]->hyperEdge1-[:hasGroup]->group,
+      hyperEdge1-[:hasRole]->role,
+      u2-[:hasRoleInGroup]->hyperEdge2-[:hasGroup]->group,
+      hyperEdge2-[:hasRole]->role
+RETURN group.name, count(role)
+ORDER BY group.name ASC
+----
+
+
+The groups where +User1+ and +User2+ share at least one common role:
+
+.Result
+[queryresult]
+----
++--------------------------+
+| group.name | count(role) |
++--------------------------+
+| "Group1"   | 1           |
+| "Group2"   | 1           |
++--------------------------+
+2 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"U2G2R34"}
+(2) {"name":"U1G3R34"}
+(3) {"name":"User2"}
+(4) {"name":"User1"}
+(5) {"name":"Role6"}
+(6) {"name":"U1G2R23"}
+(7) {"name":"Role4"}
+(8) {"name":"Role5"}
+(9) {"name":"U2G1R25"}
+(10) {"name":"Group1"}
+(11) {"name":"Role2"}
+(12) {"name":"Group2"}
+(13) {"name":"Role3"}
+(14) {"name":"Group3"}
+(15) {"name":"U1G1R12"}
+(16) {"name":"Role1"}
+(17) {"name":"U2G3R56"}
+(1)-[:hasGroup]->(12) {}
+(1)-[:hasRole]->(13) {}
+(1)-[:hasRole]->(7) {}
+(2)-[:hasGroup]->(14) {}
+(2)-[:hasRole]->(13) {}
+(2)-[:hasRole]->(7) {}
+(3)-[:hasRoleInGroup]->(9) {}
+(3)-[:hasRoleInGroup]->(1) {}
+(3)-[:hasRoleInGroup]->(17) {}
+(4)-[:hasRoleInGroup]->(15) {}
+(4)-[:hasRoleInGroup]->(6) {}
+(4)-[:hasRoleInGroup]->(2) {}
+(6)-[:hasGroup]->(12) {}
+(6)-[:hasRole]->(11) {}
+(6)-[:hasRole]->(13) {}
+(9)-[:hasGroup]->(10) {}
+(9)-[:hasRole]->(11) {}
+(9)-[:hasRole]->(8) {}
+(15)-[:hasGroup]->(10) {}
+(15)-[:hasRole]->(16) {}
+(15)-[:hasRole]->(11) {}
+(17)-[:hasGroup]->(14) {}
+(17)-[:hasRole]->(8) {}
+(17)-[:hasRole]->(5) {}
+
+
+start u1=node:node_auto_index(name = "User1"),u2=node:node_auto_index(name = "User2") match u1-[:hasRoleInGroup]->hyperEdge1-[:hasGroup]->group, hyperEdge1-[:hasRole]->role, u2-[:hasRoleInGroup]->hyperEdge2-[:hasGroup]->group, hyperEdge2-[:hasRole]->role return group.name, count(role) order by group.name ASC
+----
+

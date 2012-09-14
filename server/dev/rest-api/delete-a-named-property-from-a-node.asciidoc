@@ -1,0 +1,44 @@
+[[rest-api-delete-a-named-property-from-a-node]]
+=== Delete a named property from a node ===
+
+To delete a single property
+from a node, see the example below.
+
+
+.Starting Graph
+["dot", "Starting-Graph-delete-named-property-start.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N6 [
+    label = "{Node\[6\]|name = \'tobias\'\l}"
+  ]
+----
+
+
+.Final Graph
+["dot", "Final-Graph-delete-a-named-property-from-a-node.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N6 [
+    label = "{Node\[6\]|}"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/node/6/properties/name+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

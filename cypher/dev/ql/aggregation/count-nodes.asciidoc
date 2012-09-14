@@ -1,0 +1,46 @@
+[[aggregation-count-nodes]]
+== Count nodes ==
+To count the number of nodes, for example the number of nodes connected to one node, you can use `count(*)`.
+
+_Query_
+
+[source,cypher]
+----
+START n=node(2)
+MATCH (n)-->(x)
+RETURN n, count(*)
+----
+
+
+This returns the start node and the count of related nodes.
+
+.Result
+[queryresult]
+----
++------------------------------------------+
+| n                             | count(*) |
++------------------------------------------+
+| Node[2]{name:"A",property:13} | 3        |
++------------------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"eyes":"brown","name":"D"}
+(2) {"name":"A","property":13}
+(3) {"eyes":"blue","name":"B","property":33}
+(4) {"eyes":"blue","name":"C","property":44}
+(2)-[:KNOWS]->(3) {}
+(2)-[:KNOWS]->(4) {}
+(2)-[:KNOWS]->(1) {}
+
+
+start n=node(2) match (n)-->(x) return n, count(*)
+----
+

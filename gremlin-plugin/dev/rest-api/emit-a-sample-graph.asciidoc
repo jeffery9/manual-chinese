@@ -1,0 +1,66 @@
+[[rest-api-emit-a-sample-graph]]
+=== Emit a sample graph ===
+
+Exporting a graph can be done by simple emitting the appropriate String.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+writer = new GraphMLWriter(g)
+out = new java.io.ByteArrayOutputStream()
+writer.outputGraph(out)
+result = out.toString()
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Emit-a-sample-graph.svg", "neoviz", ""]
+----
+  N12 [
+    label = "{Node\[12\]|name = \'you\'\l}"
+  ]
+  N13 [
+    label = "{Node\[13\]|name = \'him\'\l}"
+  ]
+  N14 [
+    label = "{Node\[14\]|name = \'I\'\l}"
+  ]
+  N14 -> N12 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+  N14 -> N13 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "writer = new GraphMLWriter(g);out = new java.io.ByteArrayOutputStream();writer.outputGraph(out);result = out.toString();",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+"<?xml version=\"1.0\" ?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\"><key id=\"name\" for=\"node\" attr.name=\"name\" attr.type=\"string\"></key><graph id=\"G\" edgedefault=\"directed\"><node id=\"12\"><data key=\"name\">you</data></node><node id=\"13\"><data key=\"name\">him</data></node><node id=\"14\"><data key=\"name\">I</data></node><edge id=\"6\" source=\"14\" target=\"12\" label=\"know\"></edge><edge id=\"7\" source=\"14\" target=\"13\" label=\"know\"></edge></graph></graphml>"
+----
+
+

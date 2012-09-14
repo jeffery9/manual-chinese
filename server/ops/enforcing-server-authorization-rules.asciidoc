@@ -1,0 +1,45 @@
+[[ops-enforcing-server-authorization-rules]]
+=== Enforcing Server Authorization Rules ===
+
+In this example, a (dummy) failing security rule is registered to deny
+access to all URIs to the server by listing the rules class in
+'neo4j-server.properties':
+
+
+[source]
+----
+org.neo4j.server.rest.security_rules=my.rules.PermanentlyFailingSecurityRule
+----
+
+with the rule source code of:
+
+[snippet,java]
+----
+component=neo4j-server
+source=org/neo4j/server/rest/security/PermanentlyFailingSecurityRule.java
+classifier=test-sources
+tag=failingRule
+----
+
+With this rule registered, any access to the server will be
+denied. In a production-quality implementation the rule
+will likely lookup credentials/claims in a 3rd party
+directory service (e.g. LDAP) or in a local database of
+authorized users.
+
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+401:+* +Unauthorized+
+* *+WWW-Authenticate:+* +Basic realm="WallyWorld"+
+[source,javascript]
+----
+
+----
+
+

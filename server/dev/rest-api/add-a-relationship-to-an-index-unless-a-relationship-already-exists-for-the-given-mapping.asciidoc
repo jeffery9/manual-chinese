@@ -1,0 +1,57 @@
+[[rest-api-add-a-relationship-to-an-index-unless-a-relationship-already-exists-for-the-given-mapping]]
+=== Add a relationship to an index unless a relationship already exists for the given mapping ===
+
+.Final Graph
+["dot", "Final-Graph-Add-a-relationship-to-an-index-unless-a-relationship-already-exists-for-the-given-mapping.svg", "neoviz", ""]
+----
+  N63 [
+    label = "{Node\[63\]|}"
+  ]
+  N63 -> N64 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knowledge\n"
+  ]
+  N64 [
+    label = "{Node\[64\]|}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/index/relationship/knowledge/?unique+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "key" : "name",
+  "value" : "Mattias",
+  "uri" : "http://localhost:7474/db/data/relationship/33"
+}
+----
+
+
+_Example response_
+
+* *+201:+* +Created+
+* *+Content-Type:+* +application/json+
+* *+Location:+* +http://localhost:7474/db/data/index/relationship/knowledge/name/Mattias/33+
+[source,javascript]
+----
+{
+  "extensions" : {
+  },
+  "start" : "http://localhost:7474/db/data/node/63",
+  "property" : "http://localhost:7474/db/data/relationship/33/properties/{key}",
+  "self" : "http://localhost:7474/db/data/relationship/33",
+  "properties" : "http://localhost:7474/db/data/relationship/33/properties",
+  "type" : "knowledge",
+  "end" : "http://localhost:7474/db/data/node/64",
+  "data" : {
+  },
+  "indexed" : "http://localhost:7474/db/data/index/relationship/knowledge/name/Mattias/33"
+}
+----
+
+

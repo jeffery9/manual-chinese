@@ -1,0 +1,58 @@
+[[rest-api-set-single-property-on-a-relationship]]
+=== Set single property on a relationship ===
+
+
+
+.Starting Graph
+["dot", "Starting-Graph-Set-relationship-property1.svg", "neoviz", ""]
+----
+  N59 [
+    label = "{Node\[59\]|name = \'Juliet\'\l}"
+  ]
+  N60 [
+    label = "{Node\[60\]|name = \'Romeo\'\l}"
+  ]
+  N60 -> N59 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\ncost = \'high\'\l"
+  ]
+----
+
+
+.Final Graph
+["dot", "Final-Graph-set-single-property-on-a-relationship.svg", "neoviz", ""]
+----
+  N59 [
+    label = "{Node\[59\]|name = \'Juliet\'\l}"
+  ]
+  N60 [
+    label = "{Node\[60\]|name = \'Romeo\'\l}"
+  ]
+  N60 -> N59 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\ncost = \'deadly\'\l"
+  ]
+----
+
+_Example request_
+
+* *+PUT+*  +http://localhost:7474/db/data/relationship/28/properties/cost+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+"deadly"
+----
+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

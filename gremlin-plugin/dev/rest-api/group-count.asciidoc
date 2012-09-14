@@ -1,0 +1,75 @@
+[[rest-api-group-count]]
+=== Group count ===
+
+This example is showing a group count in Gremlin, for instance the
+counting of the different relationship types connected to some the start
+node. The result is collected into a variable that then is returned.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+m = [:]
+g.v(41).bothE().label.groupCount(m).iterate()
+m
+----
+
+
+.Final Graph
+["dot", "Final-Graph-group-count.svg", "neoviz", ""]
+----
+  N40 [
+    label = "{Node\[40\]|name = \'Ian\'\l}"
+  ]
+  N40 -> N41 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N41 [
+    label = "{Node\[41\]|name = \'Peter\'\l}"
+  ]
+  N41 -> N40 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N41 -> N42 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "likes\n"
+  ]
+  N42 [
+    label = "{Node\[42\]|name = \'Bikes\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "m = [:];g.v(41).bothE().label.groupCount(m).iterate();m",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "knows" : 2,
+  "likes" : 1
+}
+----
+
+

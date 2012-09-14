@@ -1,0 +1,47 @@
+[[create-create-a-full-path]]
+== Create a full path ==
+When you use `CREATE` and a pattern, all parts of the pattern that are not already in scope at this time
+will be created. 
+
+_Query_
+
+[source,cypher]
+----
+CREATE p = (andres {name:'Andres'})-[:WORKS_AT]->neo<-[:WORKS_AT]-(michael {name:'Michael'})
+RETURN p
+----
+
+
+This query creates three nodes and two relationships in one go, assigns it to a path identifier, and returns it
+
+.Result
+[queryresult]
+----
++--------------------------------------------------------------------------------------------+
+| p                                                                                          |
++--------------------------------------------------------------------------------------------+
+| [Node[1]{name:"Andres"},:WORKS_AT[0] {},Node[2]{},:WORKS_AT[1] {},Node[3]{name:"Michael"}] |
++--------------------------------------------------------------------------------------------+
+1 row
+Nodes created: 3
+Relationships created: 2
+Properties set: 2
+6 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"Andres"}
+(2) {}
+(3) {"name":"Michael"}
+(1)-[:WORKS_AT]->(2) {}
+(3)-[:WORKS_AT]->(2) {}
+
+
+create p = (andres {name:'Andres'})-[:WORKS_AT]->neo<-[:WORKS_AT]-(michael {name:'Michael'}) return p
+----
+

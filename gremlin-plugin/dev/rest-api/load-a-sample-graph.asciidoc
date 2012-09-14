@@ -1,0 +1,87 @@
+[[rest-api-load-a-sample-graph]]
+=== Load a sample graph ===
+
+Import a graph form a http://graphml.graphdrawing.org/[GraphML] file can
+be achieved through the Gremlin GraphMLReader. The following script
+imports a small GraphML file from an URL into Neo4j, resulting in the
+depicted graph. The underlying database is auto-indexed, see <<auto-indexing>>
+so the script can return the imported node by index lookup.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.clear()
+g.loadGraphML('https://raw.github.com/neo4j/gremlin-plugin/master/src/data/graphml1.xml')
+g.idx('node_auto_index')[[name:'you']]
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Load-a-sample-graph.svg", "neoviz", ""]
+----
+  N9 [
+    label = "{Node\[9\]|name = \'I\'\l}"
+  ]
+  N9 -> N10 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\nweight = 0.5\l"
+  ]
+  N9 -> N11 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\nweight = 0.8\l"
+  ]
+  N10 [
+    label = "{Node\[10\]|name = \'you\'\l}"
+  ]
+  N11 [
+    label = "{Node\[11\]|name = \'him\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.clear();g.loadGraphML('https://raw.github.com/neo4j/gremlin-plugin/master/src/data/graphml1.xml');g.idx('node_auto_index')[[name:'you']];",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/10/relationships/out",
+  "data" : {
+    "name" : "you"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/10/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/10/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/10/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/10",
+  "properties" : "http://localhost:7474/db/data/node/10/properties",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/10/relationships/out/{-list|&|types}",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/10/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/10/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/10/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/10/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/10/relationships/in/{-list|&|types}"
+} ]
+----
+
+

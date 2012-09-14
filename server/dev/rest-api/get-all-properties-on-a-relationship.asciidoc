@@ -1,0 +1,37 @@
+[[rest-api-get-all-properties-on-a-relationship]]
+=== Get all properties on a relationship ===
+
+.Final Graph
+["dot", "Final-Graph-get-all-properties-on-a-relationship.svg", "neoviz", ""]
+----
+  N63 [
+    label = "{Node\[63\]|name = \'Juliet\'\l}"
+  ]
+  N64 [
+    label = "{Node\[64\]|name = \'Romeo\'\l}"
+  ]
+  N64 -> N63 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\ncost = \'high\'\lsince = \'1day\'\l"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/relationship/30/properties+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "since" : "1day",
+  "cost" : "high"
+}
+----
+
+

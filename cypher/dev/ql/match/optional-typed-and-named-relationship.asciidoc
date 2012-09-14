@@ -1,0 +1,50 @@
+[[match-optional-typed-and-named-relationship]]
+== Optional typed and named relationship ==
+Just as with a normal relationship, you can decide which identifier it goes into, and what relationship type you need.
+
+_Query_
+
+[source,cypher]
+----
+START a=node(3)
+MATCH a-[r?:LOVES]->()
+RETURN a,r
+----
+
+
+This returns a node, and +null+, since the node has no outgoing `LOVES` relationships.
+
+.Result
+[queryresult]
+----
++---------------------------------+
+| a                      | r      |
++---------------------------------+
+| Node[3]{name:"Anders"} | <null> |
++---------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"David"}
+(2) {"name":"Emil"}
+(3) {"name":"Anders"}
+(4) {"name":"Bossman"}
+(5) {"name":"Cesar"}
+(1)-[:KNOWS]->(3) {}
+(3)-[:KNOWS]->(4) {}
+(3)-[:BLOCKS]->(5) {}
+(4)-[:KNOWS]->(2) {}
+(4)-[:BLOCKS]->(1) {}
+(5)-[:KNOWS]->(2) {}
+
+
+start a=node(3) match a-[r?:LOVES]->() return a,r
+----
+

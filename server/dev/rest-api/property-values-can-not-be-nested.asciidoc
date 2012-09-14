@@ -1,0 +1,41 @@
+[[rest-api-property-values-can-not-be-nested]]
+=== Property values can not be nested ===
+
+Nesting properties is not supported. You could for example store the
+nested JSON as a string instead.
+
+
+.Final Graph
+["dot", "Final-Graph-Property-values-can-not-be-nested.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "foo" : {
+    "bar" : "baz"
+  }
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "Could not set property \"foo\", unsupported type: {bar=baz}",
+  "exception" : "PropertyValueException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.set(DatabaseActions.java:155)", "org.neo4j.server.rest.web.DatabaseActions.createNode(DatabaseActions.java:213)", "org.neo4j.server.rest.web.RestfulGraphDatabase.createNode(RestfulGraphDatabase.java:195)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

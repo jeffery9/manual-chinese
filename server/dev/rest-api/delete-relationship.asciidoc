@@ -1,0 +1,47 @@
+[[rest-api-delete-relationship]]
+=== Delete relationship ===
+
+
+
+.Starting Graph
+["dot", "Starting-Graph-Delete-relationship1.svg", "neoviz", ""]
+----
+  N55 [
+    label = "{Node\[55\]|name = \'Juliet\'\l}"
+  ]
+  N56 [
+    label = "{Node\[56\]|name = \'Romeo\'\l}"
+  ]
+  N56 -> N55 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\ncost = \'high\'\l"
+  ]
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Delete-relationship.svg", "neoviz", ""]
+----
+  N55 [
+    label = "{Node\[55\]|name = \'Juliet\'\l}"
+  ]
+  N56 [
+    label = "{Node\[56\]|name = \'Romeo\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/relationship/26+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

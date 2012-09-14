@@ -1,0 +1,73 @@
+[[cookbook-return-zero-range]]
+== Return zero range ==
+Here, only the events indexed under one leaf (2010-12-31) are returned.
+The query only needs one path segment +rootPath+  (color +Green+) through the index.
+
+include::path-tree-layout-zero-range.asciidoc[]
+
+
+
+_Query_
+
+[source,cypher]
+----
+START root=node:node_auto_index(name = 'Root')
+MATCH rootPath=root-[:`2010`]->()-[:`12`]->()-[:`31`]->leaf, leaf-[:VALUE]->event
+RETURN event.name
+ORDER BY event.name ASC
+----
+
+
+Returning all events on the date 2010-12-31, in this case +Event1+ and +Event2+
+
+.Result
+[queryresult]
+----
++------------+
+| event.name |
++------------+
+| "Event1"   |
+| "Event2"   |
++------------+
+2 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"Y11M01"}
+(2) {"name":"Y10M12D31"}
+(3) {"name":"Y10M12"}
+(4) {"name":"Event2"}
+(5) {"name":"Y11M11D02"}
+(6) {"name":"Y11"}
+(7) {"name":"Event3"}
+(8) {"name":"Y10"}
+(9) {"name":"Root"}
+(10) {"name":"Event1"}
+(11) {"name":"Y11M01D01"}
+(12) {"name":"Y11M12D03"}
+(1)-[:01]->(11) {}
+(1)-[:02]->(5) {}
+(1)-[:03]->(12) {}
+(2)-[:NEXT]->(11) {}
+(2)-[:VALUE]->(10) {}
+(2)-[:VALUE]->(4) {}
+(3)-[:31]->(2) {}
+(5)-[:NEXT]->(12) {}
+(6)-[:01]->(1) {}
+(8)-[:12]->(3) {}
+(9)-[:2010]->(8) {}
+(9)-[:2011]->(6) {}
+(11)-[:NEXT]->(5) {}
+(11)-[:VALUE]->(4) {}
+(12)-[:VALUE]->(7) {}
+
+
+START root=node:node_auto_index(name = 'Root') MATCH rootPath=root-[:`2010`]->()-[:`12`]->()-[:`31`]->leaf, leaf-[:VALUE]->event RETURN event.name ORDER BY event.name ASC
+----
+

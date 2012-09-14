@@ -1,0 +1,32 @@
+[[rest-api-shouldget200whennohitsfromtraversing]]
+=== ShouldGet200WhenNoHitsFromTraversing ===
+
+.Final Graph
+["dot", "Final-Graph-shouldGet200WhenNoHitsFromTraversing.svg", "neoviz", ""]
+----
+  N3 [
+    label = "{Node\[3\]|}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/3/traverse/node+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ ]
+----
+
+

@@ -1,0 +1,43 @@
+[[rest-api-items-can-not-be-added-manually-to-an-node-autoindex]]
+=== Items can not be added manually to an node AutoIndex ===
+
+It is not allowed to add items manually to automatic indexes.
+
+
+.Final Graph
+["dot", "Final-Graph-Items-can-not-be-added-manually-to-an-node-AutoIndex.svg", "neoviz", ""]
+----
+  N16 [
+    label = "{Node\[16\]|name = \'I\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/index/node/node_auto_index+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "key" : "name",
+  "value" : "I",
+  "uri" : "http://localhost:7474/db/data/node/16"
+}
+----
+
+
+_Example response_
+
+* *+405:+* +null+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "read only index",
+  "exception" : "UnsupportedOperationException",
+  "stacktrace" : [ "org.neo4j.kernel.AbstractAutoIndexerImpl$ReadOnlyIndexToIndexAdapter.readOnlyIndex(AbstractAutoIndexerImpl.java:253)", "org.neo4j.kernel.AbstractAutoIndexerImpl$ReadOnlyIndexToIndexAdapter.add(AbstractAutoIndexerImpl.java:259)", "org.neo4j.server.rest.web.DatabaseActions.addToNodeIndex(DatabaseActions.java:803)", "org.neo4j.server.rest.web.RestfulGraphDatabase.addToNodeIndex(RestfulGraphDatabase.java:777)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

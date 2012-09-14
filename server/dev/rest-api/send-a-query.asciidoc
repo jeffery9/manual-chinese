@@ -1,0 +1,70 @@
+[[rest-api-send-a-query]]
+=== Send a Query ===
+
+A simple query returning all nodes connected to node 1, returning the
+node and the name property, if it exists, otherwise `null`:
+
+
+[source,cypher]
+----
+START x  = node(10)
+MATCH x -[r]-> n
+RETURN type(r), n.name?, n.age?
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Send-a-Query.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N8 [
+    label = "{Node\[8\]|name = \'you\'\l}"
+  ]
+  N9 [
+    label = "{Node\[9\]|age = 25\lname = \'him\'\l}"
+  ]
+  N10 [
+    label = "{Node\[10\]|name = \'I\'\l}"
+  ]
+  N10 -> N9 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+  N10 -> N8 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/cypher+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x  = node(10) match x -[r]-> n return type(r), n.name?, n.age?",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "columns" : [ "type(r)", "n.name?", "n.age?" ],
+  "data" : [ [ "know", "him", 25 ], [ "know", "you", null ] ]
+}
+----
+
+

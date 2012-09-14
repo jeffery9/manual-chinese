@@ -1,0 +1,23 @@
+[[rest-api-addremoveautoindexedpropertyforrelationships]]
+=== AddRemoveAutoIndexedPropertyForRelationships ===
+
+.Final Graph
+["dot", "Final-Graph-addRemoveAutoIndexedPropertyForRelationships.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/index/auto/relationship/properties+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ "myProperty1" ]
+----
+
+

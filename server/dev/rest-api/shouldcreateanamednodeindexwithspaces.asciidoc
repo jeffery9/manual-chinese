@@ -1,0 +1,34 @@
+[[rest-api-shouldcreateanamednodeindexwithspaces]]
+=== ShouldCreateANamedNodeIndexWithSpaces ===
+
+.Final Graph
+["dot", "Final-Graph-shouldCreateANamedNodeIndexWithSpaces.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/index/node/+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "name" : "favorites with spaces"
+}
+----
+
+
+_Example response_
+
+* *+201:+* +Created+
+* *+Content-Type:+* +application/json+
+* *+Location:+* +http://localhost:7474/db/data/index/node/favorites%20with%20spaces/+
+[source,javascript]
+----
+{
+  "template" : "http://localhost:7474/db/data/index/node/favorites%20with%20spaces/{key}/{value}"
+}
+----
+
+

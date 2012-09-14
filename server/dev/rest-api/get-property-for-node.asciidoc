@@ -1,0 +1,32 @@
+[[rest-api-get-property-for-node]]
+=== Get property for node ===
+
+Get a single node property from a node.
+
+
+.Final Graph
+["dot", "Final-Graph-Get-property-for-node.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N8 [
+    label = "{Node\[8\]|foo = \'bar\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/node/8/properties/foo+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+"bar"
+----
+
+

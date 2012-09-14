@@ -1,0 +1,50 @@
+[[match-optional-relationship]]
+== Optional relationship ==
+If a relationship is optional, it can be marked with a question mark. This is similar to how a SQL outer join works. If the relationship is there, it is returned. If it's not, +null+ is returned in it's place. Remember that anything hanging off an optional relationship, is in turn optional, unless it is connected with a bound node through some other path.
+
+_Query_
+
+[source,cypher]
+----
+START a=node(2)
+MATCH a-[?]->x
+RETURN a,x
+----
+
+
+A node, and +null+ are returned, since the node has no outgoing relationships.
+
+.Result
+[queryresult]
+----
++-------------------------------+
+| a                    | x      |
++-------------------------------+
+| Node[2]{name:"Emil"} | <null> |
++-------------------------------+
+1 row
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"David"}
+(2) {"name":"Emil"}
+(3) {"name":"Anders"}
+(4) {"name":"Bossman"}
+(5) {"name":"Cesar"}
+(1)-[:KNOWS]->(3) {}
+(3)-[:KNOWS]->(4) {}
+(3)-[:BLOCKS]->(5) {}
+(4)-[:KNOWS]->(2) {}
+(4)-[:BLOCKS]->(1) {}
+(5)-[:KNOWS]->(2) {}
+
+
+start a=node(2) match a-[?]->x return a,x
+----
+

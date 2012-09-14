@@ -1,0 +1,41 @@
+[[rest-api-remove-properties-from-a-non-existing-relationship]]
+=== Remove properties from a non-existing relationship ===
+
+Attempting to remove all properties from a relationship which doesn't
+exist results in an error.
+
+
+.Final Graph
+["dot", "Final-Graph-Remove-properties-from-a-non-existing-relationship.svg", "neoviz", ""]
+----
+  N51 [
+    label = "{Node\[51\]|name = \'you\'\l}"
+  ]
+  N52 [
+    label = "{Node\[52\]|name = \'I\'\l}"
+  ]
+  N52 -> N51 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/relationship/1234/properties+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+404:+* +Not Found+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "exception" : "RelationshipNotFoundException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.relationship(DatabaseActions.java:137)", "org.neo4j.server.rest.web.DatabaseActions.removeAllRelationshipProperties(DatabaseActions.java:707)", "org.neo4j.server.rest.web.RestfulGraphDatabase.deleteAllRelationshipProperties(RestfulGraphDatabase.java:579)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

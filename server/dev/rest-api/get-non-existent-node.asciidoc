@@ -1,0 +1,30 @@
+[[rest-api-get-non-existent-node]]
+=== Get non-existent node ===
+
+.Final Graph
+["dot", "Final-Graph-Get-non-existent-node.svg", "neoviz", ""]
+----
+  N203 [
+    label = "{Node\[203\]|}"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/node/20300000+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+404:+* +Not Found+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "Cannot find node with id [20300000] in database.",
+  "exception" : "NodeNotFoundException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.node(DatabaseActions.java:123)", "org.neo4j.server.rest.web.DatabaseActions.getNode(DatabaseActions.java:234)", "org.neo4j.server.rest.web.RestfulGraphDatabase.getNode(RestfulGraphDatabase.java:225)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

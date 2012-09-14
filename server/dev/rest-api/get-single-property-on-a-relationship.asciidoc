@@ -1,0 +1,34 @@
+[[rest-api-get-single-property-on-a-relationship]]
+=== Get single property on a relationship ===
+
+.Final Graph
+["dot", "Final-Graph-get-single-property-on-a-relationship.svg", "neoviz", ""]
+----
+  N57 [
+    label = "{Node\[57\]|name = \'Juliet\'\l}"
+  ]
+  N58 [
+    label = "{Node\[58\]|name = \'Romeo\'\l}"
+  ]
+  N58 -> N57 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\ncost = \'high\'\l"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/relationship/27/properties/cost+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+"high"
+----
+
+

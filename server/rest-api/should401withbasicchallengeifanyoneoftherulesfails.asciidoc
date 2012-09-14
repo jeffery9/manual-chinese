@@ -1,0 +1,18 @@
+[[rest-api-should401withbasicchallengeifanyoneoftherulesfails]]
+=== Should401WithBasicChallengeIfAnyOneOfTheRulesFails ===
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+401:+* +Unauthorized+
+* *+WWW-Authenticate:+* +Basic realm="WallyWorld"+
+[source,javascript]
+----
+
+----
+
+

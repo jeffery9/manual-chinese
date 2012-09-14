@@ -1,0 +1,66 @@
+[[rest-api-return-paths]]
+=== Return paths ===
+
+Paths can be returned
+together with other return types by just
+specifying returns.
+
+
+[source,cypher]
+----
+START x  = node(17)
+MATCH path = (x--friend)
+RETURN path, friend.name
+----
+
+
+.Final Graph
+["dot", "Final-Graph-return-paths.svg", "neoviz", ""]
+----
+  N16 [
+    label = "{Node\[16\]|name = \'you\'\l}"
+  ]
+  N17 [
+    label = "{Node\[17\]|name = \'I\'\l}"
+  ]
+  N17 -> N16 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/cypher+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x  = node(17) match path = (x--friend) return path, friend.name",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "columns" : [ "path", "friend.name" ],
+  "data" : [ [ {
+    "start" : "http://localhost:7474/db/data/node/17",
+    "nodes" : [ "http://localhost:7474/db/data/node/17", "http://localhost:7474/db/data/node/16" ],
+    "length" : 1,
+    "relationships" : [ "http://localhost:7474/db/data/relationship/9" ],
+    "end" : "http://localhost:7474/db/data/node/16"
+  }, "you" ] ]
+}
+----
+
+

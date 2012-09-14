@@ -1,0 +1,41 @@
+[[rest-api-automatically-indexed-relationships-cannot-be-removed-from-the-index-manually]]
+=== Automatically indexed relationships cannot be removed from the index manually ===
+
+It is not allowed to remove entries manually from automatic indexes.
+
+
+.Final Graph
+["dot", "Final-Graph-Automatically-indexed-relationships-cannot-be-removed-from-the-index-manually.svg", "neoviz", ""]
+----
+  N20 [
+    label = "{Node\[20\]|}"
+  ]
+  N21 [
+    label = "{Node\[21\]|}"
+  ]
+  N21 -> N20 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\nsince = \'today\'\l"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/index/relationship/relationship_auto_index/6+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+405:+* +null+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "read only index",
+  "exception" : "UnsupportedOperationException",
+  "stacktrace" : [ "org.neo4j.kernel.AbstractAutoIndexerImpl$ReadOnlyIndexToIndexAdapter.readOnlyIndex(AbstractAutoIndexerImpl.java:253)", "org.neo4j.kernel.AbstractAutoIndexerImpl$ReadOnlyIndexToIndexAdapter.remove(AbstractAutoIndexerImpl.java:283)", "org.neo4j.server.rest.web.DatabaseActions.removeFromRelationshipIndexNoKeyValue(DatabaseActions.java:900)", "org.neo4j.server.rest.web.RestfulGraphDatabase.deleteFromRelationshipIndex(RestfulGraphDatabase.java:1200)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

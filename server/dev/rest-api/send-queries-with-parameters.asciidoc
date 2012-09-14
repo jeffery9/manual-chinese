@@ -1,0 +1,62 @@
+[[rest-api-send-queries-with-parameters]]
+=== Send queries with parameters ===
+
+Cypher supports queries with parameters
+which are submitted as a JSON map.
+
+
+[source,cypher]
+----
+START x  = node:node_auto_index(name={startName})
+MATCH path = (x-[r]-friend)
+WHERE friend.name = {name}
+RETURN TYPE(r)
+----
+
+
+.Final Graph
+["dot", "Final-Graph-send-queries-with-parameters.svg", "neoviz", ""]
+----
+  N18 [
+    label = "{Node\[18\]|name = \'you\'\l}"
+  ]
+  N19 [
+    label = "{Node\[19\]|name = \'I\'\l}"
+  ]
+  N19 -> N18 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/cypher+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x  = node:node_auto_index(name={startName}) match path = (x-[r]-friend) where friend.name = {name} return TYPE(r)",
+  "params" : {
+    "startName" : "I",
+    "name" : "you"
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "columns" : [ "TYPE(r)" ],
+  "data" : [ [ "know" ] ]
+}
+----
+
+

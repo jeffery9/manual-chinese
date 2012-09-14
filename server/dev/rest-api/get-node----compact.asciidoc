@@ -1,0 +1,34 @@
+[[rest-api-get-node----compact]]
+=== Get node -- compact ===
+
+Specifying the subformat in the requests media type yields a more compact
+JSON response without metadata and templates.
+
+
+.Final Graph
+["dot", "Final-Graph-Get-node----compact.svg", "neoviz", ""]
+----
+  N200 [
+    label = "{Node\[200\]|}"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/node/200+
+* *+Accept:+* +application/json; compact=true+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json; compact=true+
+[source,javascript]
+----
+{
+  "data" : {
+  },
+  "self" : "http://localhost:7474/db/data/node/200"
+}
+----
+
+

@@ -1,0 +1,33 @@
+[[rest-api-shouldreturn404whenpropertiessenttoanodewhichdoesnotexist]]
+=== ShouldReturn404WhenPropertiesSentToANodeWhichDoesNotExist ===
+
+.Final Graph
+["dot", "Final-Graph-shouldReturn404WhenPropertiesSentToANodeWhichDoesNotExist.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+----
+
+_Example request_
+
+* *+PUT+*  +http://localhost:7474/db/data//node/12345/poperties+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "key" : "val"
+}
+----
+
+
+_Example response_
+
+* *+404:+* +Not Found+
+[source,javascript]
+----
+
+----
+
+

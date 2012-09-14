@@ -1,0 +1,53 @@
+[[rest-api-script-execution-errors]]
+=== Script execution errors ===
+
+Script errors
+will result in an HTTP error response code.
+
+
+.Final Graph
+["dot", "Final-Graph-script-execution-errors.svg", "neoviz", ""]
+----
+  N79 [
+    label = "{Node\[79\]|name = \'you\'\l}"
+  ]
+  N80 [
+    label = "{Node\[80\]|name = \'I\'\l}"
+  ]
+  N80 -> N79 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+  N81 [
+    label = "{Node\[81\]|}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.addVertex([name:{}])"
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "javax.script.ScriptException: java.lang.IllegalArgumentException: Unknown property type on: Script25$_run_closure1@6160722b, class Script25$_run_closure1",
+  "exception" : "BadInputException",
+  "stacktrace" : [ "org.neo4j.server.plugin.gremlin.GremlinPlugin.executeScript(GremlinPlugin.java:88)", "java.lang.reflect.Method.invoke(Method.java:597)", "org.neo4j.server.plugins.PluginMethod.invoke(PluginMethod.java:57)", "org.neo4j.server.plugins.PluginManager.invoke(PluginManager.java:168)", "org.neo4j.server.rest.web.ExtensionService.invokeGraphDatabaseExtension(ExtensionService.java:300)", "org.neo4j.server.rest.web.ExtensionService.invokeGraphDatabaseExtension(ExtensionService.java:122)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

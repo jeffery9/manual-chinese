@@ -1,0 +1,56 @@
+[[rest-api-get-relationships-on-a-node-without-relationships]]
+=== Get relationships on a node without relationships ===
+
+.Final Graph
+["dot", "Final-Graph-Get-relationships-on-a-node-without-relationships.svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N60 [
+    label = "{Node\[60\]|}"
+  ]
+  N60 -> N61 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LIKES\n"
+  ]
+  N60 -> N63 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "HATES\n"
+  ]
+  N61 [
+    label = "{Node\[61\]|}"
+  ]
+  N62 [
+    label = "{Node\[62\]|}"
+  ]
+  N62 -> N60 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LIKES\n"
+  ]
+  N63 [
+    label = "{Node\[63\]|}"
+  ]
+  N64 [
+    label = "{Node\[64\]|}"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/node/64/relationships/all+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ ]
+----
+
+

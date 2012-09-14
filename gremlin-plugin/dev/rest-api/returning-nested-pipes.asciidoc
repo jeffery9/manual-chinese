@@ -1,0 +1,78 @@
+[[rest-api-returning-nested-pipes]]
+=== Returning nested pipes ===
+
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.v(27).as('I').out('know').as('friend').out('like').as('likes').table(new Table()){it.name}{it.name}.cap
+----
+
+
+.Final Graph
+["dot", "Final-Graph-returning-nested-pipes.svg", "neoviz", ""]
+----
+  N25 [
+    label = "{Node\[25\]|name = \'cats\'\l}"
+  ]
+  N26 [
+    label = "{Node\[26\]|name = \'dogs\'\l}"
+  ]
+  N27 [
+    label = "{Node\[27\]|name = \'I\'\l}"
+  ]
+  N27 -> N28 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+  N27 -> N25 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "like\n"
+  ]
+  N28 [
+    label = "{Node\[28\]|name = \'Joe\'\l}"
+  ]
+  N28 -> N25 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "like\n"
+  ]
+  N28 -> N26 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "like\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.v(27).as('I').out('know').as('friend').out('like').as('likes').table(new Table()){it.name}{it.name}.cap;",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ [ {
+  "data" : [ [ "I", "Joe", "cats" ], [ "I", "Joe", "dogs" ] ],
+  "columns" : [ "I", "friend", "likes" ]
+} ] ]
+----
+
+

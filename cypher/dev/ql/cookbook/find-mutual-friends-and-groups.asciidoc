@@ -1,0 +1,60 @@
+[[cookbook-find-mutual-friends-and-groups]]
+In this scenario, the problem is to determine mutual friends and groups, if any,
+between persons. If no mutual groups or friends are found, there should be a `0` returned.
+
+_Query_
+
+[source,cypher]
+----
+START me=node(5), other=node(4, 3)
+MATCH pGroups=me-[?:member_of_group]->mg<-[?:member_of_group]-other,
+pMutualFriends=me-[?:knows]->mf<-[?:knows]-other
+RETURN other.name as name,
+count(distinct pGroups) AS mutualGroups,
+count(distinct pMutualFriends) AS mutualFriends
+ORDER BY mutualFriends DESC
+----
+
+
+The question we are asking is -- how many unique paths are there between me and Jill, the paths being common group memberships, and common friends.
+If the paths are mandatory, no results will be returned if me and Bob lack any common friends, and we don't want that. To make a path optional,
+you have to make at least one of it's relationships optional. That makes the whole path optional.
+
+.Result
+[queryresult]
+----
++---------------------------------------+
+| name   | mutualGroups | mutualFriends |
++---------------------------------------+
+| "Jill" | 1            | 1             |
+| "Bob"  | 1            | 0             |
++---------------------------------------+
+2 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"Bill"}
+(2) {"name":"Group1"}
+(3) {"name":"Bob"}
+(4) {"name":"Jill"}
+(5) {"name":"Joe"}
+(1)-[:member_of_group]->(2) {}
+(3)-[:member_of_group]->(2) {}
+(4)-[:member_of_group]->(2) {}
+(4)-[:knows]->(1) {}
+(5)-[:member_of_group]->(2) {}
+(5)-[:knows]->(1) {}
+
+
+START me=node(5), other=node(4, 3) MATCH pGroups=me-[?:member_of_group]->mg<-[?:member_of_group]-other, 
+pMutualFriends=me-[?:knows]->mf<-[?:knows]-other RETURN other.name as name, 
+ count(distinct pGroups) AS mutualGroups, 
+ count(distinct pMutualFriends) AS mutualFriends ORDER BY mutualFriends DESC
+----
+

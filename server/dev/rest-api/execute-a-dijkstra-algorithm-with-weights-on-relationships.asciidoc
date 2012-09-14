@@ -1,0 +1,136 @@
+[[rest-api-execute-a-dijkstra-algorithm-with-weights-on-relationships]]
+=== Execute a Dijkstra algorithm with weights on relationships ===
+
+.Final Graph
+["dot", "Final-Graph-Execute-a-Dijkstra-algorithm-with-weights-on-relationships.svg", "neoviz", ""]
+----
+  N133 [
+    label = "{Node\[133\]|name = \'f\'\l}"
+  ]
+  N134 [
+    label = "{Node\[134\]|name = \'d\'\l}"
+  ]
+  N134 -> N141 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 3.0\l"
+  ]
+  N134 -> N135 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1.0\l"
+  ]
+  N135 [
+    label = "{Node\[135\]|name = \'e\'\l}"
+  ]
+  N135 -> N141 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1.0\l"
+  ]
+  N135 -> N133 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 2.0\l"
+  ]
+  N136 [
+    label = "{Node\[136\]|name = \'b\'\l}"
+  ]
+  N136 -> N141 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 7.0\l"
+  ]
+  N136 -> N137 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1.0\l"
+  ]
+  N137 [
+    label = "{Node\[137\]|name = \'c\'\l}"
+  ]
+  N137 -> N141 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 5.0\l"
+  ]
+  N137 -> N141 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 4.0\l"
+  ]
+  N137 -> N134 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1.0\l"
+  ]
+  N138 [
+    label = "{Node\[138\]|name = \'start\'\l}"
+  ]
+  N138 -> N139 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1.0\l"
+  ]
+  N139 [
+    label = "{Node\[139\]|name = \'a\'\l}"
+  ]
+  N139 -> N141 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 9.0\l"
+  ]
+  N139 -> N136 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 1.0\l"
+  ]
+  N140 [
+    label = "{Node\[140\]|name = \'y\'\l}"
+  ]
+  N141 [
+    label = "{Node\[141\]|name = \'x\'\l}"
+  ]
+  N141 -> N140 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "to\ncost = 2.0\l"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/138/path+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "to" : "http://localhost:7474/db/data/node/141",
+  "cost_property" : "cost",
+  "relationships" : {
+    "type" : "to",
+    "direction" : "out"
+  },
+  "algorithm" : "dijkstra"
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "weight" : 6.0,
+  "start" : "http://localhost:7474/db/data/node/138",
+  "nodes" : [ "http://localhost:7474/db/data/node/138", "http://localhost:7474/db/data/node/139", "http://localhost:7474/db/data/node/136", "http://localhost:7474/db/data/node/137", "http://localhost:7474/db/data/node/134", "http://localhost:7474/db/data/node/135", "http://localhost:7474/db/data/node/141" ],
+  "length" : 6,
+  "relationships" : [ "http://localhost:7474/db/data/relationship/93", "http://localhost:7474/db/data/relationship/95", "http://localhost:7474/db/data/relationship/97", "http://localhost:7474/db/data/relationship/100", "http://localhost:7474/db/data/relationship/102", "http://localhost:7474/db/data/relationship/103" ],
+  "end" : "http://localhost:7474/db/data/node/141"
+}
+----
+
+

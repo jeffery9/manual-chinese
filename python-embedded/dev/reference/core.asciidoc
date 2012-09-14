@@ -1,0 +1,18 @@
+[[python-embedded-reference-core]]
+Core API
+========
+
+这个章节描述了如何建立环境到运行和如何做一些基本的操作。
+
+include::core-getting-started.asciidoc[]
+
+include::core-transactions.asciidoc[]
+
+include::core-nodes.asciidoc[]
+
+include::core-relationships.asciidoc[]
+
+include::core-properties.asciidoc[]
+
+include::core-paths.asciidoc[]
+

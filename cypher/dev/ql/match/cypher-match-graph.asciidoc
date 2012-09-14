@@ -1,0 +1,53 @@
+
+_Graph_
+
+["dot", "cypher-match-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "{Node\[1\]|name = \'David\'\l}"
+  ]
+  N1 -> N3 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N2 [
+    label = "{Node\[2\]|name = \'Emil\'\l}"
+  ]
+  N3 [
+    label = "{Node\[3\]|name = \'Anders\'\l}"
+  ]
+  N3 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N3 -> N5 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "BLOCKS\n"
+  ]
+  N4 [
+    label = "{Node\[4\]|name = \'Bossman\'\l}"
+  ]
+  N4 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+  N4 -> N1 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "BLOCKS\n"
+  ]
+  N5 [
+    label = "{Node\[5\]|name = \'Cesar\'\l}"
+  ]
+  N5 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\n"
+  ]
+
+----
+

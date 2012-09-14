@@ -1,0 +1,22 @@
+[[rest-api-delete-node]]
+=== Delete node ===
+
+.Final Graph
+["dot", "Final-Graph-Delete-node.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/node/35+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

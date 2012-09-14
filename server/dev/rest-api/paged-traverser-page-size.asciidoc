@@ -1,0 +1,62 @@
+[[rest-api-paged-traverser-page-size]]
+=== Paged traverser page size ===
+
+The default page size is 50 items, but
+depending on the application larger or smaller pages sizes might be
+appropriate. This can be set by adding a +pageSize+ query parameter.
+
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/577/paged/traverse/node?pageSize=1+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "prune_evaluator" : {
+    "language" : "builtin",
+    "name" : "none"
+  },
+  "return_filter" : {
+    "language" : "javascript",
+    "body" : "position.endNode().getProperty('name').contains('1');"
+  },
+  "order" : "depth_first",
+  "relationships" : {
+    "type" : "NEXT",
+    "direction" : "out"
+  }
+}
+----
+
+
+_Example response_
+
+* *+201:+* +Created+
+* *+Content-Type:+* +application/json+
+* *+Location:+* +http://localhost:7474/db/data/node/577/paged/traverse/node/2c4fa996b58443108a945ca9ce5a83d4+
+[source,javascript]
+----
+[ {
+  "outgoing_relationships" : "http://localhost:7474/db/data/node/578/relationships/out",
+  "data" : {
+    "name" : "1"
+  },
+  "traverse" : "http://localhost:7474/db/data/node/578/traverse/{returnType}",
+  "all_typed_relationships" : "http://localhost:7474/db/data/node/578/relationships/all/{-list|&|types}",
+  "property" : "http://localhost:7474/db/data/node/578/properties/{key}",
+  "self" : "http://localhost:7474/db/data/node/578",
+  "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/578/relationships/out/{-list|&|types}",
+  "properties" : "http://localhost:7474/db/data/node/578/properties",
+  "incoming_relationships" : "http://localhost:7474/db/data/node/578/relationships/in",
+  "extensions" : {
+  },
+  "create_relationship" : "http://localhost:7474/db/data/node/578/relationships",
+  "paged_traverse" : "http://localhost:7474/db/data/node/578/paged/traverse/{returnType}{?pageSize,leaseTime}",
+  "all_relationships" : "http://localhost:7474/db/data/node/578/relationships/all",
+  "incoming_typed_relationships" : "http://localhost:7474/db/data/node/578/relationships/in/{-list|&|types}"
+} ]
+----
+
+

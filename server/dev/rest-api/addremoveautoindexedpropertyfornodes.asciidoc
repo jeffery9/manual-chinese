@@ -1,0 +1,23 @@
+[[rest-api-addremoveautoindexedpropertyfornodes]]
+=== AddRemoveAutoIndexedPropertyForNodes ===
+
+.Final Graph
+["dot", "Final-Graph-addRemoveAutoIndexedPropertyForNodes.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/index/auto/node/properties+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ "myProperty1" ]
+----
+
+

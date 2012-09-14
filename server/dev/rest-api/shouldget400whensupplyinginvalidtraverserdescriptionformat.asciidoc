@@ -1,0 +1,44 @@
+[[rest-api-shouldget400whensupplyinginvalidtraverserdescriptionformat]]
+=== ShouldGet400WhenSupplyingInvalidTraverserDescriptionFormat ===
+
+.Final Graph
+["dot", "Final-Graph-shouldGet400WhenSupplyingInvalidTraverserDescriptionFormat.svg", "neoviz", ""]
+----
+  N24 [
+    label = "{Node\[24\]|name = \'you\'\l}"
+  ]
+  N25 [
+    label = "{Node\[25\]|name = \'I\'\l}"
+  ]
+  N25 -> N24 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/25/traverse/node+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+::not JSON{[ at all
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "Unexpected character (':' (code 58)): expected a valid value (number, String, array, object, 'true', 'false' or 'null')\n at [Source: java.io.StringReader@457d9faa; line: 1, column: 2]",
+  "exception" : "BadInputException",
+  "stacktrace" : [ "org.neo4j.server.rest.repr.formats.JsonFormat.readMap(JsonFormat.java:92)", "org.neo4j.server.rest.web.RestfulGraphDatabase.traverse(RestfulGraphDatabase.java:1226)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

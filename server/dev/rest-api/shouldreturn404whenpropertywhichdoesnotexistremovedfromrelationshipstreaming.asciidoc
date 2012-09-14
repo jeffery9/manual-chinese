@@ -1,0 +1,39 @@
+[[rest-api-shouldreturn404whenpropertywhichdoesnotexistremovedfromrelationshipstreaming]]
+=== ShouldReturn404WhenPropertyWhichDoesNotExistRemovedFromRelationshipStreaming ===
+
+.Final Graph
+["dot", "Final-Graph-shouldReturn404WhenPropertyWhichDoesNotExistRemovedFromRelationshipStreaming.svg", "neoviz", ""]
+----
+  N49 [
+    label = "{Node\[49\]|name = \'Juliet\'\l}"
+  ]
+  N50 [
+    label = "{Node\[50\]|name = \'Romeo\'\l}"
+  ]
+  N50 -> N49 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "LOVES\ncost = \'high\'\l"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/relationship/23/properties/non-existent+
+* *+Accept:+* +application/json+
+* *+X-Stream:+* +true+
+
+_Example response_
+
+* *+404:+* +Not Found+
+* *+Content-Type:+* +application/json; stream=true+
+[source,javascript]
+----
+{
+  "message" : "Relationship[23] does not have a property \"non-existent\"",
+  "exception" : "NoSuchPropertyException",
+  "stacktrace" : [ "org.neo4j.server.rest.web.DatabaseActions.removeRelationshipProperty(DatabaseActions.java:729)", "org.neo4j.server.rest.web.RestfulGraphDatabase.deleteRelationshipProperty(RestfulGraphDatabase.java:595)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

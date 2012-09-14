@@ -1,0 +1,38 @@
+[[rest-api-getextension]]
+=== GetExtension ===
+
+.Final Graph
+["dot", "Final-Graph-getExtension.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "extends" : "graphdb",
+  "description" : "execute a Gremlin script with 'g' set to the Neo4jGraph and 'results' containing the results. Only results of one object type is supported.",
+  "name" : "execute_script",
+  "parameters" : [ {
+    "description" : "The Gremlin script",
+    "optional" : false,
+    "name" : "script",
+    "type" : "string"
+  }, {
+    "description" : "JSON Map of additional parameters for script variables",
+    "optional" : true,
+    "name" : "params",
+    "type" : "map"
+  } ]
+}
+----
+
+

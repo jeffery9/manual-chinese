@@ -1,0 +1,66 @@
+[[cypher-plugin-api-return-paths]]
+=== Return paths ===
+
+Paths can be returned
+together with other return types by just
+specifying returns.
+
+
+[source,cypher]
+----
+START x  = node(7)
+MATCH path = (x--friend)
+RETURN path, friend.name
+----
+
+
+.Final Graph
+["dot", "Final-Graph-return-paths.svg", "neoviz", ""]
+----
+  N6 [
+    label = "{Node\[6\]|name = \'you\'\l}"
+  ]
+  N7 [
+    label = "{Node\[7\]|name = \'I\'\l}"
+  ]
+  N7 -> N6 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/CypherPlugin/graphdb/execute_query+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x  = node(7) match path = (x--friend) return path, friend.name",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "columns" : [ "path", "friend.name" ],
+  "data" : [ [ {
+    "start" : "http://localhost:7474/db/data/node/7",
+    "nodes" : [ "http://localhost:7474/db/data/node/7", "http://localhost:7474/db/data/node/6" ],
+    "length" : 1,
+    "relationships" : [ "http://localhost:7474/db/data/relationship/3" ],
+    "end" : "http://localhost:7474/db/data/node/6"
+  }, "you" ] ]
+}
+----
+
+

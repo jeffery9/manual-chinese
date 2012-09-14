@@ -1,0 +1,69 @@
+[[rest-api-collect-multiple-traversal-results]]
+=== Collect multiple traversal results ===
+
+Multiple traversals can be combined into a single result, using splitting
+and merging pipes in a lazy fashion.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.idx('node_auto_index')[[name:'Peter']].copySplit(_().out('knows'), _().in('likes')).fairMerge.name
+----
+
+
+.Final Graph
+["dot", "Final-Graph-collect-multiple-traversal-results.svg", "neoviz", ""]
+----
+  N46 [
+    label = "{Node\[46\]|name = \'Marie\'\l}"
+  ]
+  N46 -> N48 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "likes\n"
+  ]
+  N47 [
+    label = "{Node\[47\]|name = \'Ian\'\l}"
+  ]
+  N47 -> N48 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "knows\n"
+  ]
+  N48 [
+    label = "{Node\[48\]|name = \'Peter\'\l}"
+  ]
+  N48 -> N47 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "knows\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.idx('node_auto_index')[[name:'Peter']].copySplit(_().out('knows'), _().in('likes')).fairMerge.name",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ "Ian", "Marie" ]
+----
+
+

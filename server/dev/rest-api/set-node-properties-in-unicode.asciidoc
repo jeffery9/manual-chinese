@@ -1,0 +1,41 @@
+[[rest-api-set-node-properties-in-unicode]]
+=== Set node properties in Unicode ===
+
+.Final Graph
+["dot", "Final-Graph-set-node-properties-in-Unicode.svg", "neoviz", ""]
+----
+  N11 [
+    label = "{Node\[11\]|name = \'例子\'\l}"
+  ]
+  N11 -> N12 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N12 [
+    label = "{Node\[12\]|name = \'joe\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+PUT+*  +http://localhost:7474/db/data/node/11/properties+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "name" : "例子"
+}
+----
+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

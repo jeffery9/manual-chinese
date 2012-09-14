@@ -1,0 +1,35 @@
+[[rest-api-create-an-auto-index-for-nodes-with-specific-configuration]]
+=== Create an auto index for nodes with specific configuration ===
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/index/node/+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "name" : "node_auto_index",
+  "config" : {
+    "type" : "fulltext",
+    "provider" : "lucene"
+  }
+}
+----
+
+
+_Example response_
+
+* *+201:+* +Created+
+* *+Content-Type:+* +application/json+
+* *+Location:+* +http://localhost:7474/db/data/index/node/node_auto_index/+
+[source,javascript]
+----
+{
+  "template" : "http://localhost:7474/db/data/index/node/node_auto_index/{key}/{value}",
+  "type" : "fulltext",
+  "provider" : "lucene"
+}
+----
+
+

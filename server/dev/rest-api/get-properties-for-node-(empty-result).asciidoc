@@ -1,0 +1,31 @@
+[[rest-api-get-properties-for-node-empty-result]]
+=== Get properties for node (empty result) ===
+
+If there are no properties, there will be an HTTP 204 response.
+
+
+.Final Graph
+["dot", "Final-Graph-Get-properties-for-node-(empty-result).svg", "neoviz", ""]
+----
+  N0 [
+    label = "{Node\[0\]|}"
+  ]
+  N1 [
+    label = "{Node\[1\]|}"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/node/1/properties+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

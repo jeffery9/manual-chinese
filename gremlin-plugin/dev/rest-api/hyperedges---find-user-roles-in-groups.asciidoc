@@ -1,0 +1,161 @@
+[[rest-api-hyperedges---find-user-roles-in-groups]]
+=== HyperEdges - find user roles in groups ===
+
+Imagine a user being part of different groups. A group can have different
+roles, and a user can be part of different groups. He also can have
+different roles in different groups apart from the membership. The
+association of a User, a Group and a Role can be referred to as a
+_HyperEdge_. However, it can be easily modeled in a property graph as a
+node that captures this n-ary relationship, as depicted below in the
++U1G2R1+ node.
+
+To find out in what roles a user is for a particular groups (here
+'Group2'), the following script can traverse this HyperEdge node and
+provide answers.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.v(37).out('hasRoleInGroup').as('hyperedge').out('hasGroup').filter{it.name=='Group2'}.back('hyperedge').out('hasRole').name
+----
+
+
+.Final Graph
+["dot", "Final-Graph-HyperEdges---find-user-roles-in-groups.svg", "neoviz", ""]
+----
+  N31 [
+    label = "{Node\[31\]|name = \'U1G2R1\'\l}"
+  ]
+  N31 -> N35 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "hasRole\n"
+  ]
+  N31 -> N34 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "hasGroup\n"
+  ]
+  N32 [
+    label = "{Node\[32\]|name = \'Role2\'\l}"
+  ]
+  N32 -> N36 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "isA\n"
+  ]
+  N33 [
+    label = "{Node\[33\]|name = \'Group1\'\l}"
+  ]
+  N33 -> N35 [
+    color = "#204a87"
+    fontcolor = "#204a87"
+    label = "canHave\n"
+  ]
+  N33 -> N32 [
+    color = "#204a87"
+    fontcolor = "#204a87"
+    label = "canHave\n"
+  ]
+  N33 -> N39 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "isA\n"
+  ]
+  N34 [
+    label = "{Node\[34\]|name = \'Group2\'\l}"
+  ]
+  N34 -> N32 [
+    color = "#204a87"
+    fontcolor = "#204a87"
+    label = "canHave\n"
+  ]
+  N34 -> N35 [
+    color = "#204a87"
+    fontcolor = "#204a87"
+    label = "canHave\n"
+  ]
+  N34 -> N39 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "isA\n"
+  ]
+  N35 [
+    label = "{Node\[35\]|name = \'Role1\'\l}"
+  ]
+  N35 -> N36 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "isA\n"
+  ]
+  N36 [
+    label = "{Node\[36\]|name = \'Role\'\l}"
+  ]
+  N37 [
+    label = "{Node\[37\]|name = \'User1\'\l}"
+  ]
+  N37 -> N33 [
+    color = "#8f5902"
+    fontcolor = "#8f5902"
+    label = "in\n"
+  ]
+  N37 -> N34 [
+    color = "#8f5902"
+    fontcolor = "#8f5902"
+    label = "in\n"
+  ]
+  N37 -> N31 [
+    color = "#5c3566"
+    fontcolor = "#5c3566"
+    label = "hasRoleInGroup\n"
+  ]
+  N37 -> N38 [
+    color = "#5c3566"
+    fontcolor = "#5c3566"
+    label = "hasRoleInGroup\n"
+  ]
+  N38 [
+    label = "{Node\[38\]|name = \'U1G1R2\'\l}"
+  ]
+  N38 -> N32 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "hasRole\n"
+  ]
+  N38 -> N33 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "hasGroup\n"
+  ]
+  N39 [
+    label = "{Node\[39\]|name = \'Group\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.v(37).out('hasRoleInGroup').as('hyperedge').out('hasGroup').filter{it.name=='Group2'}.back('hyperedge').out('hasRole').name",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ "Role1" ]
+----
+
+

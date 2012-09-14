@@ -1,0 +1,63 @@
+[[cookbook-who-follows-or-loves-me-back]]
+This example shows a multi-relational network between persons and things they like. 
+        A multi-relational graph is a graph with more than one kind of relationship between nodes.
+
+_Query_
+
+[source,cypher]
+----
+START me=node:node_auto_index(name = 'Joe')
+MATCH me-[r1:FOLLOWS|LOVES]->other-[r2]->me
+WHERE type(r1)=type(r2)
+RETURN other.name, type(r1)
+----
+
+
+The query returns people that +FOLLOWS+ or +LOVES+ +Joe+ back.
+
+.Result
+[queryresult]
+----
++------------------------+
+| other.name | type(r1)  |
++------------------------+
+| "Sara"     | "FOLLOWS" |
+| "Maria"    | "FOLLOWS" |
+| "Maria"    | "LOVES"   |
++------------------------+
+3 rows
+0 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {"name":"cats"}
+(2) {"name":"nature"}
+(3) {"name":"Ben"}
+(4) {"name":"Sara"}
+(5) {"name":"bikes"}
+(6) {"name":"Maria"}
+(7) {"name":"cars"}
+(8) {"name":"Joe"}
+(4)-[:FOLLOWS]->(8) {}
+(4)-[:FOLLOWS]->(3) {}
+(4)-[:LIKES]->(5) {}
+(4)-[:LIKES]->(7) {}
+(4)-[:LIKES]->(1) {}
+(6)-[:LOVES]->(8) {}
+(6)-[:FOLLOWS]->(8) {}
+(6)-[:LIKES]->(7) {}
+(8)-[:FOLLOWS]->(4) {}
+(8)-[:FOLLOWS]->(6) {}
+(8)-[:LOVES]->(6) {}
+(8)-[:LIKES]->(5) {}
+(8)-[:LIKES]->(2) {}
+
+
+START me=node:node_auto_index(name = 'Joe') MATCH me-[r1:FOLLOWS|LOVES]->other-[r2]->me WHERE type(r1)=type(r2) RETURN other.name, type(r1)
+----
+

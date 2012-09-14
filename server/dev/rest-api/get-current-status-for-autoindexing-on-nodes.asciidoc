@@ -1,0 +1,23 @@
+[[rest-api-get-current-status-for-autoindexing-on-nodes]]
+=== Get current status for autoindexing on nodes ===
+
+.Final Graph
+["dot", "Final-Graph-Get-current-status-for-autoindexing-on-nodes.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/index/auto/node/status+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+false
+----
+
+

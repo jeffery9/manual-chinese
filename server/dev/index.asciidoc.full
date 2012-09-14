@@ -1,0 +1,19 @@
+[[server]]
+Neo4j服务器
+============
+
+:leveloffset: 2
+
+include::{docdir}/server/dev/server-installation.asciidoc[]
+
+include::{docdir}/server/dev/server-configuration.asciidoc[]
+
+include::{docdir}/server/dev/server-debugging.asciidoc[]
+
+include::{docdir}/server/dev/server-embedded.asciidoc[]
+
+include::{docdir}/server/dev/server-performance.asciidoc[]
+
+:leveloffset: 2
+
+include::{docdir}/server/dev/server-cloud.asciidoc[]

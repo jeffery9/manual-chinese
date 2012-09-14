@@ -1,0 +1,28 @@
+[[rest-api-relationship-autoindex-is-not-removable]]
+=== Relationship AutoIndex is not removable ===
+
+The automatic relationship index can not be removed.
+
+
+.Final Graph
+["dot", "Final-Graph-Relationship-AutoIndex-is-not-removable.svg", "neoviz", ""]
+----
+  N15 [
+    label = "{Node\[15\]|name = \'I\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/index/auto/relationship/+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+405:+* +null+
+[source,javascript]
+----
+
+----
+
+

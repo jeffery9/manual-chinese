@@ -1,0 +1,56 @@
+[[rest-api-array-property]]
+=== Array property ===
+
+
+
+[source,cypher]
+----
+START n = node(28)
+RETURN n.array1, n.array2
+----
+
+
+.Final Graph
+["dot", "Final-Graph-array-property.svg", "neoviz", ""]
+----
+  N27 [
+    label = "{Node\[27\]|name = \'you\'\l}"
+  ]
+  N28 [
+    label = "{Node\[28\]|name = \'I\'\larray1 = \[1, 2, 3\]\larray2 = \[\'a\', \'b\', \'c\'\]\l}"
+  ]
+  N28 -> N27 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/cypher+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start n = node(28) return n.array1, n.array2",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "columns" : [ "n.array1", "n.array2" ],
+  "data" : [ [ [ 1, 2, 3 ], [ "a", "b", "c" ] ] ]
+}
+----
+
+

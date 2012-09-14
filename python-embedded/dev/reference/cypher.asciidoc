@@ -1,0 +1,81 @@
+[[python-embedded-reference-cypher]]
+Cypher 查询
+=========
+
+你能在neo4j-embedded中使用Cypher查询语言。
+要阅读更多关于cypher的语法以及你能使用的非常方便的工具，请参考：<<cypher-query-lang>>。
+
+
+== 查询并读取结果 ==
+
+=== 基本查询 ===
+
+执行一个文本查询，如下：
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=cypher.py
+tag=basicCypherQuery
+classifier=test-sources
+----
+
+=== 接收查询的结果 ===
+
+Cypher返回一个表格式的结果。
+你要么通过表格的一行一行的轮循，要么你给定列取里面的值。
+
+这是如何进行一行一行的轮循的：
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=cypher.py
+tag=iterateCypherResult
+classifier=test-sources
+----
+
+这儿是给定列取值：
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=cypher.py
+tag=getCypherResultColumn
+classifier=test-sources
+----
+
+=== 列出结果中的列 ===
+
+你能得到列名的一个列表，如下：
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=cypher.py
+tag=listCypherResultColumns
+classifier=test-sources
+----
+
+== 参数化，并准备查询 ==
+
+=== 参数化查询 ===
+
+Cypher支持参数化查询，请参考：##cypher-parameters##。
+这里是你在neo4j-embedded如何使用他们。
+
+[snippet,python]
+----
+component=neo4j-python-embedded
+source=cypher.py
+tag=parameterizedCypherQuery
+classifier=test-sources
+----
+
+=== 准备查询 ===
+
+准备查询，就是你可以对一个cypher查询进行预解析，这个功能已经被废弃了。Cypher能识别之前已经解析过的查询而不会解析相同的字符串两次。
+
+因此，如果你们使用两次以上，实际上所有的cypher查询都是预解析查询的。使用参数化的查询得到完全的功能 - 然后一个通用的查询将被解析，以后每次执行的时候都会用参数修改它。
+
+

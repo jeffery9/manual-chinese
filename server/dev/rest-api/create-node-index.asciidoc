@@ -1,0 +1,38 @@
+[[rest-api-create-node-index]]
+=== Create node index ===
+
+NOTE: Instead of creating the index this way, you can simply start to use
+it, and it will be created automatically with default configuration.
+
+
+.Final Graph
+["dot", "Final-Graph-Create-node-index.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/index/node/+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "name" : "favorites"
+}
+----
+
+
+_Example response_
+
+* *+201:+* +Created+
+* *+Content-Type:+* +application/json+
+* *+Location:+* +http://localhost:7474/db/data/index/node/favorites/+
+[source,javascript]
+----
+{
+  "template" : "http://localhost:7474/db/data/index/node/favorites/{key}/{value}"
+}
+----
+
+

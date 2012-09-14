@@ -1,0 +1,73 @@
+[[rest-api-return-paths-from-a-traversal]]
+=== Return paths from a traversal ===
+
+.Final Graph
+["dot", "Final-Graph-return-paths-from-a-traversal.svg", "neoviz", ""]
+----
+  N7 [
+    label = "{Node\[7\]|name = \'car\'\l}"
+  ]
+  N8 [
+    label = "{Node\[8\]|name = \'you\'\l}"
+  ]
+  N9 [
+    label = "{Node\[9\]|name = \'I\'\l}"
+  ]
+  N9 -> N8 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+  N9 -> N7 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "own\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/node/9/traverse/path+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "order" : "breadth_first",
+  "uniqueness" : "none",
+  "return_filter" : {
+    "language" : "builtin",
+    "name" : "all"
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "start" : "http://localhost:7474/db/data/node/9",
+  "nodes" : [ "http://localhost:7474/db/data/node/9" ],
+  "length" : 0,
+  "relationships" : [ ],
+  "end" : "http://localhost:7474/db/data/node/9"
+}, {
+  "start" : "http://localhost:7474/db/data/node/9",
+  "nodes" : [ "http://localhost:7474/db/data/node/9", "http://localhost:7474/db/data/node/8" ],
+  "length" : 1,
+  "relationships" : [ "http://localhost:7474/db/data/relationship/3" ],
+  "end" : "http://localhost:7474/db/data/node/8"
+}, {
+  "start" : "http://localhost:7474/db/data/node/9",
+  "nodes" : [ "http://localhost:7474/db/data/node/9", "http://localhost:7474/db/data/node/7" ],
+  "length" : 1,
+  "relationships" : [ "http://localhost:7474/db/data/relationship/4" ],
+  "end" : "http://localhost:7474/db/data/node/7"
+} ]
+----
+
+

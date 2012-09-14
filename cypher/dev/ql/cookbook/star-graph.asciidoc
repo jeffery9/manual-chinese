@@ -1,0 +1,48 @@
+[[cookbook-star-graph]]
+== Star graph ==
+The graph is created by first creating a center node, and then once per element in the range, creates a leaf node and connects it to the center.
+
+_Query_
+
+[source,cypher]
+----
+CREATE center
+foreach( x in range(1,6) :
+
+CREATE leaf, center-[:X]->leaf
+)
+RETURN id(center) as id;
+----
+
+
+The query returns the id of the center node.
+
+.Result
+[queryresult]
+----
++----+
+| id |
++----+
+| 1  |
++----+
+1 row
+Nodes created: 7
+Relationships created: 6
+2 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+start n=node(*) match n-[r?]->() delete n, r;
+
+create center
+foreach( x in range(1,6) : 
+   create leaf, center-[:X]->leaf
+)
+return id(center) as id;
+----
+

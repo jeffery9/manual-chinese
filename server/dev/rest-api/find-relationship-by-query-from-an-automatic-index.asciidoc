@@ -1,0 +1,49 @@
+[[rest-api-find-relationship-by-query-from-an-automatic-index]]
+=== Find relationship by query from an automatic index ===
+
+See the example request.
+
+
+.Final Graph
+["dot", "Final-Graph-Find-relationship-by-query-from-an-automatic-index.svg", "neoviz", ""]
+----
+  N22 [
+    label = "{Node\[22\]|}"
+  ]
+  N23 [
+    label = "{Node\[23\]|}"
+  ]
+  N23 -> N22 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\nsince = \'today\'\l"
+  ]
+----
+
+_Example request_
+
+* *+GET+*  +http://localhost:7474/db/data/index/auto/relationship/?query=since:today+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "start" : "http://localhost:7474/db/data/node/23",
+  "data" : {
+    "since" : "today"
+  },
+  "self" : "http://localhost:7474/db/data/relationship/7",
+  "property" : "http://localhost:7474/db/data/relationship/7/properties/{key}",
+  "properties" : "http://localhost:7474/db/data/relationship/7/properties",
+  "type" : "know",
+  "extensions" : {
+  },
+  "end" : "http://localhost:7474/db/data/node/22"
+} ]
+----
+
+

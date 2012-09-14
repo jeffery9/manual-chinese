@@ -1,0 +1,87 @@
+[[rest-api-send-a-gremlin-script---json-encoded-with-table-results]]
+=== Send a Gremlin Script - JSON encoded with table results ===
+
+To send a Script JSON encoded, set the payload Content-Type Header. In
+this example, find all the things that my friends like, and return a
+table listing my friends by their name, and the names of the things they
+like in a table with two columns, ignoring the third named step variable
++I+. Remember that everything in Gremlin is an iterator - in order to
+populate the result table +t+, iterate through the pipes with
++iterate()+.
+
+
+_Raw script source_
+
+[source, groovy]
+----
+t= new Table()
+g.v(23).as('I').out('know').as('friend').out('like').as('likes').table(t,['friend','likes']){it.name}{it.name}.iterate()
+t
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Send-a-Gremlin-Script---JSON-encoded-with-table-results.svg", "neoviz", ""]
+----
+  N21 [
+    label = "{Node\[21\]|name = \'cats\'\l}"
+  ]
+  N22 [
+    label = "{Node\[22\]|name = \'dogs\'\l}"
+  ]
+  N23 [
+    label = "{Node\[23\]|name = \'I\'\l}"
+  ]
+  N23 -> N24 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+  N23 -> N21 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "like\n"
+  ]
+  N24 [
+    label = "{Node\[24\]|name = \'Joe\'\l}"
+  ]
+  N24 -> N21 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "like\n"
+  ]
+  N24 -> N22 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "like\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "t= new Table();g.v(23).as('I').out('know').as('friend').out('like').as('likes').table(t,['friend','likes']){it.name}{it.name}.iterate();t;",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "columns" : [ "friend", "likes" ],
+  "data" : [ [ "Joe", "cats" ], [ "Joe", "dogs" ] ]
+}
+----
+
+

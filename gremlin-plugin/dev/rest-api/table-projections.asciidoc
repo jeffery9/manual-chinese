@@ -1,0 +1,105 @@
+[[rest-api-table-projections]]
+=== Table projections ===
+
+
+
+_Raw script source_
+
+[source, groovy]
+----
+g.v(68).out('AllFriends').as('Friend').ifThenElse{it.out('HasPet').hasNext()}{it.out('HasPet')}{it}.as('Pet').out('HasCareTaker').as('CareTaker').table(new Table()){it['name']}{it['name']}{it['name']}.cap
+----
+
+
+.Final Graph
+["dot", "Final-Graph-table-projections.svg", "neoviz", ""]
+----
+  N64 [
+    label = "{Node\[64\]|name = \'Garfield\'\l}"
+  ]
+  N64 -> N66 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "HasCareTaker\n"
+  ]
+  N65 [
+    label = "{Node\[65\]|name = \'Jack\'\l}"
+  ]
+  N65 -> N64 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "HasPet\n"
+  ]
+  N66 [
+    label = "{Node\[66\]|name = \'Harry\'\l}"
+  ]
+  N67 [
+    label = "{Node\[67\]|name = \'Bob\'\l}"
+  ]
+  N68 [
+    label = "{Node\[68\]|name = \'Root\'\l}"
+  ]
+  N68 -> N69 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "AllFriends\n"
+  ]
+  N68 -> N65 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "AllFriends\n"
+  ]
+  N68 -> N71 [
+    color = "#a40000"
+    fontcolor = "#a40000"
+    label = "AllFriends\n"
+  ]
+  N69 [
+    label = "{Node\[69\]|name = \'John\'\l}"
+  ]
+  N69 -> N70 [
+    color = "#4e9a06"
+    fontcolor = "#4e9a06"
+    label = "HasPet\n"
+  ]
+  N70 [
+    label = "{Node\[70\]|name = \'ScoobieDoo\'\l}"
+  ]
+  N70 -> N67 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "HasCareTaker\n"
+  ]
+  N71 [
+    label = "{Node\[71\]|name = \'Jill\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "g.v(68).out('AllFriends').as('Friend').ifThenElse{it.out('HasPet').hasNext()}{it.out('HasPet')}{it}.as('Pet').out('HasCareTaker').as('CareTaker').table(new Table()){it['name']}{it['name']}{it['name']}.cap",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ [ {
+  "data" : [ [ "John", "ScoobieDoo", "Bob" ], [ "Jack", "Garfield", "Harry" ] ],
+  "columns" : [ "Friend", "Pet", "CareTaker" ]
+} ] ]
+----
+
+

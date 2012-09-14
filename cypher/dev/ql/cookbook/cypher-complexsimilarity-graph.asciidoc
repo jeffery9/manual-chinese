@@ -1,0 +1,27 @@
+
+_Graph_
+
+["dot", "cypher-complexsimilarity-graph.txt.svg", "neoviz", ""]
+----
+  N1 [
+    label = "name = \'me\'\l"
+  ]
+  N1 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "ATE\ntimes = 10\l"
+  ]
+  N2 [
+    label = "name = \'meat\'\l"
+  ]
+  N3 [
+    label = "name = \'you\'\l"
+  ]
+  N3 -> N2 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "ATE\ntimes = 5\l"
+  ]
+
+----
+

@@ -1,0 +1,43 @@
+[[create-create-a-relationship-between-two-nodes]]
+== Create a relationship between two nodes ==
+To create a relationship between two nodes, we first get the two nodes. Once the nodes are loaded, we simply create a relationship between them.
+
+_Query_
+
+[source,cypher]
+----
+START a=node(1), b=node(2)
+CREATE a-[r:RELTYPE]->b
+RETURN r
+----
+
+
+The created relationship is returned by the query.
+
+.Result
+[queryresult]
+----
++----------------+
+| r              |
++----------------+
+| :RELTYPE[0] {} |
++----------------+
+1 row
+Relationships created: 1
+2 ms
+
+----
+
+
+
+.Try this query live
+[console]
+----
+(1) {}
+(2) {}
+(1)-[:RELTYPE]->(2) {}
+
+
+start a=node(1), b=node(2) create a-[r:RELTYPE]->b return r
+----
+

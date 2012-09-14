@@ -1,0 +1,41 @@
+[[rest-api-update-relationship-properties]]
+=== Update relationship properties ===
+
+.Final Graph
+["dot", "Final-Graph-Update-relationship-properties.svg", "neoviz", ""]
+----
+  N162 [
+    label = "{Node\[162\]|}"
+  ]
+  N162 -> N163 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "KNOWS\njim = \'tobias\'\l"
+  ]
+  N163 [
+    label = "{Node\[163\]|}"
+  ]
+----
+
+_Example request_
+
+* *+PUT+*  +http://localhost:7474/db/data/relationship/131/properties+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "jim" : "tobias"
+}
+----
+
+
+_Example response_
+
+* *+204:+* +No Content+
+[source,javascript]
+----
+
+----
+
+

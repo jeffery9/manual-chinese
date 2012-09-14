@@ -1,0 +1,63 @@
+[[rest-api-send-queries-with-errors]]
+=== Send queries with errors ===
+
+This example shows what happens if you misspell
+an identifier.
+
+
+[source,cypher]
+----
+START x  = node:node_auto_index(name={startName})
+MATCH path = (x-[r]-friend)
+WHERE frien.name = {name}
+RETURN TYPE(r)
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Send-queries-with-errors.svg", "neoviz", ""]
+----
+  N29 [
+    label = "{Node\[29\]|name = \'you\'\l}"
+  ]
+  N30 [
+    label = "{Node\[30\]|name = \'I\'\l}"
+  ]
+  N30 -> N29 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/cypher+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x  = node:node_auto_index(name={startName}) match path = (x-[r]-friend) where frien.name = {name} return TYPE(r)",
+  "params" : {
+    "startName" : "I",
+    "name" : "you"
+  }
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "Unknown identifier `frien`",
+  "exception" : "SyntaxException",
+  "stacktrace" : [ "org.neo4j.cypher.internal.executionplan.ExecutionPlanImpl.produceAndThrowException(ExecutionPlanImpl.scala:129)", "org.neo4j.cypher.internal.executionplan.ExecutionPlanImpl.prepareExecutionPlan(ExecutionPlanImpl.scala:56)", "org.neo4j.cypher.internal.executionplan.ExecutionPlanImpl.<init>(ExecutionPlanImpl.scala:32)", "org.neo4j.cypher.ExecutionEngine$$anonfun$prepare$1.apply(ExecutionEngine.scala:61)", "org.neo4j.cypher.ExecutionEngine$$anonfun$prepare$1.apply(ExecutionEngine.scala:61)", "org.neo4j.cypher.internal.LRUCache.getOrElseUpdate(LRUCache.scala:31)", "org.neo4j.cypher.ExecutionEngine.prepare(ExecutionEngine.scala:61)", "org.neo4j.cypher.ExecutionEngine.execute(ExecutionEngine.scala:55)", "org.neo4j.cypher.ExecutionEngine.execute(ExecutionEngine.scala:58)", "org.neo4j.cypher.javacompat.ExecutionEngine.execute(ExecutionEngine.java:86)", "org.neo4j.server.rest.web.CypherService.cypher(CypherService.java:79)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

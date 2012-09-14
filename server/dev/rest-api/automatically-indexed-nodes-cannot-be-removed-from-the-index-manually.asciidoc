@@ -1,0 +1,33 @@
+[[rest-api-automatically-indexed-nodes-cannot-be-removed-from-the-index-manually]]
+=== Automatically indexed nodes cannot be removed from the index manually ===
+
+It is not allowed to remove entries manually from automatic indexes.
+
+
+.Final Graph
+["dot", "Final-Graph-Automatically-indexed-nodes-cannot-be-removed-from-the-index-manually.svg", "neoviz", ""]
+----
+  N19 [
+    label = "{Node\[19\]|name = \'I\'\l}"
+  ]
+----
+
+_Example request_
+
+* *+DELETE+*  +http://localhost:7474/db/data/index/node/node_auto_index/19+
+* *+Accept:+* +application/json+
+
+_Example response_
+
+* *+405:+* +null+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "read only index",
+  "exception" : "UnsupportedOperationException",
+  "stacktrace" : [ "org.neo4j.kernel.AbstractAutoIndexerImpl$ReadOnlyIndexToIndexAdapter.readOnlyIndex(AbstractAutoIndexerImpl.java:253)", "org.neo4j.kernel.AbstractAutoIndexerImpl$ReadOnlyIndexToIndexAdapter.remove(AbstractAutoIndexerImpl.java:283)", "org.neo4j.server.rest.web.DatabaseActions.removeFromNodeIndexNoKeyValue(DatabaseActions.java:853)", "org.neo4j.server.rest.web.RestfulGraphDatabase.deleteFromNodeIndexNoKeyValue(RestfulGraphDatabase.java:1127)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

@@ -1,0 +1,62 @@
+[[cypher-plugin-api-send-queries-with-syntax-errors]]
+=== Send queries with syntax errors ===
+
+Sending a query with syntax errors will give a bad request (HTTP 400)
+response together with an error message.
+
+
+[source,cypher]
+----
+START x  = node:node_auto_index(name={startName}) matc path = (x-[r]-friend)
+WHERE friend.name = {name}
+RETURN TYPE(r)
+----
+
+
+.Final Graph
+["dot", "Final-Graph-send-queries-with-syntax-errors.svg", "neoviz", ""]
+----
+  N10 [
+    label = "{Node\[10\]|name = \'you\'\l}"
+  ]
+  N11 [
+    label = "{Node\[11\]|name = \'I\'\l}"
+  ]
+  N11 -> N10 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/CypherPlugin/graphdb/execute_query+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x  = node:node_auto_index(name={startName}) matc path = (x-[r]-friend) where friend.name = {name} return TYPE(r)",
+  "params" : {
+    "startName" : "I",
+    "name" : "you"
+  }
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "string matching regex `$' expected but `m' found\n\nThink we should have better error message here? Help us by sending this query to cypher@neo4j.org.\n\nThank you, the Neo4j Team.\n\n\"start x  = node:node_auto_index(name={startName}) matc path = (x-[r]-friend) where friend.name = {name} return TYPE(r)\"\n                                                   ^",
+  "exception" : "BadInputException",
+  "stacktrace" : [ "org.neo4j.server.plugin.cypher.CypherPlugin.executeScript(CypherPlugin.java:61)", "java.lang.reflect.Method.invoke(Method.java:597)", "org.neo4j.server.plugins.PluginMethod.invoke(PluginMethod.java:57)", "org.neo4j.server.plugins.PluginManager.invoke(PluginManager.java:168)", "org.neo4j.server.rest.web.ExtensionService.invokeGraphDatabaseExtension(ExtensionService.java:300)", "org.neo4j.server.rest.web.ExtensionService.invokeGraphDatabaseExtension(ExtensionService.java:122)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

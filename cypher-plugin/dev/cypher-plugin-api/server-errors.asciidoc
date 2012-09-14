@@ -1,0 +1,59 @@
+[[cypher-plugin-api-server-errors]]
+=== Server errors ===
+
+Errors on the server will be reported as a JSON-formatted stacktrace and
+message.
+
+
+[source,cypher]
+----
+START x = node(5)
+RETURN x.dummy
+----
+
+
+.Final Graph
+["dot", "Final-Graph-Server-errors.svg", "neoviz", ""]
+----
+  N4 [
+    label = "{Node\[4\]|name = \'you\'\l}"
+  ]
+  N5 [
+    label = "{Node\[5\]|name = \'I\'\l}"
+  ]
+  N5 -> N4 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/CypherPlugin/graphdb/execute_query+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start x = node(5) return x.dummy",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+400:+* +Bad Request+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "The property 'dummy' does not exist on Node[5]",
+  "exception" : "BadInputException",
+  "stacktrace" : [ "org.neo4j.server.rest.repr.RepresentationExceptionHandlingIterable.exceptionOnHasNext(RepresentationExceptionHandlingIterable.java:51)", "org.neo4j.helpers.collection.ExceptionHandlingIterable$1.hasNext(ExceptionHandlingIterable.java:61)", "org.neo4j.helpers.collection.IteratorWrapper.hasNext(IteratorWrapper.java:42)", "org.neo4j.server.rest.repr.ListRepresentation.serialize(ListRepresentation.java:58)", "org.neo4j.server.rest.repr.Serializer.serialize(Serializer.java:75)", "org.neo4j.server.rest.repr.MappingSerializer.putList(MappingSerializer.java:61)", "org.neo4j.server.rest.repr.CypherResultRepresentation.serialize(CypherResultRepresentation.java:50)", "org.neo4j.server.rest.repr.MappingRepresentation.serialize(MappingRepresentation.java:42)", "org.neo4j.server.rest.repr.OutputFormat.format(OutputFormat.java:170)", "org.neo4j.server.rest.repr.OutputFormat.formatRepresentation(OutputFormat.java:120)", "org.neo4j.server.rest.repr.OutputFormat.response(OutputFormat.java:107)", "org.neo4j.server.rest.repr.OutputFormat.ok(OutputFormat.java:55)", "org.neo4j.server.rest.web.ExtensionService.invokeGraphDatabaseExtension(ExtensionService.java:122)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

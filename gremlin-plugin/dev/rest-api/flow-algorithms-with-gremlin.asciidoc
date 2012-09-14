@@ -1,0 +1,117 @@
+[[rest-api-flow-algorithms-with-gremlin]]
+=== Flow algorithms with Gremlin ===
+
+This is a basic stub example for implementing flow algorithms in for
+instance http://en.wikipedia.org/wiki/Flow_network[Flow Networks] with a
+pipes-based approach and scripting, here between +source+ and +sink+
+using the +capacity+ property on relationships as the base for the flow
+function and modifying the graph during calculation.
+
+.Starting Graph
+["dot", "Starting-Graph-starting_graphflow-algorithms-with-Gremlin.svg", "neoviz", ""]
+----
+  N72 [
+    label = "name = \'source\'\l"
+  ]
+  N72 -> N74 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "CONNECTED\ncapacity = 1\l"
+  ]
+  N72 -> N73 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "CONNECTED\ncapacity = 1\l"
+  ]
+  N72 -> N73 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "CONNECTED\ncapacity = 2\l"
+  ]
+  N73 [
+    label = "name = \'sink\'\l"
+  ]
+  N74 [
+    label = "name = \'middle\'\l"
+  ]
+  N74 -> N73 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "CONNECTED\ncapacity = 3\l"
+  ]
+----
+
+
+_Raw script source_
+
+[source, groovy]
+----
+source=g.v(72)
+sink=g.v(73)
+maxFlow = 0
+source.outE.inV.loop(2){!it.object.equals(sink)}.paths.each{flow = it.capacity.min()
+ maxFlow += flow
+it.findAll{it.capacity}.each{it.capacity -= flow}}
+maxFlow
+----
+
+
+.Final Graph
+["dot", "Final-Graph-flow-algorithms-with-Gremlin.svg", "neoviz", ""]
+----
+  N72 [
+    label = "{Node\[72\]|name = \'source\'\l}"
+  ]
+  N72 -> N74 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "CONNECTED\ncapacity = 0\l"
+  ]
+  N72 -> N73 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "CONNECTED\ncapacity = 0\l"
+  ]
+  N72 -> N73 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "CONNECTED\ncapacity = 0\l"
+  ]
+  N73 [
+    label = "{Node\[73\]|name = \'sink\'\l}"
+  ]
+  N74 [
+    label = "{Node\[74\]|name = \'middle\'\l}"
+  ]
+  N74 -> N73 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "CONNECTED\ncapacity = 2\l"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/ext/GremlinPlugin/graphdb/execute_script+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "script" : "source=g.v(72);sink=g.v(73);maxFlow = 0;source.outE.inV.loop(2){!it.object.equals(sink)}.paths.each{flow = it.capacity.min(); maxFlow += flow;it.findAll{it.capacity}.each{it.capacity -= flow}};maxFlow",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+4
+----
+
+

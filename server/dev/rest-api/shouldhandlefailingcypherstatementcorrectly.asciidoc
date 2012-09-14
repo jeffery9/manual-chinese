@@ -1,0 +1,45 @@
+[[rest-api-shouldhandlefailingcypherstatementcorrectly]]
+=== ShouldHandleFailingCypherStatementCorrectly ===
+
+.Final Graph
+["dot", "Final-Graph-shouldHandleFailingCypherStatementCorrectly.svg", "neoviz", ""]
+----
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/batch+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "method" : "POST",
+  "to" : "/cypher",
+  "body" : {
+    "query" : "start n=node({id}) set n.foo = 10   return n",
+    "params" : {
+      "id" : "0"
+    }
+  }
+}, {
+  "method" : "POST",
+  "to" : "/node"
+} ]
+----
+
+
+_Example response_
+
+* *+500:+* +Internal Server Error+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "message" : "{\n  \"message\" : \"Expected a propertycontainer or number here, but got: 0\",\n  \"exception\" : \"ParameterWrongTypeException\",\n  \"stacktrace\" : [ \"org.neo4j.cypher.internal.executionplan.builders.GetGraphElements$.getElements(GetGraphElements.scala:41)\", \"org.neo4j.cypher.internal.executionplan.builders.NodeByIdBuilder$$anonfun$1.apply(NodeByIdBuilder.scala:39)\", \"org.neo4j.cypher.internal.executionplan.builders.NodeByIdBuilder$$anonfun$1.apply(NodeByIdBuilder.scala:39)\", \"org.neo4j.cypher.internal.pipes.StartPipe$$anonfun$1.apply(StartPipe.scala:38)\", \"org.neo4j.cypher.internal.pipes.StartPipe$$anonfun$1.apply(StartPipe.scala:37)\", \"scala.collection.TraversableLike$$anonfun$flatMap$1.apply(TraversableLike.scala:200)\", \"scala.collection.TraversableLike$$anonfun$flatMap$1.apply(TraversableLike.scala:200)\", \"scala.collection.LinearSeqOptimized$class.foreach(LinearSeqOptimized.scala:59)\", \"scala.collection.immutable.List.foreach(List.scala:45)\", \"scala.collection.TraversableLike$class.flatMap(TraversableLike.scala:200)\", \"scala.collection.immutable.List.flatMap(List.scala:45)\", \"org.neo4j.cypher.internal.pipes.StartPipe.createResults(StartPipe.scala:37)\", \"org.neo4j.cypher.internal.pipes.TransactionStartPipe.createResults(TransactionStartPipe.scala:29)\", \"org.neo4j.cypher.internal.pipes.ExecuteUpdateCommandsPipe.createResults(ExecuteUpdateCommandsPipe.scala:34)\", \"org.neo4j.cypher.internal.pipes.ColumnFilterPipe.createResults(ColumnFilterPipe.scala:39)\", \"org.neo4j.cypher.internal.pipes.CommitPipe.createResults(CommitPipe.scala:36)\", \"org.neo4j.cypher.internal.executionplan.ExecutionPlanImpl$$anonfun$5$$anonfun$apply$3.apply(ExecutionPlanImpl.scala:104)\", \"org.neo4j.cypher.internal.executionplan.ExecutionPlanImpl$$anonfun$5$$anonfun$apply$3.apply(ExecutionPlanImpl.scala:104)\", \"org.neo4j.cypher.PipeExecutionResult.immutableResult(PipeExecutionResult.scala:37)\", \"org.neo4j.cypher.EagerPipeExecutionResult.<init>(EagerPipeExecutionResult.scala:44)\", \"org.neo4j.cypher.internal.executionplan.ExecutionPlanImpl$$anonfun$5.apply(ExecutionPlanImpl.scala:104)\", \"org.neo4j.cypher.internal.executionplan.ExecutionPlanImpl$$anonfun$5.apply(ExecutionPlanImpl.scala:102)\", \"org.neo4j.cypher.internal.executionplan.ExecutionPlanImpl.execute(ExecutionPlanImpl.scala:34)\", \"org.neo4j.cypher.ExecutionEngine.execute(ExecutionEngine.scala:55)\", \"org.neo4j.cypher.ExecutionEngine.execute(ExecutionEngine.scala:58)\", \"org.neo4j.cypher.javacompat.ExecutionEngine.execute(ExecutionEngine.java:86)\", \"org.neo4j.server.rest.web.CypherService.cypher(CypherService.java:79)\", \"java.lang.reflect.Method.invoke(Method.java:597)\", \"org.neo4j.server.web.Jetty6WebServer.invokeDirectly(Jetty6WebServer.java:273)\", \"org.neo4j.server.rest.batch.NonStreamingBatchOperations.invoke(NonStreamingBatchOperations.java:55)\", \"org.neo4j.server.rest.batch.BatchOperations.performRequest(BatchOperations.java:178)\", \"org.neo4j.server.rest.batch.BatchOperations.parseAndPerform(BatchOperations.java:149)\", \"org.neo4j.server.rest.batch.NonStreamingBatchOperations.performBatchJobs(NonStreamingBatchOperations.java:48)\", \"org.neo4j.server.rest.web.BatchOperationService.batchProcess(BatchOperationService.java:117)\", \"org.neo4j.server.rest.web.BatchOperationService.performBatchOperations(BatchOperationService.java:71)\", \"java.lang.reflect.Method.invoke(Method.java:597)\" ]\n}",
+  "exception" : "BatchOperationFailedException",
+  "stacktrace" : [ "org.neo4j.server.rest.batch.NonStreamingBatchOperations.invoke(NonStreamingBatchOperations.java:63)", "org.neo4j.server.rest.batch.BatchOperations.performRequest(BatchOperations.java:178)", "org.neo4j.server.rest.batch.BatchOperations.parseAndPerform(BatchOperations.java:149)", "org.neo4j.server.rest.batch.NonStreamingBatchOperations.performBatchJobs(NonStreamingBatchOperations.java:48)", "org.neo4j.server.rest.web.BatchOperationService.batchProcess(BatchOperationService.java:117)", "org.neo4j.server.rest.web.BatchOperationService.performBatchOperations(BatchOperationService.java:71)", "java.lang.reflect.Method.invoke(Method.java:597)" ]
+}
+----
+
+

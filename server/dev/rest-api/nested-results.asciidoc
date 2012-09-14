@@ -1,0 +1,60 @@
+[[rest-api-nested-results]]
+=== Nested results ===
+
+When sending queries that
+return nested results like list and maps,
+these will get serialized into nested JSON representations
+according to their types.
+
+
+[source,cypher]
+----
+START n = node(26,25)
+RETURN collect(n.name)
+----
+
+
+.Final Graph
+["dot", "Final-Graph-nested-results.svg", "neoviz", ""]
+----
+  N25 [
+    label = "{Node\[25\]|name = \'you\'\l}"
+  ]
+  N26 [
+    label = "{Node\[26\]|name = \'I\'\l}"
+  ]
+  N26 -> N25 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "know\n"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/cypher+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "query" : "start n = node(26,25) return collect(n.name)",
+  "params" : {
+  }
+}
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+{
+  "columns" : [ "collect(n.name)" ],
+  "data" : [ [ [ "I", "you" ] ] ]
+}
+----
+
+

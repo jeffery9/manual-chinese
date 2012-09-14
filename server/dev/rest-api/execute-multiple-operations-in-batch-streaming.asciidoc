@@ -1,0 +1,148 @@
+[[rest-api-execute-multiple-operations-in-batch-streaming]]
+=== Execute multiple operations in batch streaming ===
+
+.Final Graph
+["dot", "Final-Graph-execute-multiple-operations-in-batch-streaming.svg", "neoviz", ""]
+----
+  N144 [
+    label = "{Node\[144\]|name = \'John\'\l}"
+  ]
+  N145 [
+    label = "{Node\[145\]|age = 1\l}"
+  ]
+  N145 -> N144 [
+    color = "#2e3436"
+    fontcolor = "#2e3436"
+    label = "knows\n"
+  ]
+  N146 [
+    label = "{Node\[146\]|age = 1\l}"
+  ]
+  N147 [
+    label = "{Node\[147\]|age = 1\l}"
+  ]
+----
+
+_Example request_
+
+* *+POST+*  +http://localhost:7474/db/data/batch+
+* *+Accept:+* +application/json+
+* *+Content-Type:+* +application/json+
+* *+X-Stream:+* +true+
+[source,javascript]
+----
+[ {
+  "method" : "PUT",
+  "to" : "/node/145/properties",
+  "body" : {
+    "age" : 1
+  },
+  "id" : 0
+}, {
+  "method" : "GET",
+  "to" : "/node/145",
+  "id" : 1
+}, {
+  "method" : "POST",
+  "to" : "/node",
+  "body" : {
+    "age" : 1
+  },
+  "id" : 2
+}, {
+  "method" : "POST",
+  "to" : "/node",
+  "body" : {
+    "age" : 1
+  },
+  "id" : 3
+} ]
+----
+
+
+_Example response_
+
+* *+200:+* +OK+
+* *+Content-Type:+* +application/json+
+[source,javascript]
+----
+[ {
+  "id" : 0,
+  "from" : "/node/145/properties",
+  "body" : null,
+  "status" : 204
+}, {
+  "id" : 1,
+  "from" : "/node/145",
+  "body" : {
+    "extensions" : {
+    },
+    "paged_traverse" : "http://localhost:7474/db/data/node/145/paged/traverse/{returnType}{?pageSize,leaseTime}",
+    "outgoing_relationships" : "http://localhost:7474/db/data/node/145/relationships/out",
+    "traverse" : "http://localhost:7474/db/data/node/145/traverse/{returnType}",
+    "all_typed_relationships" : "http://localhost:7474/db/data/node/145/relationships/all/{-list|&|types}",
+    "all_relationships" : "http://localhost:7474/db/data/node/145/relationships/all",
+    "property" : "http://localhost:7474/db/data/node/145/properties/{key}",
+    "self" : "http://localhost:7474/db/data/node/145",
+    "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/145/relationships/out/{-list|&|types}",
+    "properties" : "http://localhost:7474/db/data/node/145/properties",
+    "incoming_relationships" : "http://localhost:7474/db/data/node/145/relationships/in",
+    "incoming_typed_relationships" : "http://localhost:7474/db/data/node/145/relationships/in/{-list|&|types}",
+    "create_relationship" : "http://localhost:7474/db/data/node/145/relationships",
+    "data" : {
+      "age" : 1
+    }
+  },
+  "status" : 200
+}, {
+  "id" : 2,
+  "from" : "/node",
+  "body" : {
+    "extensions" : {
+    },
+    "paged_traverse" : "http://localhost:7474/db/data/node/146/paged/traverse/{returnType}{?pageSize,leaseTime}",
+    "outgoing_relationships" : "http://localhost:7474/db/data/node/146/relationships/out",
+    "traverse" : "http://localhost:7474/db/data/node/146/traverse/{returnType}",
+    "all_typed_relationships" : "http://localhost:7474/db/data/node/146/relationships/all/{-list|&|types}",
+    "all_relationships" : "http://localhost:7474/db/data/node/146/relationships/all",
+    "property" : "http://localhost:7474/db/data/node/146/properties/{key}",
+    "self" : "http://localhost:7474/db/data/node/146",
+    "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/146/relationships/out/{-list|&|types}",
+    "properties" : "http://localhost:7474/db/data/node/146/properties",
+    "incoming_relationships" : "http://localhost:7474/db/data/node/146/relationships/in",
+    "incoming_typed_relationships" : "http://localhost:7474/db/data/node/146/relationships/in/{-list|&|types}",
+    "create_relationship" : "http://localhost:7474/db/data/node/146/relationships",
+    "data" : {
+      "age" : 1
+    }
+  },
+  "location" : "http://localhost:7474/db/data/node/146",
+  "status" : 201
+}, {
+  "id" : 3,
+  "from" : "/node",
+  "body" : {
+    "extensions" : {
+    },
+    "paged_traverse" : "http://localhost:7474/db/data/node/147/paged/traverse/{returnType}{?pageSize,leaseTime}",
+    "outgoing_relationships" : "http://localhost:7474/db/data/node/147/relationships/out",
+    "traverse" : "http://localhost:7474/db/data/node/147/traverse/{returnType}",
+    "all_typed_relationships" : "http://localhost:7474/db/data/node/147/relationships/all/{-list|&|types}",
+    "all_relationships" : "http://localhost:7474/db/data/node/147/relationships/all",
+    "property" : "http://localhost:7474/db/data/node/147/properties/{key}",
+    "self" : "http://localhost:7474/db/data/node/147",
+    "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/147/relationships/out/{-list|&|types}",
+    "properties" : "http://localhost:7474/db/data/node/147/properties",
+    "incoming_relationships" : "http://localhost:7474/db/data/node/147/relationships/in",
+    "incoming_typed_relationships" : "http://localhost:7474/db/data/node/147/relationships/in/{-list|&|types}",
+    "create_relationship" : "http://localhost:7474/db/data/node/147/relationships",
+    "data" : {
+      "age" : 1
+    }
+  },
+  "location" : "http://localhost:7474/db/data/node/147",
+  "status" : 201
+} ]
+----
+
+

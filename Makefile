@@ -141,7 +141,7 @@ simple-asciidoc: initialize installextensions
 	mkdir -p "$(SINGLEHTMLDIR)/images"
 	mkdir -p "$(SINGLEHTMLDIR)/css"
 	mkdir -p "$(SINGLEHTMLDIR)/js"
-	"$(ASCIIDOC)" $(ASCIIDOC_FLAGS) --conf-file="$(TOOLSCONFDIR)/asciidoc.conf"  --conf-file="$(CONFDIR)/asciidoc.conf" --attribute docinfo1 --attribute toc --out-file "$(SINGLEHTMLFILE)" "$(SRCFILE)"
+	"$(ASCIIDOC)" $(ASCIIDOC_FLAGS) --conf-file="$(TOOLSCONFDIR)/asciidoc.conf"  --conf-file="$(CONFDIR)/asciidoc.conf" --attribute lang=zh_cn --attribute docinfo1 --attribute toc --out-file "$(SINGLEHTMLFILE)" "$(SRCFILE)"
 	rsync -ru "$(IMGTARGETDIR)/"* "$(SINGLEHTMLDIR)/images"
 	rsync -ru "$(CSSDIR)/"* "$(SINGLEHTMLDIR)/css"
 	rsync -ru "$(JSDIR)/"* "$(SINGLEHTMLDIR)/js"
@@ -164,7 +164,7 @@ installfilter:
 	# Installing asciidoc filters.
 	#
 	#
-	cp "$(CONFDIR)/lang-cn.conf" "$(TOOLSDIR)/bin/asciidoc/"
+	cp "$(CONFDIR)/lang-zh_cn.conf" "$(TOOLSDIR)/bin/asciidoc/"
 copyimages:
 	#
 	#
@@ -194,9 +194,9 @@ docbook-html:  manpages copyimages
 	# Checking for missing include files.
 	# Checking DocBook validity.
 	#
-	# --attribute lang=cn
+	#
 	mkdir -p "$(BUILDDIR)"
-	"$(ASCIIDOC)" $(ASCIIDOC_FLAGS) --backend docbook --attribute docinfo1 --attribute console=1 --doctype book --conf-file="$(CONFDIR)/asciidoc.conf" --conf-file="$(CONFDIR)/docbook45.conf" --conf-file="$(CONFDIR)/linkedimages.conf" --out-file "$(DOCBOOKFILEHTML)" "$(SRCFILE)" 2>&1 | "$(SCRIPTDIR)/outputcheck-includefiles.sh"
+	"$(ASCIIDOC)" $(ASCIIDOC_FLAGS) --backend docbook --attribute lang=zh_cn --attribute docinfo1 --attribute console=1 --doctype book --conf-file="$(CONFDIR)/asciidoc.conf" --conf-file="$(CONFDIR)/docbook45.conf" --conf-file="$(CONFDIR)/linkedimages.conf" --out-file "$(DOCBOOKFILEHTML)" "$(SRCFILE)" 2>&1 | "$(SCRIPTDIR)/outputcheck-includefiles.sh"
 	xmllint --nonet --noout --xinclude --postvalid "$(DOCBOOKFILEHTML)"
 
 offline-html:  manpages copyimages docbook-html
@@ -212,4 +212,7 @@ offline-html:  manpages copyimages docbook-html
 	cp -fr "$(CSSDIR)/"* "$(CHUNKEDOFFLINEHTMLDIR)/css/"
 	cp -fr "$(IMGTARGETDIR)/"*.png "$(CHUNKEDOFFLINEHTMLDIR)/images"
 
+	cp -fr "$(CONFDIR)/neo.css" "$(CHUNKEDOFFLINEHTMLDIR)/css/neo.css"
+	cp -fr "$(RESOURCEDIR)/js/version.js" "$(CHUNKEDOFFLINEHTMLDIR)/js/version.js"		
+	
 

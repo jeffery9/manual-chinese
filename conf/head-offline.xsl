@@ -19,7 +19,6 @@
 <link href="css/neo.css" rel="stylesheet" type="text/css" />
 
 <!-- Syntax Highlighter -->
-
 <script type="text/javascript" src="js/shCore.js"></script>
 <script type="text/javascript" src="js/shBrushJava.js"></script>
 <script type="text/javascript" src="js/shBrushJScript.js"></script>
@@ -39,8 +38,12 @@
  
 <script type="text/javascript">
   SyntaxHighlighter.defaults['tab-size'] = 4;
-  SyntaxHighlighter.defaults['gutter'] = false;
-  SyntaxHighlighter.defaults['toolbar'] = false;
+  SyntaxHighlighter.defaults['gutter'] = true;
+  SyntaxHighlighter.defaults['toolbar'] = true;
+  SyntaxHighlighter.defaults['collapse'] = true;
+  SyntaxHighlighter.defaults['first-line'] = true;
+  //SyntaxHighlighter.defaults['first-line'] = true;
+  
   SyntaxHighlighter.all()
 </script>
 
@@ -63,9 +66,9 @@
 
 <script type="text/javascript" src="js/version.js"></script>
 
-<!-- Offline Sidebar -->
-
+<!-- Offline Sidebar
 <script type="text/javascript" src="js/sidebar.js"></script>
+-->
 
 ]]>
 </xsl:text>

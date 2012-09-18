@@ -11,7 +11,7 @@ in the Java code.
 
 - The annotated graph as http://www.graphviz.org/[GraphViz]-generated visualization:
 
-.Hello World Graph
+.你好世界图
 ["dot", "Hello-World-Graph-hello-world-Sample-Chapter.svg", "neoviz", ""]
 ----
   N1 [
@@ -27,7 +27,7 @@ in the Java code.
   ]
 ----
 
-- A sample Cypher query:
+- 一个Cypher范例查询：
 
 [source,cypher]
 ----
@@ -35,7 +35,7 @@ START n = node(2)
 RETURN n
 ----
 
-- A sample text output snippet:
+- 一个范例文本输出片段：
 
 [source]
 ----
@@ -56,6 +56,6 @@ classifier=test-sources
 tag=sampleDocumentation
 ----
 
-This is the end of this chapter.
+以上是这个章节的全部。
 
 

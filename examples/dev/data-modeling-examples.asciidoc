@@ -16,3 +16,6 @@ include::examples/user-roles-in-graphs.asciidoc[]
 
 include::examples/acl-structures-in-graphs.asciidoc[]
 
+:leveloffset: 2
+
+include::{docdir}/cypher/dev/ql/cookbook/index.asciidoc[]

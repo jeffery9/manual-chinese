@@ -1,7 +1,7 @@
 [[cookbook-linked-list]]
 
-Linked Lists
-============
+链表
+==
 
 A powerful feature of using a graph database, is that you can create your own in-graph data structures -- like a linked
 list.

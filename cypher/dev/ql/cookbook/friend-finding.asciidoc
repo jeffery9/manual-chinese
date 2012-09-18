@@ -1,5 +1,5 @@
 [[cypher-cookbook-friend-finding]]
-== Basic friend finding based on social neighborhood ==
+== 基于社交邻居的朋友查找 ==
 
 Imagine an example graph like the following one:
 

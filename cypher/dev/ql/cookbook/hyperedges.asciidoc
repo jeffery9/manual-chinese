@@ -1,5 +1,5 @@
 [[cypher-cookbook-hyperedges]]
-== Hyperedges ==
+== 超边 ==
 
 Imagine a user being part of different groups.
 A group can have different roles, and a user can be part of different groups.

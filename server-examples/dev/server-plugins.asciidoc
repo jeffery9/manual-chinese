@@ -2,23 +2,22 @@
 服务器插件 
 =====
 
-.Quick info
+.内容提示
 ***********
-* The server's functionality can be extended by adding plugins.
-* Plugins are user-specified code which extend the capabilities of the database, nodes, or relationships. 
-* The neo4j server will then advertise the plugin functionality within representations as clients interact via HTTP.
+* 服务器的功能可以通过增加插件的方式来增强。
+* 插件是用户自己编码完成的，以便增强数据库，节点以及属性的功能。
+* Neo4j服务器在与客户端通过HTTP方式进行交互时使用这些自定义插件。
 ***********
 
-Plugins provide an easy way to extend the Neo4j REST API with new functionality, without the need to
-invent your own API.
-Think of plugins as server-side scripts that can add functions for retrieving and manipulating nodes, relationships, paths, properties or indices.
+插件提供了一种增加Neo4j Rest API新功能的很好的方式，而不需要去从新发明你自己的API。
+作为在服务端运行的脚本，插件可以用于接受和维护节点，关系，路径，属性以及指数。
 
 [TIP]
-If you want to have full control over your API, and are willing to put in the effort, and understand the risks, then Neo4j server also provides hooks for <<server-unmanaged-extensions,unmanaged extensions>> based on JAX-RS.
+如果你想完全控制你的API，你需要多花心思，并理解这样做的风险，而Neo4j服务端也可以通过JAX-RS提供<<server-unmanaged-extensions,非托管的扩展>>。
 
-The needed classes reside in the http://search.maven.org/#search|gav|1|g%3A%22org.neo4j%22%20AND%20a%3A%22server-api%22[org.neo4j:server-api] jar file.
-See the linked page for downloads and instructions on how to include it using dependency management.
-For Maven projects, add the Server API dependencies in your +pom.xml+ like this:
+涉及到的类在jar包http://search.maven.org/#search|gav|1|g%3A%22org.neo4j%22%20AND%20a%3A%22server-api%22[org.neo4j:server-api]中，
+看看下载页面的链接地址，介绍了如何引入。
+对于一个Maven工程，新增 服务端 API依赖到你的工程中，你可以修改 +pom.xml+ 像下面这样：
 
 [source,xml]
 ----
@@ -29,22 +28,22 @@ For Maven projects, add the Server API dependencies in your +pom.xml+ like this:
 </dependency>
 ----
 
-_Where $\{neo4j-version} is the intended version._
+_ $\{neo4j-version}  是一个版本号。_
 
-To create a plugin, your code must inherit from the http://components.neo4j.org/server-api/{neo4j-version}/apidocs/org/neo4j/server/plugins/ServerPlugin.html[ServerPlugin] class.
-Your plugin should also:
+为了创建插件，你的代码必须继承类： http://components.neo4j.org/server-api/{neo4j-version}/apidocs/org/neo4j/server/plugins/ServerPlugin.html[ServerPlugin] 。
+你的插件必须做到下面几点：
 
-* ensure that it can produce an (Iterable of) Node, Relationship or Path, or any Java primitive or String
-* specify parameters,
-* specify a point of extension and of course 
-* contain the application logic.
-* make sure that the discovery point type in the +@PluginTarget+ and the +@Source+ parameter are of the same type.
+* 确定插件可以产生一个（一组）节点，关系或者路径，或者任何Java原生类型以及字符串
+* 可以指定参数，
+* 可以指定一个扩展点
+* 包括应用逻辑。
+* 确定在 +@PluginTarget+ 和 +@Source+ 参数中可以发现类型。
 
 // link Node/Rel/Path javadocs here?
 
-An example of a plugin which augments the database (as opposed to nodes or relationships) follows:
+下面是一个插件的范例，参数是数据库（也可以是节点或者关系）：
 
-.Get all nodes or relationships plugin
+.获取所有节点和关系的插件
 [snippet,java]
 ----
 component=neo4j-server-examples
@@ -53,10 +52,10 @@ tag=GetAll
 classifier=sources
 ----
 
-The full source code is found here:
+完整源代码下载地址：
 https://github.com/neo4j/community/blob/{neo4j-git-tag}/server-examples/src/main/java/org/neo4j/examples/server/plugins/GetAll.java[GetAll.java]
 
-.Find the shortest path between two nodes plugin
+.找到两点之间最短距离的插件
 [snippet,java]
 ----
 component=neo4j-server-examples
@@ -65,31 +64,29 @@ tag=ShortestPath
 classifier=sources
 ----
 
-The full source code is found here:
+完整源代码下载地址：
 https://github.com/neo4j/community/blob/{neo4j-git-tag}/server-examples/src/main/java/org/neo4j/examples/server/plugins/ShortestPath.java[ShortestPath.java]
 
-
-To deploy the code, simply compile it into a .jar file and place it onto the server classpath (which by
-convention is the plugins directory under the Neo4j server home directory).
+为了部署代码，可以简单的编译成.jar 文件并把他放到服务器的classpath下面（按照惯例，插件目录在Neo4j 服务端的主目录下面）。
 
 [TIP]
-Make sure the directories listings are retained in the jarfile by either building with default Maven, or with `jar -cvf myext.jar *`, making sure
-to jar directories instead of specifying single files.
+确保通过Maven或者 `jar -cvf myext.jar *`编译时，目录列表被保留在jar文件中，
+确定jar目录代替指定的单个文件。
 
-The '.jar' file must include the file 'META-INF/services/org.neo4j.server.plugins.ServerPlugin' with the fully qualified name of the implementation class.
-This is an example with multiple entries, each on a separate line:
+ '.jar' 文件必须包括 'META-INF/services/org.neo4j.server.plugins.ServerPlugin' 。
+ 这是一个范例，有多个入口，每一个都在下面独立的一行：
 
 [source]
 ----
 include::../org.neo4j.server.plugins.ServerPlugin[]
 ----
 
-The code above makes an extension visible in the database representation (via the +@PluginTarget+ annotation)
-whenever it is served from the Neo4j Server.
-Simply changing the +@PluginTarget+ parameter to +Node.class+ or +Relationship.class+ allows us to target those parts of the data model should we wish.
-The functionality extensions provided by the plugin are automatically advertised in representations on the wire.
-For example, clients can discover the extension implemented by the above plugin easily by examining the representations
-they receive as responses from the server, e.g. by performing a +GET+ on the default database URI:
+上面的代码让一个扩展在接收来自Neo4j 服务端的服务时，
+总是在数据库中可见（通过 +@PluginTarget+ 注解）。
+简单的改变 +@PluginTarget+ 参数成 +Node.class+ 或者 +Relationship.class+ ，就可以让我们轻松的切换到我们希望的其他数据模型。
+通过插件提供的功能性扩展会自动生效的。
+比如，客户端与服务端交互时，可以通过上面的插件提供的扩展，
+更早的检查他们接收到的反馈。比如在默认数据库URI上发送一个 +GET+ 请求：
  
 [source, shell]
 ----
@@ -98,10 +95,10 @@ curl -v http://localhost:7474/db/data/
 
 // test the above!
 
-The response to the +GET+ request will contain (by default) a JSON container that itself contains a container
-called "extensions" where the available plugins are listed.
-In the following case, we only have the +GetAll+ plugin registered with the server, so only its extension functionality is available.
-Extension names will be automatically assigned, based on method names, if not specifically specified using the +@Name+ annotation.
+对于 +GET+ 请求的反馈是默认情况下会是一个JSON数据，
+里面有一属性”extensions“，列出了所有可以使用的插件。
+在下面例子中，我们只有 +GetAll+ 插件注册到了服务端，所以只有他的扩展功能是可以使用的。
+扩展名如果没有通过 +@Name+ 指定的话会被自动分配，基于方法名。
 
 [source, javascript]
 ----
@@ -122,7 +119,7 @@ Extension names will be automatically assigned, based on method names, if not sp
 
 // generate the above output from a test
  
-Performing a +GET+ on one of the two extension URIs gives back the meta information about the service:
+在两个扩展URI上面做 +GET+ 请求获取meta信息：
 
 [source, shell]
 ----
@@ -141,21 +138,21 @@ curl http://localhost:7474/db/data/ext/GetAll/graphdb/get_all_nodes
 }
 ----
 
-To use it, just +POST+ to this URL, with parameters as specified in the description and encoded as JSON data content.
-F.ex for calling the +shortest path+ extension (URI gotten from a +GET+ to http://localhost:7474/db/data/node/123):
+为了使用它，需要 +POST+ 到这个地址，并带上指定的参数和JSON数据。
+比如我们调用 +shortest path+ 扩展（URI通过发送 +GET+ 请求到 http://localhost:7474/db/data/node/123 获取 ）：
 [source,bash]
 ----
 curl -X POST http://localhost:7474/db/data/ext/GetAll/node/123/shortestPath \
   -H "Content-Type: application/json" \
   -d '{"target":"http://localhost:7474/db/data/node/456&depth=5"}'
 ---- 
-If everything is OK a response code +200+ and a list of zero or more items will be returned.
-If nothing is returned (null returned from extension) an empty result and response code +204+ will be returned.
-If the extension throws an exception response code +500+ and a detailed error message is returned.
+如果一切顺利，将返回状态码： +200+ 和一些0或者更多的数据。
+如果没有任何返回，将返回状态码： +204+ 。
+如果扩展出现异常，将返回状态码： +500+ 以及异常错误信息。
 
-Extensions that do any kind of write operation will have to manage their own transactions, i.e. transactions aren't managed automatically.
+那些需要进行写操作的扩展必须管理他们自己的事务。事务不能自动被管理的。
 
-Through this model, any plugin can naturally fit into the general hypermedia scheme that Neo4j espouses -- meaning that
-clients can still take advantage of abstractions like  Nodes, Relationships and Paths with a straightforward upgrade
-path as servers are enriched with plugins (old clients don't break).
+通过这个模型，任何插件都会很自然的适应任何Neo4j支持的超媒体 -- 
+这意味着客户端在像节点，关系和路径这些抽象的一个简单的升级路径上占有优势，
+因为服务端已经被插件增强了（老客户端不会）。
 

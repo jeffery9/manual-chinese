@@ -319,7 +319,7 @@ ul, ol
 
 div.sidebar
 {
-  max-width: 30em;
+  max-width: 40em;
   padding: 0.67em 1em;
   background: #c1d5d9 url("content-bg.png") repeat-x;
 }

@@ -1,12 +1,12 @@
 [[security-server]]
-Securing access to the Neo4j Server
-===================================
+安全访问Neo4j服务器
+============
 
-== Secure the port and remote client connection accepts ==
+== 加强端口和远程客户端连接请求的安全 ==
 
-By default, the Neo4j Server is bundled with a Web server that binds to host +localhost+ on port +7474+, answering only requests from the local machine.
+默认情况下，Neo4j服务端会捆绑一个Web服务器，服务在 +7474+ 端口，通过地址： http://localhost:7474/ 访问，不过只能从本地访问。
 
-This is configured in the +conf/neo4j-server.properties+ file:
+在配置文件 +conf/neo4j-server.properties+ 中：
 
 [source]
 ----
@@ -19,21 +19,21 @@ org.neo4j.server.webserver.port=7474
 #org.neo4j.server.webserver.address=0.0.0.0
 ---- 
 
-If you need to enable access from external hosts, configure the Web server in the +conf/neo4j-server.properties+ by setting the property +org.neo4j.server.webserver.address=0.0.0.0+ to enable access from any host.
+如果你需要能从外部主机访问，请在 +conf/neo4j-server.properties+ 中设置 +org.neo4j.server.webserver.address=0.0.0.0+ 来启用。
 
-== Arbitrary code execution ==
+== 任意的代码执行 ==
 
-By default, the Neo4j Server comes with some places where arbitrary code code execution can happen. These are the ##gremlin-plugin## and the ##rest-api-traverse## REST endpoints.
-To secure these, either disable them completely by removing the offending plugins from the server classpath, or secure access to these URLs through proxies or Authorization Rules.
-Also, the http://docs.oracle.com/javase/1.4.2/docs/api/java/lang/SecurityManager.html[Java Security Manager] can be used to secure parts of the codebase.
+默认情况下，Neo4j服务端是可以执行任意代码的。比如 ##Gremlin Plugin## 和 ##Traversals## REST endpoints。
+为了让这些更安全一些，要么从服务端的类路径完全移除这些插件，要么通过代理或者授权的角色来访问哲学地址。
+当然， http://docs.oracle.com/javase/1.4.2/docs/api/java/lang/SecurityManager.html[Java Security Manager] 也可以用于让代码更加安全。
 
-== HTTPS support ==
+== HTTPS支持 ==
 
-The Neo4j server includes built in support for SSL encrypted communication over HTTPS. 
-The first time the server starts, it automatically generates a self-signed ssl certificate and a private key.
-Because the certificate is self signed, it is not safe to rely on for production use, instead, you should provide your own key and certificate for the server to use.
+Neo4j服务端内建支持HTTPS进行SSL加密通讯。
+服务端第一次启动时，他会自动生成一个自签名SSL证书和一个私钥。
+因为这个证书是自签名的，在生产环境使用是不安全的，相反，你应该生成为生产服务器单独产生。
 
-To provide your own key and certificate, replace the generated key and certificate, or change the neo4j-server.properties file to set the location of your certififacate and key:
+为了提供你自己的KEY和证书，取代生成的KEY和证书，或者通过改变 +neo4j-server.properties+ 的配置来充值你的证书和KEY的位置：
 
 [source]
 ----
@@ -44,10 +44,10 @@ org.neo4j.server.webserver.https.cert.location=ssl/snakeoil.cert
 org.neo4j.server.webserver.https.key.location=ssl/snakeoil.key
 ----
 
-Note that the key should be unencrypted. 
-Make sure you set correct permissions to the private key, so that only the neo4j server user can read/write it.
+注意这个KEY应该是不加密的。
+确保你给私钥设置正确的权限，以至于只有neo4j服务端才有权限读取/写入它。
 
-You can set what port the https connector should bind to in the same configuration file, as well as turn https off:
+你可以设置https连接端口和配置文件中的一样，以及关闭/打开 https支持：
 
 [source]
 ----
@@ -58,31 +58,31 @@ org.neo4j.server.webserver.https.enabled=true
 org.neo4j.server.webserver.https.port=443
 ----
 
-== Server Authorization Rules ==
+== 服务端授权规则 ==
 
-Administrators may require more fine-grained security policies in addition to IP-level restrictions on the Web server.  Neo4j server supports 
-administrators in allowing or disallowing access the specific aspects of the database based on credentials that users or applications provide.
+除了IP层面的限制，在Web服务器上管理员应该要求更高级的安全策略。
+Neo4j服务端支持通过根据用户提供的证书来允许或者禁止管理员访问某些特点的功能。
 
-To facilitate domain-specific authorization policies in Neo4j Server, SecurityRules can be implemented and
-registered with the server. This makes scenarios like user and role based security and
-authentication against external lookup services possible.
+为了实现在Neo4j 服务端在特定领域的授权策略，
+可以实现安全规则并注册到服务端上。
+这将排除轮训服务的可能的场景出现，比如给予安全和授权的用户和角色。
 
 include::enforcing-server-authorization-rules.asciidoc[]
 include::using-wildcards-to-target-security-rules.asciidoc[]
 
-== Hosted Scripting ==
+== 基于主机的脚本支持 ==
 
 [IMPORTANT]
-The neo4j server exposes remote scripting functionality by default that allow full access to the underlying system. 
-Exposing your server without implementing a security layer poses a substantial security vulnerability.
+Neo4j服务端默认运行完全访问相关系统来暴露远程脚本功能。
+不用实现一个安全层来暴露你的服务端构成了重大的安全漏洞。
 
-== Security in Depth ==
+== 深度安全 ==
 
-Although the Neo4j server has a number of security features built-in (see the above chapters), for sensitive deployments it is often sensible to front against the outside world it with a proxy like Apache `mod_proxy` footnote:[http://httpd.apache.org/docs/2.2/mod/mod_proxy.html].
+虽然Neo4j服务端有大陆的内建安全特性（看上面的章节），对于安全更高的部署，使用像Apache的 `mod_proxy` footnote:[http://httpd.apache.org/docs/2.2/mod/mod_proxy.html] 来代理外部请求会更加安全的。
 
-This provides a number of advantages:
+这样有很大的优势：
 
-* Control access to the Neo4j server to specific IP addresses, URL patterns and IP ranges. This can be used to make for instance only the +/db/data+ namespace accessible to non-local clients, while the +/db/admin+ URLs only respond to a specific IP address.
+* 控制访问Neo4j服务端到特定的IP地址，URL模式以及IP范围。这可以用来保证只有 +/db/data+ 命名空间可以被非本地客户端访问，而 +/db/admin+ 空间只开发给特定的IP地址。
 +
 [source]
 ---------------
@@ -93,9 +93,9 @@ This provides a number of advantages:
 </Proxy>
 ---------------
 
-While equivalent functionality can be implemented with Neo4j's +SecurityRule+ plugins (see above), for operations professionals configuring servers like Apache is often preferable to developing plugins. However it should be noted that where both approaches are used, they will work harmoniously providing the behavior is consistent across proxy server and +SecurityRule+ plugins.
+当用Neo4j的 +SecurityRule+ 插件实现了功能需求后，比起开发插件，操作像Apache这样专业的配置服务器显得更好一些。然而，值得注意的是两种方法都要使用，他们会一起合作提供访问代理服务器和 +SecurityRule+ 插件的一致的行为。
 
-* Run Neo4j Server as a non-root user on a Linux/Unix system on a port < 1000 (e.g. port 80) using 
+* 在Linux/Unix系统中，在端口 < 1000 (比如端口80)以非ROOT用户运行Neo4j服务端，使用：
 +
 [source]
 ---------------
@@ -103,7 +103,7 @@ ProxyPass /neo4jdb/data http://localhost:7474/db/data
 ProxyPassReverse /neo4jdb/data http://localhost:7474/db/data
 ---------------
 
-* Simple load balancing in a clustered environment to load-balance read load using the Apache `mod_proxy_balancer` footnote:[http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html] plugin
+* 在一个集群环境中，使用Apache `mod_proxy_balancer` footnote:[http://httpd.apache.org/docs/2.2/mod/mod_proxy_balancer.html] 实现简单的负载均衡。
 +
 [source]
 --------------
@@ -114,12 +114,12 @@ BalancerMember http://192.168.1.51:80
 ProxyPass /test balancer://mycluster
 --------------
 
-== Rewriting URLs with a Proxy installation ==
+== 用一个代理重写URL规则 ==
 
-When installing Neo4j Server behind proxies, you need to enable rewriting of the JSON calls, 
-otherwise they will point back to the servers own base URL (normally http://localhost:7474).
+当安装Neo4j服务端在代理服务器后面后，你需要启动JSON调用的重写规则，
+否则他们将指向基于(一般是 http://localhost:7474 )的服务端。
 
-To do this, you can use http://httpd.apache.org/docs/2.2/mod/mod_substitute.html[Apache mod_substitute]
+为了实现这个，你可以使用 http://httpd.apache.org/docs/2.2/mod/mod_substitute.html[Apache mod_substitute]。
 
 [source]
 ----

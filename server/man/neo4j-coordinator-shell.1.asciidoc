@@ -5,7 +5,7 @@ neo4j-coordinator-shell
 
 名称
 --
-neo4j-coordinator-shell - Neo4j Coordinator Shell interactive interface
+neo4j-coordinator-shell - Neo4j协调器命令行交互接口
 
 
 [[neo4j-coordinator-shell-manpage]]
@@ -16,13 +16,13 @@ neo4j-coordinator-shell - Neo4j Coordinator Shell interactive interface
 [[neo4j-coordinator-shell-manpage-description]]
 描述
 --
-Neo4j Coordinator Shell provides an interactive text-based interface to a running Neo4j Coordinator server.
+Neo4j协调器命令行交互接口提供了一个与一个运行的Neo4j协调服务器交互的接口。
 
 [[neo4j-coordinator-shell-manpage-options]]
 选项
 --
 *-server* 'HOST:PORT'::
-  Connects to a Neo4j Coordinator at the specified host and port.
+  通过提供服务器和端口连接到指定的Neo4j协调服务器。
 
 
 

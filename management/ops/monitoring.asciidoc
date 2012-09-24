@@ -2,77 +2,77 @@
 监视服务器
 =====
 
-NOTE: Most of the monitoring features are only available in the Advanced and Enterprise editions of Neo4j.
+NOTE: 许多监视器特性只在Neo4j服务器高级版和企业版才可以使用。
 
-In order to be able to continuously get an overview of the health of a Neo4j database, there are different levels of monitoring facilities available.
-Most of these are exposed through http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html[JMX].
+为了能获取Neo4j数据库的健康状况，可以采用不同级别的监控等级。
+这些功能一般都是通过 http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html[JMX] 呈现出来。
 
 
 [[jmx-remote]]
-== Adjusting remote JMX access to the Neo4j Server ==
+== 调整远程JMX访问Neo4j的服务器 ==
 
-Per default, the Neo4j Advanced Server and Neo4j Enterprise Server editions do not allow remote JMX connections, since the relevant options in the 'conf/neo4j-wrapper.conf' configuration file are commented out.
-To enable this feature, you have to remove the +#+ characters from the various +com.sun.management.jmxremote+ options there.
+默认情况下，Neo4j高级版和企业版都不允许远程的JMX连接，因为在 'conf/neo4j-wrapper.conf' 配置文件中的相关配置是被注释掉了的。
+为了启用该功能， 你必须去掉配置 +com.sun.management.jmxremote+ 前面的 +#+ 。
 
-When commented in, the default values are set up to allow remote JMX connections with certain roles, refer to the 'conf/jmx.password', 'conf/jmx.access' and 'conf/wrapper.conf' files for details.
+当被注释掉时，默认值允许以某种角色远程JMX连接的，查看 'conf/jmx.password' , 'conf/jmx.access' 和 'conf/wrapper.conf' 文件了解细节。
 
-Make sure that 'conf/jmx.password' has the correct file permissions.
-The owner of the file has to be the user that will run the service, and the permissions should be read only for that user.
-On Unix systems, this is +0600+.
+确保 'conf/jmx.password' 文件有正确的文件权限。
+文件的所有者必须是运行服务的用户，而且只能对该用户只读。
+在Unix系统中，权限码应该是： +0600+ 。
 
-On Windows, follow the tutorial at http://docs.oracle.com/javase/6/docs/technotes/guides/management/security-windows.html to set the correct permissions.
-If you are running the service under the Local System Account, the user that owns the file and has access to it should be SYSTEM.
+在Windows中，按照 http://docs.oracle.com/javase/6/docs/technotes/guides/management/security-windows.html 设置正确的权限。
+如果你以本地系统账户允许服务，文件的所有者和访问者必须是SYSTEM。
 
-With this setup, you should be able to connect to JMX monitoring of the Neo4j server using +<IP-OF-SERVER>:3637+, with the username +monitor+ and the password +Neo4j+.
+使用这个配置，使用 +<IP-OF-SERVER>:3637+ ，用户名： +monitor+ ，密码： +Neo4j+ ，你应该能连接到Neo4j服务端的JMX监控上面。
 
-Note that it is possible that you have to update the permissions and/or ownership of the 'conf/jmx.password' and 'conf/jmx.access' files -- refer to the relevant section in 'conf/wrapper.conf' for details.
+特别注意你可能必须升级 'conf/jmx.password' 和 'conf/jmx.access' 文件的权限或者拥有者，查看 'conf/wrapper.conf' 文件了解细节。
 
 [WARNING]
-For maximum security, please adjust at least the password settings in 'conf/jmx.password' for a production installation.
+为了最大的安全性，请至少调整在文件 'conf/jmx.password' 中的密码设置。
 
-For more details, see: http://download.oracle.com/javase/6/docs/technotes/guides/management/agent.html
+要获取更多细节，请查看： http://download.oracle.com/javase/6/docs/technotes/guides/management/agent.html
 
 [[jmx-connect-jconsole]]
-== How to connect to a Neo4j instance using JMX and JConsole ==
+== 如何使用JMX和JConsole连接到一个Neo4j实例 ==
 
-First, start your embedded database or the Neo4j Server, for instance using
+首先，启动你的嵌入数据库或者Neo4j服务端，使用：
 
 [source,shell]
 ----
 $NEO4j_HOME/bin/neo4j start
 ----
 
-Now, start JConsole with
+现在启动JConsole：
 [source,shell]
 ----
 $JAVA_HOME/bin/jconsole
 ----
 
-Connect to the process running your Neo4j database instance:
+连接到你的Neo4j数据库实例的进程：
 
-.Connecting JConsole to the Neo4j Java process
+.连接JConsole到Neo4j的Java进程
 image::jconsole_connect.png[scaledwidth="50%", alt="Connecting with JConsole"]
 
-Now, beside the MBeans exposed by the JVM, you will see an +org.neo4j+ section in the MBeans tab.
-Under that, you will have access to all the monitoring information exposed by Neo4j.
+现在，与通过JVM暴露的MBeans无关，你将在MBeans选项卡处看到一个 +org.neo4j+ 部分。
+使用它，你可以访问所有Neo4j的监控信息。
 
-For opening JMX to remote monitoring access, please see <<jmx-remote>> and http://docs.oracle.com/javase/6/docs/technotes/guides/management/agent.html#gdenl[the JMX documention].
-When using Neo4j in embedded mode, make sure to pass the +com.sun.management.jmxremote.port=portNum+ or other configuration as JVM parameters to your running Java process.
+为了打开JMX的远程监控访问，请查看<<jmx-remote>>和 http://docs.oracle.com/javase/6/docs/technotes/guides/management/agent.html#gdenl[the JMX documention]。
+当使用Neo4j嵌入模式时，确保传递 +com.sun.management.jmxremote.port=portNum+ 或者其他配置作为JVM参数给你的允许的JAVA进程。
 
-.Neo4j MBeans View
+.Neo4j MBeans 浏览
 image::jconsole_beans.png[scaledwidth="50%",alt="Neo4j MBeans view"]
 
 
 [[jmx-connect-programmatic]]
-== How to connect to the JMX monitoring programmatically ==
+== 如何编程连接到JMX监视器 ==
 
-In order to programmatically connect to the Neo4j JMX server, there are some convenience methods in the Neo4j Management component to help you find out the most commonly used monitoring attributes of Neo4j.
-See <<tutorials-java-embedded-jmx>> for an example.
+为了可编程连接到Neo4j JMX 服务端，在Neo4j 管理组件中有一些方法可以帮助你找到最常用的监控属性。
+范例请查看：<<tutorials-java-embedded-jmx>>。
 
-Once you have access to this information, you can use it to for instance expose the values to http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol[SNMP] or other monitoring systems.
+一旦你获取了这些信息，你可以使用它，把参数值暴露给 http://en.wikipedia.org/wiki/Simple_Network_Management_Protocol[SNMP]或者其他监控系统的实例使用。
 
 [[jmx-mxbeans]]
-== Reference of supported JMX MBeans ==
+== 支持的JMX MBeans的参考文档 ==
 
 include::{docdir}/ha/ops/jmx.asciidoc[]
 

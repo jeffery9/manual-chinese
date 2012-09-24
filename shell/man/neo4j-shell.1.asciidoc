@@ -5,56 +5,56 @@ neo4j-shell
 
 名称
 --
-neo4j-shell - a command-line tool for exploring and manipulating a graph database
+neo4j-shell - 浏览和维护一个图数据库的命令行工具
 
 
 [[shell-manpage]]
 语法
 --
-*neo4j-shell* ['REMOTE OPTIONS']
+*neo4j-shell* ['远程选项']
 
-*neo4j-shell* ['LOCAL OPTIONS']
+*neo4j-shell* ['本地选项']
 
 [[shell-manpage-description]]
 描述
 --
-Neo4j shell is a command-line shell for browsing the graph, much like how the Unix shell along with commands like +cd+, +ls+ and +pwd+ can be used to browse your local file system.
-The shell can connect directly to a graph database on the file system.
-To access local a local database used by other processes, use the readonly mode.
+Neo4j命令行是一个用于浏览图数据库的命令行工具，非常像Unix命令行，可以使用像 +cd+, +ls+ 和 +pwd+ 等命令浏览本地文件系统一样的浏览图数据库。
+命令行可以直接连接到图数据库。
+为了其他进程能访问这个本地数据库，你可以使用只读模式。
 
 [[shell-manpage-remote-options]]
 远程选项
 ----
 *-port* 'PORT'::
-  Port of host to connect to (default: 1337).
+  连接到主机的端口（默认：1337）。
 
 *-host* 'HOST'::
-  Domain name or IP of host to connect to (default: localhost).
+  连接到的主机的域名或者IP地址（ 默认：localhost）。
 
 *-name* 'NAME'::
-  RMI name, i.e. rmi://<host>:<port>/<name> (default: shell).
+  RMI名称, 比如：rmi://<host>:<port>/<name> (默认: shell)。
 
 *-readonly*::
-  Access the database in read-only mode.
+  以只读模式访问数据库
 
 [[shell-manpage-local-options]]    
 本地选项
 ----
 *-path* 'PATH'::
-  The path to the database directory.
-  If there is no database at the location, a new one will e created.
+  数据库的目录。
+  如果在这个目录没有数据库存在，则会自动创建一个新的数据库。
 
 *-pid* 'PID'::
-  Process ID to connect to.
+  连接到的进程编号。
 
 *-readonly*::
-  Access the database in read-only mode.
+  以只读模式访问数据库。
 
 *-c* 'COMMAND'::
-  Command line to execute. After executing it the shell exits.
+  在命令行执行命令，执行完成后命令行会退出。
 
 *-config* 'CONFIG'::
-  The path to the Neo4j configuration file to be used.
+  Neo4j配置文件路径。
 
 [[shell-manpage-examples]]
 范例

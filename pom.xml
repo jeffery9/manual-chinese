@@ -8,15 +8,15 @@
     <relativePath />
   </parent>
   <groupId>org.neo4j.doc</groupId>
-  <artifactId>neo4j-manual-zh</artifactId>
-  <version>1.8-SNAPSHOT</version>
+  <artifactId>neo4j-manual-zh_cn</artifactId>
+  <version>1.8.RC1</version>
   <name>Neo4j简体中文手册</name>
   <description>Neo4j简体中文手册</description>
   <url>http://components.neo4j.org/${project.artifactId}/${project.version}</url>
   <packaging>pom</packaging>
 
   <properties>
-    <neo4j.version>1.8-SNAPSHOT</neo4j.version>
+    <neo4j.version>1.8.RC1</neo4j.version>
     <docs.tools>${project.build.directory}/tools</docs.tools>
     <docs.upstream>${project.build.directory}</docs.upstream>
     <docs.importdir>${docs.upstream}/docs</docs.importdir>
@@ -84,6 +84,9 @@
             <configuration>
               <executable>make</executable>
               <arguments>
+                <!-- for single html page -->
+                <!-- <argument>preview</argument> -->
+                <!-- for manual book -->
                 <argument>dist</argument>
                 <argument>VERSION=${project.version}</argument>
                 <argument>IMPORTDIR=${docs.importdir}</argument>

@@ -1,6 +1,6 @@
 [[usage-data-collector]]
-Usage Data Collector
-====================
+操作数据收集器
+=======
 
 The Neo4j Usage Data Collector is a sub-system that gathers usage data, reporting it to the UDC-server at udc.neo4j.org.
 It is easy to disable, and does not collect any data that is confidential. For more information about what is being sent, see below.
@@ -15,7 +15,7 @@ If any future versions of this system collect additional data, we will clearly a
 The Neo4j team is very concerned about your privacy. We do not disclose any personally identifiable information.
 
 
-== Technical Information ==
+== 技术信息 ==
 
 To gather good statistics about Neo4j usage, UDC collects this information:
 
@@ -35,7 +35,7 @@ To gather good statistics about Neo4j usage, UDC collects this information:
 After startup, UDC waits for ten minutes before sending the first ping. It does this for two reasons; first, we don't want the startup to be slower because of UDC, and secondly, we want to keep pings from automatic tests to a minimum. The ping to the UDC servers is done with a HTTP GET.
 
 
-== How to disable UDC ==
+== 如何关闭UDC功能 ==
 
 We've tried to make it extremely easy to disable UDC. In fact, the code for UDC is not even included in the kernel jar but as a completely separate component.
 

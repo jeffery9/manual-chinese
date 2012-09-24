@@ -1,9 +1,9 @@
 [[ops-enforcing-server-authorization-rules]]
-=== Enforcing Server Authorization Rules ===
+=== 加强服务端授权规则 ===
 
-In this example, a (dummy) failing security rule is registered to deny
-access to all URIs to the server by listing the rules class in
-'neo4j-server.properties':
+这这个范例中，一个失败安全规则被注册来
+拒绝访问所有到服务器的URI，
+通过在 'neo4j-server.properties' 列举规则类实现：
 
 
 [source]
@@ -11,7 +11,7 @@ access to all URIs to the server by listing the rules class in
 org.neo4j.server.rest.security_rules=my.rules.PermanentlyFailingSecurityRule
 ----
 
-with the rule source code of:
+规则源代码：
 
 [snippet,java]
 ----
@@ -21,11 +21,11 @@ classifier=test-sources
 tag=failingRule
 ----
 
-With this rule registered, any access to the server will be
-denied. In a production-quality implementation the rule
-will likely lookup credentials/claims in a 3rd party
-directory service (e.g. LDAP) or in a local database of
-authorized users.
+当这个规则被注册后，任何访问服务器的请求都会被拒绝。
+在一个生产级别的实现中，
+这个规则可能会在第三方目录服务(比如LDAP)
+或者一个授权用户的本地数据库中
+查找证书/要求。
 
 
 _Example request_

@@ -1,14 +1,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
 <xsl:template name="user.footer.content">
-    <HR/>
-    <a>
-        <xsl:attribute name="href">
-            <xsl:apply-templates select="/book/bookinfo/legalnotice[1]" mode="chunk-filename"/>
-        </xsl:attribute>
-
-        <xsl:apply-templates select="/book/bookinfo/copyright[1]" mode="titlepage.mode"/>
-    </a>    
     <xsl:text disable-output-escaping="yes">
     <![CDATA[    
         <div id="weibo_comments">
@@ -28,8 +20,20 @@
             </script>
             <!-- Duoshuo Comment END -->
         </div> 
+        <!--<div id="right-column"></div>-->
+        <script type="text/javascript" src="http://www.neo4j.org.cn/js/right-column.js"></script>
     ]]>
     </xsl:text>
+    
+    <HR/>
+    <a>
+        <xsl:attribute name="href">
+            <xsl:apply-templates select="/book/bookinfo/legalnotice[1]" mode="chunk-filename"/>
+        </xsl:attribute>
+
+        <xsl:apply-templates select="/book/bookinfo/copyright[1]" mode="titlepage.mode"/>
+    </a>    
+    
 </xsl:template>
 
 </xsl:stylesheet>

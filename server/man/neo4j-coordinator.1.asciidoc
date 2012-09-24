@@ -17,46 +17,46 @@ neo4j-coordinator - 为Neo4j的高可用性集群提供的协调员
 [[neo4j-coordinator-manpage-description]]
 描述
 --
-Neo4j Coordinator is a server which provides coordination for a Neo4j High Availability Data cluster.
-A "coordination cluster" must be started and available before the "data cluster" can be started. 
-This server is a member of the cluster.
+Neo4j协调器是一个提供对Neo4j高性能模式数据集群协调管理的服务器。
+一个"Neo4j协调器集群"必须在"数据库集群"之前启动。
+这个服务器是集群服务器之一。
 
 [[neo4j-coordinator-manpage-commands]]
 命令
 --
 
 *console*::
-  Start the server as an application, running as a foreground proces. Stop the server using `CTRL-C`.
+  启动服务器作为一个应用在前端运行，使用命令 `CTRL-C` 来结束运行。
 
 *start*::
-  Start server as daemon, running as a background process.
+  启动服务器作为一个应用作为后台服务运行。
 
 *stop*::
-  Stops a running daemonized server.
+  停止一个在后台运行的服务器。
 
 *restart*::
-  Restarts a running server.
+  重启一个正在运行的服务器。
 
 *status*::
-  Current running state of the server
+  返回当前服务器状态。
 
 *install*::
-  Installs the server as a platform-appropriate system service.
+  安装服务器作为系统服务运行。
 
 *remove*::
-  Uninstalls the system service
+  卸载系统服务。
 
 [[neo4j-coordinator-manpage-files]]
 涉及到的相关配置文件
 ----------
 
 *conf/coord.cfg*::
-  Coordination server configuration.
+  协调服务器配置。
 
 *conf/coord-wrapper.cfg*::
-  Configuration for service wrapper.
+  协调服务器系统服务配置。
 
 *data/coordinator/myid*::
-  Unique identifier for coordinator instance.
+  协调服务器实例的标识符。
   
 

@@ -4,8 +4,8 @@
 
 [partintro]
 --
-This part describes how to install and maintain a Neo4j installation.
-This includes topics such as backing up the database and monitoring the health of the database as well as diagnosing issues.
+这个部分将介绍如何安装和维护一个Neo4j安装程序。
+这也包括类似备份数据库和监控服务器健康状况等话题的介绍。
 --
 
 :leveloffset: 1

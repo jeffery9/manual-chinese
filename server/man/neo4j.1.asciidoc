@@ -52,27 +52,26 @@ Neo4j是一个图数据库，在高度关联的数据中拥有很好的性能。
 ------------
 
 *Neo4j.bat*
-
-Double-clicking on the Neo4j.bat script will start the server in a console.
-To quit, just press `control-C` in the console window.
+双击Neo4j.bat脚本在命令行启动服务器。
+在命令行窗口按下 `control-C` 来退出服务。
 
 *Neo4j.bat install/remove*
 
-Neo4j can be installed and run as a Windows Service, running without a console
-window. You'll need to run the scripts with Administrator priveleges.
-Just use the Neo4j.bat script with the proper argument:
+Neo4j可以被安装作为Windows系统服务而不用显示控制台窗口。
+你需要使用管理员权限来运行这个脚本。
+Neo4j.bat脚本包括如下命令选项：
 
 * Neo4j.bat install - 安装作为一个windows系统服务
 ** 将安装作为一个windows系统服务
 * Neo4j.bat remove - 移除Neo4j服务
 ** 将停止和移除Neo4j服务
-* Neo4j.bat start - will start the Neo4j service
-** will start the Neo4j service if installed or a console
-** session otherwise.
-* Neo4j.bat stop - stop the Neo4j service if running
-* Neo4j.bat restart - restart the Neo4j service if installed
-* Neo4j.bat status - report on the status of the Neo4j service
-** returns RUNNING, STOPPED or NOT INSTALLED 
+* Neo4j.bat start - 启动Neo4j系统服务
+** 如果安装了Neo4j系统服务，则会启动，
+** 否则只会启动一次基于命令行的Neo4j服务。
+* Neo4j.bat stop - 如果Neo4j系统服务在运行则停止它
+* Neo4j.bat restart - 如果Neo4j系统服务已经安装则重启它
+* Neo4j.bat status - 报告Neo4j服务的运行状态
+** 返回 RUNNING, STOPPED 或者 NOT INSTALLED
 
 
 [[neo4j-manpage-files]]

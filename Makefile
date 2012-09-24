@@ -214,5 +214,7 @@ offline-html:  manpages copyimages docbook-html
 
 	cp -fr "$(CONFDIR)/neo.css" "$(CHUNKEDOFFLINEHTMLDIR)/css/neo.css"
 	cp -fr "$(RESOURCEDIR)/js/version.js" "$(CHUNKEDOFFLINEHTMLDIR)/js/version.js"		
+	cp -fr "$(CONFDIR)/right-column.js" "$(CHUNKEDOFFLINEHTMLDIR)/js/right-column.js"		
+	
 	
 

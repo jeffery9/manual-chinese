@@ -1,6 +1,6 @@
 div.section, div.chapter, div.part, div.book, div.titlepage
 {
-  max-width: 50em;
+  width: 50em;
 }
 
 span.remark {
@@ -107,7 +107,7 @@ body h2:first-child {
 div.navheader
 {
   position: absolute;
-  right: 26px;
+  right: 20px;
   top: 112px;
   width: 20em;
   text-align: right;
@@ -121,15 +121,8 @@ div.navheader
 
 
 #weibo_comments
-{
-  position: absolute;
-  float:right;
-  right: 0;
-  top: 160px;
-  width: 30em;
-  text-align: right;
-  font-size: 0.9375em;
-  border:none;
+{  
+  width: 50em;
 }
 
 #sidebar
@@ -308,13 +301,12 @@ li
 
 p
 {
-  line-height: 1.6em;
-  max-width: 45em;
+  line-height: 1.6em;  
 }
 
 ul, ol
 {
-  max-width: 38em;
+  /* max-width: 50em; */
 }
 
 div.sidebar
@@ -473,7 +465,7 @@ div.slide p, div.slide li
   padding: 5px 0;
   position: absolute;
   top: 114px;
-  width:100%;
+  width: 100%;
 }
 
 .partintro, .refsynopsisdiv {
@@ -591,4 +583,18 @@ a:hover {
     text-decoration: underline;
 }
 
+/*
+.navfooter {
+    width: 50em;
+}
+*/
 
+#right-column {
+    position: absolute;
+    right: 0;
+    top: 160px;
+    width: 180px;
+    text-align: right;
+    font-size: 0.9375em;
+    border: 1px solid #ccc;
+}

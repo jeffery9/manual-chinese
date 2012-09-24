@@ -1,26 +1,27 @@
 #!/bin/bash
-set -e
-set -x
+#set -e
+#set -x
 
-DIR=$(readlink -f $(dirname $0)/..)
+#DIR=$(readlink -f $(dirname $0)/..)
+DIR=$(pwd)
+#echo $DIR
 
 # Uploads different formats of the manual to a public server.
 
 
 # Which version the documentation is now.
-VERSION=$(cat $DIR/target/classes/version)
+#VERSION=$(cat $DIR/target/classes/version)
 
-DOCS_SERVER='neo@static.neo4j.org'
-ROOTPATHDOCS='/var/www/docs.neo4j.org'
-hostname=$(uname -n)
+DOCS_SERVER='tony@ali'
+ROOTPATHDOCS='/home/tony/project/php/neo4j/docs/zh_cn'
 
-echo "VERSION = $VERSION"
+#echo "VERSION = $VERSION"
 
 # Create initial directories
-ssh $DOCS_SERVER mkdir -p $ROOTPATHDOCS/lab/manual-chinese
+# ssh $DOCS_SERVER mkdir -p $ROOTPATHDOCS/lab/manual-chinese
 
 # Copy artifacts
-rsync -r  --delete $DIR/target/html/ $DOCS_SERVER:$ROOTPATHDOCS/lab/manual-chinese/
+rsync -ru  --delete "$DIR/target/chunked-offline/" $DOCS_SERVER:$ROOTPATHDOCS
 
 
 echo Apparently, successfully published to $DOCS_SERVER.

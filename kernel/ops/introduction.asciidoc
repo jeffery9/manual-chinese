@@ -2,17 +2,17 @@
 介绍
 ==
 
-To gain good performance, these are the things to look into first:
+为了获得更好的性能，下面的事情是我们首先需要做的：
 
-* Make sure the JVM is not spending too much time performing garbage collection.
-  Monitoring heap usage on an application that uses Neo4j can be a bit confusing since Neo4j will increase the size of caches if there is available memory and decrease if the heap is getting full. 
-  The goal is to have a large enough heap to make sure that heavy/peak load will not result in so called GC trashing (performance can drop as much as two orders of magnitude when GC trashing happens).
-* Start the JVM with the -server flag and a good sized heap (see <<configuration-jvm>>). Having too large heap may also hurt performance so you may have to try some different heap sizes.
-* Use the parallel/concurrent garbage collector (we found that +-XX:+UseConcMarkSweepGC+ works well in most use-cases) 
+* 确保JVM没有使用太多时间用于执行垃圾收集。
+  监视使用Neo4j的一个应用的堆使用可能有点混乱，因为当内存充裕时Neo4j会增加缓存，而相反会减少缓存。
+  目标就是有一个足够大的堆来确保一个重型加载不会导致调用GC收集（如果导致GC收集，那么性能将降低高达两个数量级）。
+* 用一个-server标记启动JVM和一个适当的堆尺寸(参考：<<configuration-jvm>>)。太大的堆尺寸也会伤害性能，因此你可以反复尝试下不同的堆尺寸。
+* 使用 parallel/concurrent 垃圾收集器 (我们发现使用 +-XX:+UseConcMarkSweepGC+ 在许多情况下使用良好) 
 
-== How to add configuration settings ==
+== 如何增加配置设置 ==
 
-When creating the embedded Neo4j instance it is possible to pass in parameters contained in a map where keys and values are strings.
+当创建一个嵌入Neo4j实例时，可以传递包含Key-Value的Map作为参数。
 
 [snippet,java]
 ----
@@ -22,23 +22,23 @@ classifier=test-sources
 tag=startDbWithConfig
 ----
 
-If no configuration is provided, the Database Kernel will try to determine suitable settings from the information available via the JVM settings and the underlying operating system. 
+如果没有配置提供，数据库核心将试图通过JVM配置和操作系统探测适合的配置信息。
 
-The JVM is configured by passing command line flags when starting the JVM.
-The most important configuration parameters for Neo4j are the ones that control the memory and garbage collector, but some of the parameters for configuring the Just In Time compiler are also of interest.
+JVM的配置是通过在启动JVM时传递命令行参数。
+对于Neo4j最重要的配置参数是控制内存和垃圾收集，但对于一些实时编译使用到的参数也是非常有趣的。
 
-This is an example of starting up your applications main class using 64-bit server VM mode and a heap space of 1GB:
+比如我们要在一个64位系统，堆空间为1G的服务器启动你的应用的主类：
 
 [source]
 ----
 java -d64 -server -Xmx1024m -cp /path/to/neo4j-kernel.jar:/path/to/jta.jar:/path/to/your-application.jar com.example.yourapp.MainClass
 ----
 
-Looking at the example above you will also notice one of the most basic command line parameters: the one for specifying the classpath. The classpath is the path in which the JVM searches for your classes. It is usually a list of jar-files. Specifying the classpath is done by specifying the flag +-cp+ (or +-classpath+) and then the value of the classpath. For Neo4j applications this should at least include the path to the Neo4j +neo4j-kernel.jar+ and the Java Transaction API (+jta.jar+) as well as the path where the classes for your application are located. 
+看上面的范例，你也可以留意到最基本命令行参数之一：指定类路径。类路径是JVM搜寻你的类的路径。它经常是一个jar文件列表。指定类路径通过标志 +-cp+ (或者 +-classpath+) 完成后面跟类路径的值。对于Neo4j应用来说，至少应该包括Neo4j  +neo4j-kernel.jar+ 和Java事务API  (+jta.jar+) 以及你自己的应用需要加载的类的路径。
 
 [TIP]
-On Linux, Unix and Mac OS X each element in the path list are separated by a colon symbol (+:+), on Windows the path elements are separated by a semicolon (+;+).
+在Linux，Unix和Mac OS X上，在路径列表上面的每一个元素都被一个冒号符号 (+:+)分隔，在Windows上面，则使用分号 (+;+)分隔。
 
 //You can even look at the [[Performance Guide for a further discussion of Neo4j performance.
 
-When using the Neo4j REST server, see ##server-configuration## for how to add configuration settings for the database to the server.
+当使用Neo4j REST 服务器时，参考 ##server-configuration## 了解如何增加数据的配置到服务器。

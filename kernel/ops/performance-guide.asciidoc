@@ -5,7 +5,7 @@
 
 This is the Neo4j performance guide. It will attempt to guide you in how to use Neo4j to achieve maximum performance.
 
-== Try this first ==
+== 首先尝试 ==
 
 The first thing is to make sure the JVM is running well and not spending to much 
 time in garbage collection. Monitoring heap usage on an application that uses Neo4j 
@@ -26,7 +26,7 @@ For more information on this see <<embedded-configuration>>.
 
 For Linux specific tweaks, see <<linux-performance-guide>>.
 
-== Neo4j primitives' lifecycle ==
+== Neo4j 主要的生命周期 ==
 
 Neo4j manages its primitives (nodes, relationships and properties) 
 different depending on how you use Neo4j. For example if you never get a 
@@ -58,12 +58,12 @@ All in all Neo4j has been designed to be very adaptive depending on how it
 is used. The (unachievable) overall goal is to be able to handle any incoming 
 operation without having to go down and work with the file/disk I/O layer.
 
-== Configuring Neo4j ==
+== 配置Neo4j ==
 
 In <<embedded-configuration>> page there's information on how to configure Neo4j and the JVM.
 These settings have a lot impact on performance.
 
-=== Disks, RAM and other tips ===
+=== 磁盘, 内存和其他要点 ===
 
 As always, as with any persistence solution, performance is very much depending on the 
 persistence media used. Better disks equals better performance. 
@@ -90,7 +90,7 @@ waits and not that many blocks going out/in to disks when running write/read
 transactions its a sign that you need to tweak your Java heap, Neo4j cache 
 and memory mapped settings (maybe even get more RAM or better disks).
 
-=== Write performance ===
+=== 写操作性能 ===
 
 If you are experiencing poor write performance after writing some data 
 (initially fast, then massive slowdown) it may be the operating system 
@@ -147,7 +147,7 @@ virtual memory to make sure we do not get random disk writes.
 
 Note: make sure to read the <<linux-performance-guide>> as well for more specific information.
 
-=== Second level caching ===
+=== 二级缓存 ===
 
 While normally building applications and "always assume the graph is in memory", 
 sometimes it is necessary to optimize certain performance critical sections. 

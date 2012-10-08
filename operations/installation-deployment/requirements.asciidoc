@@ -2,47 +2,47 @@
 系统要求
 ====
 
-Memory constrains graph size, disk I/O constrains read/write performance, as always. 
+内存限制了图数据库的大小，磁盘I/O限制了读写的性能。
 
-== CPU ==
+== 中央处理器 ==
 
-Performance is generally memory or I/O bound for large graphs, and compute bound for graphs which fit in memory.
+性能通常是消耗在创建大图数据库的内存或者I/O上，以及计算适合内存的图数据库。
 
-Minimum::      Intel 486
-Recommended::  Intel Core i7
+最小要求::      Intel 486
+推荐配置::  Intel Core i7
 
 
-== Memory ==
+== 内存 ==
 
-More memory allows even larger graphs, but runs the risk of inducing larger Garbage Collection operations.
+更多内存允许更大的图数据库，但也会增加更多的垃圾回收操作。
 
-Minimum::     1GB
-Recommended:: 4-8GB
+最小要求::     1GB
+推荐配置:: 4-8GB
 
-== Disk ==
+== 磁盘 ==
 
-Aside from capacity, the performance characteristics of the disk are the most important when selecting storage.
+在选择存储设备时，除了容量的考虑，磁盘性能是最重要的。
 
-Minimum::     SCSI, EIDE 
-Recommended:: SSD w/ SATA
+最小要求::     SCSI, EIDE 
+推荐配置:: SSD w/ SATA
 
-== Filesystem ==
+== 文件系统 ==
 
-For proper ACID behavior, the filesystem must support flush (fsync, fdatasync).
+为了ACID行为的正确完成，文件系统必须支持flush（fsync，fdatasync）。
 
-Minimum::      ext3 (or similar)
-Recommended::  ext4, ZFS
+最小要求::      ext3 (或者更简单的)
+推荐配置::  ext4, ZFS
 
-== Software ==
+== 软件 ==
 
-Neo4j is Java-based.
+Neo4j是基于Java开发的。
 
 Java:: 1.6+
-Operating Systems:: Linux, Windows XP, Mac OS X
+操作系统:: Linux, Windows XP, Mac OS X
 
-== JDK Version ==
+== JDK 版本 ==
 
-The Neo4j runtime is continuously tested with 
+Neo4j运行时一致都是在使用下面的运行时库测试完成的：
 
 * http://www.oracle.com/technetwork/java/javase/downloads/index.html[Oracle Java Runtime Environment JRE 1.6]
 

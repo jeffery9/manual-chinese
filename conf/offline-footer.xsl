@@ -22,6 +22,7 @@
         </div> 
         <!--<div id="right-column"></div>-->
         <script type="text/javascript" src="http://www.neo4j.org.cn/js/right-column.js"></script>
+        <a href="https://github.com/kooyeed/manual-chinese"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
     ]]>
     </xsl:text>
     

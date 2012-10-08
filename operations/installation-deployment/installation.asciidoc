@@ -2,17 +2,17 @@
 安装
 ==
 
-Neo4j can be installed as a server, running either as a headless application or system service.
-For Java developers, it is also possible to use Neo4j as a library, embedded in your application.
+Neo4j可以被安装作为一个独立的服务器，以一个无头程序或者系统服务运行。
+对于Java开发者，也能将Neo4j作为一个库使用，嵌入到你的应用中。
 
-For information on installing Neo4j as a server, see <<server-installation>>.
+关于安装Neo4j作为一个独立服务器的更多信息，请参考： <<server-installation>>.
 
-The following table outlines the available editions and their names for use with dependency management tools.
+下面的表格呈现了可以使用的版本以及它们使用的依赖管理工具名称。
 
-TIP: Follow the links in the table for details on dependency configuration with Apache Maven, Apache Buildr, Apache Ivy and Groovy Grape!
+TIP: 参考下面表格中的连接查看依赖的 Apache Maven, Apache Buildr, Apache Ivy 和 Groovy Grape的配置细节。
 
 [[editions]]
-.Neo4j editions
+.Neo4j各版本
 [options="header"]
 |=======================
 |Edition     |Dependency      |Description  |License
@@ -21,23 +21,23 @@ TIP: Follow the links in the table for details on dependency configuration with 
 |Enterprise  |http://search.maven.org/#search\|gav\|1\|g%3A%22org.neo4j%22%20AND%20a%3A%22neo4j-enterprise%22[org.neo4j:neo4j-enterprise] |adding online backup and High Availability clustering |AGPLv3
 |=======================
 
-NOTE: The listed dependencies do not contain the implementation, but pulls it in transitively.
+NOTE: 列出的依赖并不包括实现，但可以从源中拉取。
 
-For more information regarding licensing, see the http://neo4j.org/licensing-guide/[Licensing Guide].
-
-
-== Embedded Installation ==
-
-The latest release is always available from http://neo4j.org/download, included as part of the Neo4j download packages.
-After selecting the appropriate version for your platform, embed Neo4j in your Java application by including the Neo4j library jars in your build.
-Either take the jar files from the 'lib/' directory of the download, or directly use the artifacts available from Maven Central Repository footnote:[http://repo1.maven.org/maven2/org/neo4j/]. Stable and milestone releases are available there.
-
-For information on how to use Neo4j as a dependency with Maven and other dependency management tools, see the following table:
+关于一般许可者的信息，请参考： http://neo4j.org/licensing-guide/[Licensing Guide].
 
 
-NOTE: The listed dependencies do not contain the implementation, but pulls it in transitively.
+== 嵌入模式安装 ==
 
-.Maven dependency
+最新的发行版总是可以从 http://neo4j.org/download 下载，包括Neo4j下载包的各个部分。
+在选择了适合你的平台的版本后，通过引入jar包到你的应用中来完成嵌入Neo4j。
+jar文件可以直接从下载包的目录 'lib/' 获取，也可以从Maven Central Repository footnote:[http://repo1.maven.org/maven2/org/neo4j/] 获取，包括发行版和里程碑版本。
+
+要获取关于如何使用Neo4j作为Maven或者其他依赖管理工具的一个依赖，请参考下面的表格：
+
+
+NOTE: 列出的依赖并不包括实现，但可以从源中拉取。
+
+.Maven依赖
 [source,xml] 
 --------------------------------------------
 <project>
@@ -54,8 +54,8 @@ NOTE: The listed dependencies do not contain the implementation, but pulls it in
 </project>
 --------------------------------------------
 
-_Where +$\{neo4j-version}+ is the intended version and the +artifactId+ is one of +neo4j+, +neo4j-advanced+, +neo4j-enterprise+._
+_参数 +$\{neo4j-version}+ 是期望的版本并且 +artifactId+ 是 +neo4j+, +neo4j-advanced+, +neo4j-enterprise+ 中之一。_
 
-== Server Installation ==
+== 服务器安装 ==
 
-please refer to <<server>> and <<server-installation>>.
+更多细节，请参考： <<server>> 和 <<server-installation>>。

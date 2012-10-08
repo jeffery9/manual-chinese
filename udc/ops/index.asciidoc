@@ -1,49 +1,49 @@
 [[usage-data-collector]]
-操作数据收集器
+使用数据收集器
 =======
 
-The Neo4j Usage Data Collector is a sub-system that gathers usage data, reporting it to the UDC-server at udc.neo4j.org.
-It is easy to disable, and does not collect any data that is confidential. For more information about what is being sent, see below.
+Neo4j使用数据收集器是一个收集使用数据的子系统，报告提交到在ud.neo4j.org的UDC-server。
+它很容易关闭，而不再收集机密数据。关于发送数据的详细细节，请参考下面的章节。
 
-The Neo4j team uses this information as a form of automatic, effortless feedback from the Neo4j community.
-We want to verify that we are doing the right thing by matching download statistics with usage statistics.
-After each release, we can see if there is a larger retention span of the server software.
+Neo4j团队使用这些信息作为一个来自Neo4j社区的自动，高效反馈的一种形式。
+我们想通过匹配使用统计和下载统计来验证我们做了正确的事情。
+在每一次发行后，我们能看到服务器软件释放有更大的保留空间。
 
-The data collected is clearly stated here.
-If any future versions of this system collect additional data, we will clearly announce those changes.
+收集的数据清楚地统计在这。
+如果这个系统将来的任何版本收集额外的数据，我们将清楚地宣布哪些变更。
 
-The Neo4j team is very concerned about your privacy. We do not disclose any personally identifiable information.
+Neo4j团队非常尊重你的隐私。我们不会公布您的任何隐私信息。
 
 
 == 技术信息 ==
 
-To gather good statistics about Neo4j usage, UDC collects this information:
+为了收集关于Neo4j使用的更好的统计数据，UDC收集下面这些信息：
 
-* Kernel version: The build number, and if there are any modifications to the kernel.
-* Store id: A randomized globally unique id created at the same time a database is created.
-* Ping count: UDC holds an internal counter which is incremented for every ping, and reset for every restart of the kernel.
-* Source: This is either "neo4j" or "maven". If you downloaded Neo4j from the Neo4j website, it's "neo4j", if you are using Maven to get Neo4j, it will be "maven".
-* Java version: The referrer string shows which version of Java is being used.
-* MAC address to uniquely identify instances behind firewalls.
-* Registration id: For registered server instances.
-* Tags about the execution context (e.g. test, language, web-container, app-container, spring, ejb).
-* Neo4j Edition (community, advanced, enterprise).
-* A hash of the current cluster name (if any).
-* Distribution information for Linux (rpm, dpkg, unknown).
-* User-Agent header for tracking usage of REST client drivers
+* 内核版本：构建编号。
+* 存储编号： 在一个数据库在被创建是随机生成的一个全局唯一标识符。
+* PING的次数：UDC内部维持一个PING的计数器，在内核重启后重置。
+* 来源：有 "neo4j" or "maven"。如果你是从网站下载的Neo4j，那么就是 "neo4j" ; 如果你是使用Maven获取的Neo4j,那么就是 "maven" 。
+* Java版本：使用的Java的版本号
+* MAC地址
+* 注册编号：注册服务器实例的编号
+* 关于执行环境上下文的一些标签（比如：test, language, web-container, app-container, spring, ejb）。
+* Neo4j发行版本(community, advanced, enterprise)。
+* 当前集群名称的一个hash（如果存在集群名称的话）。
+* Linux的发行信息（rpm, dpkg, unknown）。
+* 追踪REST客户端驱动的User-Agent头信息。
 
-After startup, UDC waits for ten minutes before sending the first ping. It does this for two reasons; first, we don't want the startup to be slower because of UDC, and secondly, we want to keep pings from automatic tests to a minimum. The ping to the UDC servers is done with a HTTP GET.
+在启动后，UDC在发送第一个PING之前等待10分钟。这基于两方面原因：首先我们不希望因为UDC降低了启动速度; 其次，我们希望保持一个PING来进行最小程序的自动测试。到UDC服务器的PING是通过一个HTTP GET方式完成的。
 
 
 == 如何关闭UDC功能 ==
 
-We've tried to make it extremely easy to disable UDC. In fact, the code for UDC is not even included in the kernel jar but as a completely separate component.
+我们试图让大家更容易关闭UDC。实际上，UDC的代码集成在内核里面而不是一个完全独立的模块。
 
-There are three ways you can disable UDC:
+你可以通过下面两种方式关闭UDC：
 
-. The easiest way is to just remove the neo4j-udc-*.jar file. By doing this, the kernel will not load UDC, and no pings will be sent.
+. 最容易的方式是移除 neo4j-udc-*.jar 文件，这样内核就加载不了UDC,从而不会自动发送PING请求。
 
-. If you are using Maven, and want to make sure that UDC is never installed in your system, a dependency element like this will do that:
+. 如果你使用Maven,并且希望UDC不再安装到你的系统，你可以如下配置：
 +
 [source,xml]
 --------------------
@@ -60,7 +60,7 @@ There are three ways you can disable UDC:
  </dependency>
 --------------------
 +
-_Where $\{neo4j-version} is the Neo4j version in use._
+_参数 $\{neo4j-version} 是Neo4j的版本。_
 
-. Lastly, if you are using a packaged version of Neo4j, and do not want to make any change to the jars, a system property setting like this will also make sure that UDC is never activated: +-Dneo4j.ext.udc.disable=true+. 
+. 最后，如果你正在使用Neo4j的一个封装版本，而又不想改变任何jar文件，你可以通过一个系统配置参数： +-Dneo4j.ext.udc.disable=true+ 来关闭UDC。
 

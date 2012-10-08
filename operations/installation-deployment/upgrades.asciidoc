@@ -2,93 +2,92 @@
 升级
 ==
 
-A database can be upgraded from a minor version to the next, e.g. 1.1 -> 1.2, and 1.2 -> 1.3,
-but you can not jump directly from 1.1 -> 1.3. For version 1.8 in particular, it is possible to
-upgrade directly from version 1.5.3 and later, as an explicit upgrade.
-The upgrade process is a one way step; databases cannot be downgraded. 
+一个数据库可以从一个主要的版本升级到下一个版本，比如：1.1 ->1.2，1.2 -> 1.3，
+但你不呢个你直接从1.1 -> 1.3跳跃升级。
+特别是对于1.8，你能从1.5.3以及更新的版本直接升级，作为一个明确的升级。
+升级进度只有一个步骤; 数据库不能被降级。
 
-For most upgrades, only small changes are required to the database store, and these changes proceed
-automatically when you start up the database using the newer version of Neo4j.
+对于大部分的升级来说，只有很小的变更会涉及到数据库存储，
+而当你使用更新版本的Neo4j启动数据库时这些变更会自动完成。
 
-However, some upgrades require more significant changes to the database store. In these cases, Neo4j will refuse
-to start without explicit configuration to allow the upgrade.
+然而，一些更新要求对数据库存储进行显著的变更。
+在这种情况下，Neo4j在没有明确配置允许升级的情况下是拒绝升级的。
 
-The table below lists recent Neo4j versions, and the type of upgrade required.
+下面的表格列举了最近的Neo4j版本，以及各个类型的升级要求。
 
-.Upgrade process for Neo4j version
+.Neo4j各版本升级情况
 [format="csv",width="50%",cols="3"]
 [frame="topbot",grid="none",options="header"]
 |====
-From Version,To Version,Upgrade Type
-1.3,1.4,Automatic
-1.4,1.5,Explicit
-1.5,1.6,Explicit
-1.6,1.7,Automatic
-1.7,1.8,Automatic
+原来版本,新的版本,升级类型
+1.3,1.4,自动升级
+1.4,1.5,显性升级
+1.5,1.6,显性升级
+1.6,1.7,自动升级
+1.7,1.8,自动升级
 |====
 
-== Automatic Upgrade ==
+== 自动升级 ==
 
-To perform a normal upgrade (for minor changes to the database store):
+执行一次普通升级（对于数据库存储有少量变更）：
 
-. download the newer version of Neo4j
-. cleanly shutdown the database to upgrade, if it is running
-. startup the database with the newer version of Neo4j
+. 下载更新版本的Neo4j。
+. 如果要升级的数据库在运行，先关闭。
+. 使用新版本的Neo4j启动数据库。
 
-== Explicit Upgrade ==
+== 显性升级 ==
 
-To perform a special upgrade (for significant changes to the database store):
+执行一次指定升级（对于数据库存储有显著变更）：
 
-. make sure the database you are upgrading has been cleanly shut down
-. set the Neo4j configuration parameter "+allow_store_upgrade=true+" in your 'neo4j.properties' or embedded configuration
-. start the database
-. the upgrade will happen during startup and the process is done when the database has been successfully started
-. "+allow_store_upgrade=true+" configuration parameter should be removed, set to "+false+" or commented out
+. 确保你要升级的数据库已经被明确关闭。
+. 在你的配置文件 'neo4j.properties' 或者嵌入配置参数中设置参数： "+allow_store_upgrade=true+" 。
+. 启动数据库。
+. 当数据库被成功启动后，升级会自动发生。
+. "+allow_store_upgrade=true+" 配置参数应该被移除或者设置为 "+false+"，或者被注释掉。
 
 [[deployment-upgrading-one-eight]]
-== Upgrade 1.7 -> 1.8 ==
-
-There are no store format changes between these versions so upgrading standalone instances simply consists of starting the database with the newer version.
-In the case of High Availability (HA) installations, the communication protocol and the master election algorithm have changed and a new "rolling upgrade"
-feature has been added, removing the need to shut down the entire cluster. For more information, refer to the "Upgrading a Neo4j HA Cluster" chapter
-of the HA section of the Neo4j manual.
+== 升级：1.7 -> 1.8 ==
+这两个版本没有存储格式的变更，因此独立单例的升级只需要用新版本的Neo4j启动数据库即可。
+对于HA模式，社区协议和主服务器的选举算法有变更，增加了一个新功能："rolling upgrade"，移除了需要关闭的整个集群。
+要获取细节，请参考Neo4j手册中HA部分的 "升级一个Neo4j集群" 章节。
 
 [[deployment-upgrading-one-seven]]
-== Upgrade 1.6 -> 1.7 ==
+== 升级：1.6 -> 1.7 ==
 
-There are no store format changes between these versions, which means there is no particular procedure you need to upgrade a single instance.
+这两个版本没有存储格式的变更，因此独立单例的升级只需要用新版本的Neo4j启动数据库即可。
 
-In an HA environment these steps need to be performed:
+在一个HA环境，需要执行以下步骤：
 
-. shut down all the databases in the cluster
-. shut down the ZooKeeper cluster and clear the 'version-2' directories on all the ZooKeeper instances
-. start the ZooKeeper cluster again
-. remove the databases except the master and start the master database with 1.7
-. start up the other databases so that they get a copy from the master
+. 关闭在集群中的所有数据库。
+. 关闭ZooKeeper集群并且清除在所有ZooKeeper实例中的 'version-2' 目录。
+. 再次启动 ZooKeeper 集群。
+. 移除期望主服务器的数据库，并且使用Neo4j1.7启动主服务器。
+. 启动其他数据库，以便它们能从主服务器获取拷贝。
 
 [[deployment-upgrading-one-six]]
-== Upgrade 1.5 -> 1.6 ==
+== 升级：1.5 -> 1.6 ==
 
-This upgrade changes lucene version from 3.1 to 3.5. The upgrade itself is done by Lucene by loading an index.
+这个升级中lucene版本从3.1升级到3.5。升级是通过Lucene加载一个索引来自动完成的。
 
-In an HA environment these steps need to be performed:
+在一个HA环境中，需要执行以下步骤：
 
-. shut down all the databases in the cluster
-. shut down the ZooKeeper cluster and clear the 'version-2' directories on all the ZooKeeper instances
-. start the ZooKeeper cluster again
-. start up the other databases so that they get a copy from the master
+. 关闭在集群中的所有服务器。
+. 关闭ZooKeeper集群并且清除在所有ZooKeeper实例中的 'version-2' 目录。
+. 再次启动 ZooKeeper 集群。
+. 启动其他数据库，以便它们能从主服务器获取拷贝。
 
 [[deployment-upgrading-one-five]]
-== Upgrade 1.4 -> 1.5 ==
+== 升级：1.4 -> 1.5 ==
 
-This upgrade includes a significant change to the layout of property store files, which reduces their size on disk,
-and improves IO performance.  To achieve this layout change, the upgrade process takes some time to process the
-whole of the existing database.  You should budget for several minutes per gigabyte of data as part of your upgrade planning.
+这个升级包括一个关于属性存储文件布局的显著的变更，减少它们占用磁盘的空间并且提高IO性能。
+为了完成这个布局变更，升级进程需要花一些时间来遍历整个存在的数据库。
+你应该为每G数据分配几分钟的升级时间。
+
 
 [WARNING]
-The upgrade process for this upgrade temporarily requires additional disk space, for the period while the
-upgrade is in progress.  Before starting the upgrade to Neo4j 1.5, you should ensure that the machine performing the
-upgrade has free space equal to the current size of of the database on disk.  You can find the current space occupied
-by the database by inspecting the store file directory ('data/graph.db' is the default location in Neo4j server).
-Once the upgrade is complete, this additional space is no longer required.
+这个升级会临时请求额外的磁盘空间。
+在启动升级到Neo4j 1.5版本之前，你应该确保有与当前数据库相同大小的空闲磁盘空间用于升级操作。
+你可以查看存储文件目录（ 'data/graph.db' 是Neo4j数据库默认目录位置）
+来找到数据库的存储空间。
+一旦升级完成，额外的空间不再需要。
 

@@ -2,9 +2,9 @@
 配置和调优
 =====
 
-In order to get optimum performance out of Neo4j for your application there are a few parameters that can be tweaked.
-The two main components that can be configured are the Neo4j caches and the JVM that Neo4j runs in.
-The following sections describe how to tune these.
+为了获得Neo4j最佳性能，Neo4j有一些可以调整的参数。
+可以配置的两个主要组件是Neo4j缓存和Neo4j运行的JVM。
+下面的章节描述了如何调整它们。
 
 
 :leveloffset: 2

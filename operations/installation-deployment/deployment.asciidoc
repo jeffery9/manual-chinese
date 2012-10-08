@@ -2,9 +2,9 @@
 部署方案
 ====
 
-Neo4j can be embedded into your application, run as a standalone server or deployed on several machines to provide high availability. 
+Neo4j可以嵌入到你的应用中，作为一个独立服务器运行或者部署成HA集群模式提供好性能服务。
 
-.Neo4j deployment options
+.Neo4j部署选项
 [cols="h,,", options="header"]
 |=========================================================================
 |            | Single Instance       | Multiple Instances
@@ -12,15 +12,15 @@ Neo4j can be embedded into your application, run as a standalone server or deplo
 | Standalone | Neo4j Server          | Neo4j Server high availability mode
 |=========================================================================
 
-== Server ==
+== 服务器模式 ==
 
-Neo4j is normally accessed as a standalone server, either directly through a REST interface or through a language-specific driver.
-More information about Neo4j server is found in <<server>>.
-For running the server and embedded installations in high availability mode, see <<ha>>.
+Neo4j一半作为一个独立服务器访问，要么直接通过一个REST接口或者一个基于指定语言的驱动。
+关于Neo4j服务器的信息，请参考： <<server>>。
+要以HA模式运行服务器，请参考： <<ha>>。
 
-== Embedded ==
+== 嵌入模式 ==
 
-Neo4j can be embedded directly in a server application by including the appropriate Java libraries.
-When programming, you can refer to the +http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/GraphDatabaseService.html[GraphDatabaseService]+ API.
-To switch from a single instance to multiple highly available instances, simply switch from the concrete +http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/kernel/EmbeddedGraphDatabase.html[EmbeddedGraphDatabase]+ to the +http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/kernel/HighlyAvailableGraphDatabase.html[HighlyAvailableGraphDatabase]+.
+通过引入一个正确的Java库就可以将Neo4j引入到你的应用中。
+当编码的时候，你可以参考 +http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/graphdb/GraphDatabaseService.html[GraphDatabaseService]+ API。
+要从单例模式切换到多例多高性能多模式，只需要简单的从 +http://components.neo4j.org/neo4j/{neo4j-version}/apidocs/org/neo4j/kernel/EmbeddedGraphDatabase.html[EmbeddedGraphDatabase]+ 到 +http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/kernel/HighlyAvailableGraphDatabase.html[HighlyAvailableGraphDatabase]+ 。
 

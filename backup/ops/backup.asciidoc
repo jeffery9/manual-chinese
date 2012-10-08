@@ -2,56 +2,56 @@
 备份
 ==
 
-NOTE: The Backup features are only available in the Neo4j Enterprise Edition.
+NOTE: 备份服务只在Neo4j企业版中可以使用。
 
-Backups are performed over the network live from a running graph database onto a local copy.
-There are two types of backup: full and incremental.
+备份是通过网络将一个运行的图数据库备份到本地的操作。
+有两种类型的备份：完整备份和增量备份。
 
-A _full backup_ copies the database files without acquiring any locks, allowing for continued operations on the target instance. This of course means that
-while copying, transactions will continue and the store will change. For this reason, the transaction that was running when the backup operation started
-is noted and, when the copy operation completes, all transactions from the latter down to the one happening at the end of the copy are replayed on the backup
-files. This ensures that the backed up data represent a consistent and up-to-date snapshot of the database storage.
+一个 _完整备份_ 在不进行任何锁定的情况下拷贝数据库文件，而不会影响到目标数据库的任何操作。
+这当然也意味着，事务将继续而且存储内容也会被改变。基于这个原因，当备份操作开始后，
+那些正在运行的事务是值得关注的。当备份操作完成后，所有在备份开始那一刻以后的事务都会在备份文件上面重新执行一遍。
+这确保了备份数据的数据一致性以及数据存储的快照是最新的。
 
-In contrast, an _incremental backup_ does not copy store files -- instead it copies the logs of the transactions that have taken place since the last full or
-incremental backup which are then replayed over an existing backup store. This makes incremental backups far more efficient than doing full backups every
-time but they also require that a _full backup_ has taken place before they are executed.
+相比之下，一个 _增量备份_ 不会拷贝存储文件 -- 而是拷贝在完整备份或者增量备份之后发送的事务的日志，
+然后在已经存在的备份上面执行一次。这使得增量备份比完整备份更有效率，
+但它要求在进行增量备份之前必须有一个已经存在的 _完整备份_ 。
 
-Regardless of the mode a backup is created with, the resulting files represent a consistent database snapshot and they can be used to boot up a Neo4j instance.
+不管采用什么模式，一个备份一旦被创建，结果文件都表示一个持久化的数据库快照，都可以用来启动一个Neo4j数据库实例。
 
-The database to be backed up is specified using a URI with syntax
+备份的数据库可以通过一个URI地址来指定：
 
 <running mode>://<host>[:port]{,<host>[:port]*}
 
-Running mode must be defined and is either _single_ for non-HA or _ha_ for HA clusters. The <host>[:port] part
-points to a host running the database, on port _port_ if not the default. The additional _host:port_ arguments
-are useful for passing multiple coordinator instances.
+运行模式必须定义并且只能是 _single_ 或者 _ha_ 。 
+<host>[:port] 部分指定了一个运行数据库的主机，如果端口不是默认的，请使用 _port_ 指定。
+额外的 _host:port_ 参数是用来传递更多的协调器实例的。
 
 [IMPORTANT]
-Backups can only be performed on databases which have the configuration parameter `online_backup_enabled=true` set.
-That will make the backup service available on the default port (6362).
-To enable the backup service on a different port use `online_backup_port=9999`.
+只有配置了参数 `online_backup_enabled=true` 的数据库才可以进行备份。
+这将使备份服务在默认端口（6362）可以使用。
+为了能在自定义端口进行备份操作,你可以使用参数 `online_backup_port=9999` 进行配置。
 
 [[backup-embedded-and-server]]
-== Embedded and Server ==
+== 嵌入数据库和独立数据库服务器 ==
 
-To perform a backup from a running embedded or server database run:
+为了执行一次从一个运行的嵌入数据库或者远程服务器的备份，如下：
 [source,shell]
 ----
-# Performing a full backup
+# 执行一次完整备份
 ./neo4j-backup -full -from single://192.168.1.34 -to /mnt/backup/neo4j-backup
 
-# Performing an incremental backup
+# 执行一次增量备份
 ./neo4j-backup -incremental -from single://192.168.1.34 -to /mnt/backup/neo4j-backup
 
-# Performing an incremental backup where the service is registered on a custom port
+# 当服务注册在一个自定义端口时执行一次增量备份
 ./neo4j-backup -incremental -from single://192.168.1.34:9999 -to /mnt/backup/neo4j-backup
 ----
 
 [[backup-java]]
-== Online Backup from Java ==
+== 在Java中进行在线备份 ==
 
-In order to programmatically backup your data full or subsequently incremental from a 
-JVM based program, you need to write Java code like
+为了能编程从JVM进行完整或者增量备份你的数据，
+你需要进行类似如下编码：
 
 [snippet,java]
 ----
@@ -61,32 +61,32 @@ tag=onlineBackup
 classifier=test-sources
 ----
 
-For more information, please see http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/backup/OnlineBackup.html[the Javadocs for 
+获取更新信息，请参考： http://components.neo4j.org/neo4j-enterprise/{neo4j-version}/apidocs/org/neo4j/backup/OnlineBackup.html[the Javadocs for 
 OnlineBackup]
 
 [[backup-ha]]
-== High Availability ==
+== 高可用性模式 ==
 
-To perform a backup on an HA cluster you specify one or more coordinators managing that cluster.
+要在一个HA模式的集群上面进行备份，你需要制定一个或者多个管理这个集群的协调器。
 
-NOTE: If you have specified a cluster name for your HA cluster, you need to specify
-      it when doing backups, so that the backup system knows which cluster to back up.
-      Add the config parameter: `-cluster my_custom_cluster_name`
+NOTE: 如果你为你的HA集群指定了一个集群名称，那么你在备份的时候你需要指定这个名称。
+      以致于备份系统知道哪些集群需要备份。
+      增加一个配置参数： `-cluster my_custom_cluster_name` 
 
 [source,shell]
 ----
-# Performing a full backup from HA cluster, specifying two possible coordinators
+# 执行一次从HA集群的完整备份，指定两个可能的协调器
 ./neo4j-backup -full -from ha://192.168.1.15:2181,192.168.1.16:2181 -to /mnt/backup/neo4j-backup
 
-# Performing an incremental backup from HA cluster, specifying only one coordinator
+# 执行一次从HA集群的增量备份，只指定一个协调器
 ./neo4j-backup -incremental -from ha://192.168.1.15:2181 -to /mnt/backup/neo4j-backup
 
-# Performing an incremental backup from HA cluster with a specific name (specified by neo4j configuration 'ha.cluster_name')
+# 用一个指定的名称在HA集群上执行一次增量备份（通过Neo4j配置的 'ha.cluster_name' 指定）
 ./neo4j-backup -incremental -from ha://192.168.1.15:2181 -to /mnt/backup/neo4j-backup -cluster my-cluster
 ----
 
 [[backup-restoring]]
-== Restoring Your Data ==
+== 恢复你的数据 ==
 
-The Neo4j backups are fully functional databases. To use a backup, all you need to do replace your database folder with the backup.
+Neo4j备份的内容是完整功能的数据库。为了使用备份数据源，你需要做的仅仅是用备份的目录取代你正在使用的数据库目录即可。
 

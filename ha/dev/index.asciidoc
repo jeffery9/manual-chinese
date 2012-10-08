@@ -1,6 +1,6 @@
 [[ha]]
-高可用性
-====
+高可用性模式
+======
 
 NOTE: The High Availability features are only available in the Neo4j Enterprise Edition.
 

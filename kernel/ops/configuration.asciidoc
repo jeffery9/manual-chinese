@@ -2,8 +2,8 @@
 内核配置
 ====
 
-These are the configuration options you can pass to the neo4j kernel. They
-can either be passed as a map when using the embedded database, or in the
-neo4j.properties file when using the Neo4j Server.
+这些是你可能传递给Neo4j内核的配置选项。
+如果你使用嵌入数据库，你可以以一个map类型传递，
+又或者在Neo4j服务器中在neo4j.properties文件中配置。
 
 include::configuration-attributes.asciidoc[]

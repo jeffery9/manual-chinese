@@ -3,119 +3,119 @@
 性能向导
 ====
 
-This is the Neo4j performance guide. It will attempt to guide you in how to use Neo4j to achieve maximum performance.
+这是Neo4j性能优化向导。它将引导你如何使用Neo4j来达到最佳性能。
 
 == 首先尝试 ==
 
-The first thing is to make sure the JVM is running well and not spending to much 
-time in garbage collection. Monitoring heap usage on an application that uses Neo4j 
-can be a bit confusing since Neo4j will increase the size of caches if there is 
-available memory and decrease if the heap is getting full. The goal is to have a 
-large enough heap so heavy/peak load will not result in so called GC trashing 
-(performance can drop as much as two orders of magnitude when this happens).   
+首先需要做的事情就是确保JVM运行良好而没有浪费
+大量的时间来进行垃圾收集。
+监视使用Neo4j的一个应用的堆使用可能有点混乱，
+因为当内存充裕时Neo4j会增加缓存，而相反会减少缓存。
+目标就是有一个足够大的堆来确保一个重型加载不会导致调用GC收集
+（如果导致GC收集，那么性能将降低高达两个数量级）。 
 
-Start the JVM with +-server+ flag and +-Xmx<good sized heap>+ 
-(f.ex. -Xmx512M for 512Mb memory or -Xmx3G for 3Gb memory). Having too large heap 
-may also hurt performance so you may have to try some different heap sizes. 
-Make sure parallel/concurrent garbage collector is running (+-XX:+UseConcMarkSweepGC+ works well in most use-cases).
+使用标记 +-server+ 和 +-Xmx<good sized heap>+ 
+(f.ex. -Xmx512M for 512Mb memory or -Xmx3G for 3Gb memory)来启动JVM。
+太大的堆尺寸也会伤害性能，因此你可以反复尝试下不同的堆尺寸。
+使用 parallel/concurrent 垃圾收集器 (我们发现使用 +-XX:+UseConcMarkSweepGC+ 在许多情况下使用良好) 
 
-Finally make sure the OS has some memory to manage proper file system 
-caches meaning if your server has 8GB of RAM don't use all of that RAM for 
-heap (unless you turned off memory mapped buffers) but leave a good size of it to the OS. 
-For more information on this see <<embedded-configuration>>.
+最后，确保操作系统有一些内存来管理属性文件系统缓存,
+这意味着如果你的系统有8G内存就不要使用全部的内存给堆使用（除非你关闭内存映射缓冲区）
+而要留一个适合大小的内存给系统使用。
+要了解更多详情，请参考： <<embedded-configuration>>。
 
-For Linux specific tweaks, see <<linux-performance-guide>>.
+对于Linux特有的调优，请参考： <<linux-performance-guide>>。
 
-== Neo4j 主要的生命周期 ==
+== Neo4j 基础元素的生命周期 ==
 
-Neo4j manages its primitives (nodes, relationships and properties) 
-different depending on how you use Neo4j. For example if you never get a 
-property from a certain node or relationship that node or relationship will 
-not have its properties loaded into memory. The first time, after loading a node or relationship,
-any property is accessed all the properties are loaded for that entity. If any of those properties
-contain an array larger than a few elements or a long string such values are loaded
-on demand when requesting them individually. Similarly, relationships of a node will
-only be loaded the first time they are requested for that node.
+Neo4j根据你使用Neo4j的情况来管理它的基础元素（节点，关系和属性）。
+比如如果你从来都不会从某一个节点或者关系那儿获取一个属性，
+那么节点和关系将不会加载属性到内存。
+第一次，在加载一个节点或者关系后，
+任何属性都可以被访问，所有的属性都加载了。
+如果某一个属性包含一个数组大于一些常规元素或者包含一个长字符串，
+在请求是需要进行切分。
+简单讲，一个节点的关系只有在访问这个节点的第一次被加载。
 
-Nodes and relationships are cached using LRU caches. If you (for some strange reason) 
-only work with nodes the relationship cache will become smaller and smaller while the 
-node cache is allowed to grow (if needed). Working with many relationships and few nodes 
-results in bigger relationship cache and smaller node cache. 
+节点和关系使用LRU缓存。如果你（因为一些奇怪的原因）只需要使用节点工作，
+那关系缓存会变得越来越小，
+而节点缓存会根据需要自动增长。
+使用大量关系和少量节点的应用会导致关系数据占用缓存猛增而节点占用缓存会越来越小。
 
-The Neo4j API specification does not say anything about order regarding 
-relationships so invoking 
+Neo4j API 规范并没有描述任何关于关系的顺序，所以调用
 
 [source,java]
 ----
 Node.getRelationships()
 ----
 
-may return the relationships in a different order than the previous invocation. 
-This allows us to make even heavier optimizations returning the relationships 
-that are most commonly traversed.
+会与之前的调用相比以不同顺序返回关系。
+这允许我们做更多的优化来
+返回最需要遍历的关系。
 
-All in all Neo4j has been designed to be very adaptive depending on how it 
-is used. The (unachievable) overall goal is to be able to handle any incoming 
+在Neo4j的所有元素都设计来根据实际使用来自动适配。 The (unachievable) overall goal is 
+to be able to handle any incoming 
 operation without having to go down and work with the file/disk I/O layer.
 
 == 配置Neo4j ==
 
-In <<embedded-configuration>> page there's information on how to configure Neo4j and the JVM.
-These settings have a lot impact on performance.
+在<<embedded-configuration>>章节有很多关于对Neo4j和JVM配置的信息。
+这些设置有很多对性能的影响。
 
 === 磁盘, 内存和其他要点 ===
 
-As always, as with any persistence solution, performance is very much depending on the 
-persistence media used. Better disks equals better performance. 
+一如往常，和任何持久持久化持久方案持久一样，性能非常依赖持久化存储设备的。
+更好的磁盘就会有更好的性能。
 
-If you have multiple disks or persistence media available it may be a 
-good idea to split the store files and transaction logs across those disks. 
-Having the store files running on disks with low seek time can do wonders for 
-non cached read operations. Today a typical mechanical drive has an average 
-seek time of about 5ms, this can cause a query or traversal to be very slow 
-when available RAM is too low or caches and memory mapped settings are badly 
-configured. A new good SATA enabled SSD has an average seek time of <100 microseconds 
-meaning those scenarios will execute at least 50 times faster. 
+如果你有多个磁盘或者其他持久化介质可以使用，
+切分存储文件和事务日志在这些磁盘上是个不错的主意。
+让存储文件运行在低寻址时间的磁盘上对于非缓存的读操作会有非常优秀的表现。
+在今天一个常规的机械磁盘平均查询时间是5ms，
+如果可以使用的内存非常少额或者缓存内存映射设置不当的话，
+这会导致查询或者遍历操作变得非常慢。
+一个新的更好的打开了SSD功能的SATA磁盘平均查询时间少于100微妙，
+这意味着比其他类型的速度快呀倍以上。
 
-To avoid hitting disk you need more RAM. On a standard mechanical drive you 
-can handle graphs with a few tens of millions of primitives with 1-2GB of RAM. 
-4-8GB of RAM can handle graphs with hundreds of millions of primitives while you 
-need a good server with 16-32GB to handle billions of primitives. However, if you 
-invest in a good SSD you will be able to handle much larger graphs on less RAM. 
+为了避免命中磁盘你需要更多的内存。
+在一个标准机械磁盘上你能用1-2GB的内存管理差不多几千万的Neo4j基础元素。
+4-8GB的内存可以管理上亿的基础元素，
+而如果你要管理数十亿的话，你需要16-32GB的样子。
+然而，如果你投资一块好的SSD，
+你将可以处理更大的图数据而需要更少的内存。
 
-Neo4j likes Java 1.6 JVMs and running in server mode so consider upgrading 
-to that if you haven't yet (or at least give the -server flag). Use tools like +vmstat+ or 
-equivalent to gather info when your application is running. If you have high I/O 
-waits and not that many blocks going out/in to disks when running write/read 
-transactions its a sign that you need to tweak your Java heap, Neo4j cache 
-and memory mapped settings (maybe even get more RAM or better disks).
+Neo4j喜欢Java 1.6 JVMs,如果你曾经没有或者至少没有使用-server标记，
+以服务器模式运行的可以考虑升级到那个版本。
+当你的应用运行时，使用 +vmstat+ 等工具收集信息。
+如果你有很高的I/O等待，而当运行读写事务时没有很多块数据进出磁盘，
+这是一个信号，表明你需要调整你的Java堆参数，Neo4j缓存以及内存映射设置
+（也许需要配置更多的内存或者更好的磁盘）。
 
 === 写操作性能 ===
 
-If you are experiencing poor write performance after writing some data 
-(initially fast, then massive slowdown) it may be the operating system 
-writing out dirty pages from the memory mapped regions of the store files. 
-These regions do not need to be written out to maintain consistency so to 
-achieve highest possible write speed that type of behavior should be avoided.
+如果你在写入一些数据（刚开始很快，然后越来越慢）
+后经历过慢速的写性能，
+这可能是操作系统从存储文件的内存映射区域写出来脏页造成的。
+这些区域不需要被写入来维护一致性
+因此要实现最高性能的写操作，这类行为要避免。
 
-Another source of writes slow down can be the transaction size. Many small 
-transactions result in a lot of I/O writes to disc and should be avoided. 
-Too big transactions can result in OutOfMemory errors, since the uncommitted 
-transaction data is held on the Java Heap in memory. On details about transaction 
-management in Neo4j, please read the ##transactions## guidelines.
+另外写操作越来越慢的原因还可能是事务的大小决定的。
+许多小事务导致大量的I/O写到磁盘的操作，这些应该避免。
+太多大事务会导致内存溢出错误发生，
+因为没有提交的事务数据一致保持在内存的Java堆里面。
+关于Neo4j事务管理的细节，请参考：<<transactions>> 。
 
-The Neo4j kernel makes use of several store files and a logical log file 
-to store the graph on disk. The store files contain the actual graph and the 
-log contains modifying operations. All writes to the logical log are append-only 
-and when a transaction is committed changes to the logical log will be forced 
-(+fdatasync+) down to disk. The store files are however not flushed to disk and 
-writes to them are not append-only either. They will be written to in a more or
-less random pattern (depending on graph layout) and writes will not be forced to 
-disk until the log is rotated or the Neo4j kernel is shut down. It may be a good 
-idea to increase the logical log target size for rotation or turn off log rotation 
-if you experience problems with writes that can be linked to the actual rotation 
-of the log. Here is some example code demonstrating how to change log rotation 
-settings at runtime:
+Neo4j内核使用一些存储文件和一个逻辑日志文件来存储图数据到磁盘。
+存储文件包括实际的图数据而日志文件包括写操作。
+所有的写操作都会被追加到日志文件中而当一个事务提交时，
+会强迫(+fdatasync+)逻辑日志同步到磁盘。
+然而存储文件不会强制写入到磁盘而也不仅仅是追加操作。
+它们将被写入一个更大或者更小的随机模型中
+（依赖于图数据库的布局）而写操作不会被强迫同步到磁盘。
+除非日志发生翻转或者Neo4j内核关闭。
+为逻辑日志目标增加翻转的大小是个不错的主意，
+如果你在使用翻转日志功能时遇到写操作问题，
+你可以考虑关闭日志翻转功能。
+下面是一个范例演示如何正运行时改变日志翻转设置：
 
 [source,java]
 ----
@@ -126,41 +126,40 @@ settings at runtime:
     XaDataSourceManager xaDsMgr = txModule.getXaDataSourceManager();
     XaDataSource xaDs = xaDsMgr.getXaDataSource( "nioneodb" );
   
-    // turn off log rotation
+    // 关闭日志翻转
     xaDs.setAutoRotate( false );
 
-    // or to increase log target size to 100MB (default 10MB)
+    // 或者增加日志翻转目标尺寸为100MB (默认：10MB)
     xaDs.setLogicalLogTargetSize( 100 * 1024 * 1024L );
 ----
+自从随机写到存储文件的内存映射区域会发生，
+如果不需要，不要让数据写道磁盘是非常重要的。
+一些操作系统在把脏页面数据写出到磁盘时有非常积极的设置规则。
+如果操作系统决定开始写出这些内存映射区域的脏页面时，
+写到磁盘的操作会停止连续的写，而变成随机。
+这会大大降低性能，因此当用Neo4j时要确保最大的写性能，
+必须确保，操作系统不会因为写到存储文件的内存映射区域
+而导致写出任何脏页面数据。
+举个例子，如果机器有8G的内存而存储文件一共有4G(完全可以内存映射)，操作系统必须被
+配置来接受至少50%的脏页面在虚拟内存里面
+以确保我们不会出现随机的磁盘写操作。
 
-Since random writes to memory mapped regions for the store files may 
-happen it is very important that the data does not get written out to disk unless 
-needed. Some operating systems have very aggressive settings regarding when to write 
-out these dirty pages to disk. If the OS decides to start writing out dirty pages 
-of these memory mapped regions, write access to disk will stop being sequential and 
-become random. That hurts performance a lot, so to get maximum write performance when 
-using Neo4j make sure the OS is configured not to write out any of the dirty pages 
-caused by writes to the memory mapped regions of the store files. As an example, 
-if the machine has 8GB of RAM and the total size of the store files is 4GB (fully 
-memory mapped) the OS has to be configured to accept at least 50% dirty pages in 
-virtual memory to make sure we do not get random disk writes.
-
-Note: make sure to read the <<linux-performance-guide>> as well for more specific information.
+Note: 关于更多的规则信息，请参考： <<linux-performance-guide>> 。
 
 === 二级缓存 ===
 
-While normally building applications and "always assume the graph is in memory", 
-sometimes it is necessary to optimize certain performance critical sections. 
-Neo4j adds a small overhead even if the node, relationship or property in question 
-is cached when you compare to in memory data structures. If this becomes an 
-issue use a profiler to find these hot spots and then add your own second-level 
-caching. We believe second-level caching should be avoided to greatest extend 
-possible since it will force you to take care of invalidation which sometimes 
-can be hard. But when everything else fails you have to use it so here is an 
-example of how it can be done.
+当一般构建应用和“总是幻想图数据总是在内存里面”时，
+有时很有必要优化某些关键区域的性能。
+Neo4j增加了一个很小的过载甚至当你属于内存数据结构做比较时，
+节点，关系或者有问题的属性都在缓存中。
+如果这变成一个问题，请使用性能测试器找出它们的热点而然后增加你自己的二级缓存。
+我们相信二级缓存应该能规避最大的扩展
+因为它将强迫你小心处理有时非常难的无效数据。
+但当其他事情都失败时，你必须使用它，
+因此这是一个范例演示如何使用它。
 
-We have some POJO that wrapps a node holding its state. In this particular 
-POJO we've overridden the equals implementation.
+我们有一些POJO，封装了一个节点和它的状态。
+在这个特殊的POJO中，我们重载了相同的实现。
 
 [source,java]
 ----
@@ -175,7 +174,7 @@ POJO we've overridden the equals implementation.
    }
 ----
 
-This works fine in most scenarios but in this particular scenario many instances of that POJO is being worked with in nested loops adding/removing/getting/finding to collection classes. Profiling the applications will show that the equals implementation is being called many times and can be viewed as a hot spot. Adding second-level caching for the equals override will in this particular scenario increase performance.
+这会在许多场景都运行得非常好，但在这个特殊的场景下，那个POJO的许多实例都会递归调用 adding/removing/getting/finding 来收集类。性能优化器探测这个应用后会发行相同的实现会被反复调用而这个可以别看作一个热点。为这个相同的重载增加二级缓存将在这个特殊的场景增加性能。
 
 [source,java]
 ----
@@ -200,9 +199,9 @@ This works fine in most scenarios but in this particular scenario many instances
     }
 ----
 
-The problem now is that we need to invalidate the cached property whenever the +some_property+ 
-is changed (may not be a problem in this scenario since the state picked for equals and hash 
-code computation often won't change).
+现在的问题是，我们需要废除缓存属性
+而不管 +some_property+ 在什么时候发生改变。
+（可能在这个场景是一个问题因为状态是相同的而hash code计算经常都不会改变）。
 
 [TIP]
-To sum up, avoid second-level caching if possible and only add it when you really need it.
+总结，尽可能的回避使用二级缓存除非你真的需要它。

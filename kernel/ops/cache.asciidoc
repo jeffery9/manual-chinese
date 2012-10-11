@@ -2,33 +2,33 @@
 Neo4j的缓存设置
 ==========
 
-For how to provide custom configuration to Neo4j, see <<configuration-introduction>>.
+关于如何进行关于Neo4j的自定义配置，请参考： <<configuration-introduction>>。
 
-Neo4j utilizes two different types of caches:
-A file buffer cache and an object cache.
-The file buffer cache caches the storage file data in the same format as it is stored on the durable storage media.
-The object cache caches the nodes, relationships and properties in a format that is optimized for high traversal speeds and transactional writes.
+Neo4j使用两个不同类型的缓存：
+一个文件缓冲区和一个对象缓冲区。
+文件缓冲区以相同格式存储文件因为它们存储在持久存储介质上。
+对象缓存区缓存节点，关系和属性，它们的存储格式是以高速读写为目标做优化后的结果。
 
 
-File buffer cache
------------------
+文件缓冲区
+-----
 
-.Quick info
-***********
-* The file buffer cache is sometimes called _low level cache_ or _file system cache_.
-* It caches the Neo4j data as stored on the durable media.
-* It uses the operating system memory mapping features when possible.
-* Neo4j will configure the cache automatically as long as the heap size of the JVM is configured properly.
-***********
+.要点
+***
+* 文件缓冲区有时被称为 _低级缓存_ 或者 _文件系统缓存_ 。
+* 它缓存Neo4j数据在持久化介质上面。
+* 如果可以的话，图使用操作系统内存映射特性。
+* Neo4j会自动配置缓存只要JVM的堆尺寸配置适当。
+***
 
-The file buffer cache caches the Neo4j data in the same format as it is represented on the durable storage media.
-The purpose of this cache layer is to improve both read and write performance.
-The file buffer cache improves write performance by writing to the cache and deferring durable write until the logical log is rotated.
-This behavior is safe since all transactions are always durably written to the logical log, which can be used to recover the store files in the event of a crash.
+文件缓冲区以相同格式存储文件因为它们存储在持久存储介质上。
+这个缓冲层的目的是提示读写性能。文件缓冲区通过写到缓存来提示写的性能，
+直到逻辑日志发生翻转才真正写入。
+这种行为是安全的因为所有的事务总是在写入操作时已经写入了逻辑日志了，这个日志可以用来恢复存储的文件。
 
-Since the operation of the cache is tightly related to the data it stores, a short description of the Neo4j durable representation format is necessary background.
-Neo4j stores data in multiple files and relies on the underlying file system to handle this efficiently.
-Each Neo4j storage file contains uniform fixed size records of a particular type:
+因为缓存操作与涉及到的数据紧紧关联在一起，Neo4j数据表示形式的简短描述有必要在后台处理。
+Neo4j存储数据在多个文件中而依赖文件系统来管控处理效率。
+每一个Neo4j存储文件都包括某一类型的相同尺寸的记录：
 
 [options="header",grid="none",frame="none",cols="<,>m,<", width="50%"]
 |============================================
@@ -40,21 +40,21 @@ Each Neo4j storage file contains uniform fixed size records of a particular type
 | arraystore         |       128 B | Values of array properties
 |============================================
 
-For strings and arrays, where data can be of variable length, data is stored in one or more 120B chunks, with 8B record overhead.
-The sizes of these blocks can actually be configured when the store is created using the `string_block_size` and `array_block_size` parameters.
-The size of each record type can also be used to calculate the storage requirements of a Neo4j graph or the appropriate cache size for each file buffer cache.
-Note that some strings and arrays can be stored without using the string store or the array store respectively, see <<short-strings>> and <<short-arrays>>.
+为了存储数据是变长长度的数据，比如字符串和数组，数据以一个或者多个120B大小的块方式存储，并且使用者8B大小数据来管理。
+这些块的大小实际上可以在存储的时候通过参数 `string_block_size` 和 `array_block_size` 配置来创建。
+每一个记录类型的尺寸也可以用来计算一个Neo4j图数据库的存储需求或者每一个文件缓冲区的最接近的缓存大小。
+主意一些字符串和数组也可以不以字符串或者数组的方式存储，请参考： <<short-strings>> and <<short-arrays>>。
 
-Neo4j uses multiple file buffer caches, one for each different storage file.
-Each file buffer cache divides its storage file into a number of equally sized windows.
-Each cache window contains an even number of storage records.
-The cache holds the most active cache windows in memory and tracks hit vs. miss ratio for the windows.
-When the hit ratio of an uncached window gets higher than the miss ratio of a cached window, the cached window gets evicted and the previously uncached window is cached instead.
+Neo4j使用多个文件缓冲区，每一个服务都对应一个不同的存储文件。
+每一个文件缓冲区都切分它们的存储文件成一系列相同大小的窗口。
+没一个缓冲窗口包含一系列存储记录。
+缓冲区控制在内存中的最大的活动缓冲窗口并且追踪它们的命中率和丢失率。
+当一个未缓存窗口的命中率大于了一个缓存窗口的丢失率的时候，这个缓存窗口会被驱逐而会被之前未缓存的窗口取代。
 
-IMPORTANT: Note that the block sizes can only be configured at store creation time.
+IMPORTANT: 注意快尺寸只能在存储创建时间时配置。
 
-Configuration
-~~~~~~~~~~~~~
+配置
+~~
 
 [options="header",frame="none",cols="<35m,<30,<35"]
 |========================================================
@@ -94,60 +94,60 @@ Configuration
 | dump_configuration | `true` or `false` | If set to `true` the current configuration settings will be written to the default system output, mostly the console or the logfiles.
 |========================================================
 
-When memory mapped buffers are used (`use_memory_mapped_buffers = true`) the heap size of the JVM must be smaller than the total available memory of the computer, minus the total amount of memory used for the buffers.
-When heap buffers are used (`use_memory_mapped_buffers = false`) the heap size of the JVM must be large enough to contain all the buffers, plus the runtime heap memory requirements of the application and the object cache.
+当内存映射缓冲区配置 (`use_memory_mapped_buffers = true`) 来在使用时，JVM的堆大小必须小于计算机整个可以使用的内存，要减去用于文件缓冲区的内存大小。
+当堆缓冲区配置 (`use_memory_mapped_buffers = false`) 来在使用时，JVM的堆大小必须足够大以包括所有的缓冲区，加上应用和对象缓冲的实时堆内存需求。
 
-When reading the configuration parameters on startup Neo4j will automatically configure the parameters that are not specified.
-The cache sizes will be configured based on the available memory on the computer, how much is used by the JVM heap, and how large the storage files are.
+Neo4j在启动时读取配置参数，并且自动配置哪些没有指定的参数。
+缓冲大小会基于计算机上可以使用的内存大小来配置，以决定JVM堆该用多大，存储文件该用多大的内存等。
 
-Object cache
-------------
+对象缓冲区
+-----
 
-.Quick info
-***********
-* The object cache is sometimes called _high level cache_.
-* It caches the Neo4j data in a form optimized for fast traversal.
-***********
+.要点
+***
+* 对象缓冲有时被成为 _高级缓存_ 。
+* 它缓存Neo4j的数据以一种更加优化便于高速遍历的格式存储。
+***
 
-The object cache caches individual nodes and relationships and their properties in a form that is optimized for fast traversal of the graph.
-There are two different categories of object caches in Neo4j.
+对象缓冲区以一种便于高速遍历的格式缓存节点和关系以及它们的属性。
+在Neo4j中有两个不同类别的对象。
 
-There is the reference caches.
-Here Neo4j will utilize as much as it can out of the allocated heap memory for the JVM for object caching and relies on garbage collection for eviction from the cache in an LRU manner.
-Note however that Neo4j is "competing" for the heap space with other objects in the same JVM, such as a your application, if deployed in embedded mode, and Neo4j will let the application "win" by using less memory if the application needs more.
+其中之一是参考缓存。
+这儿，Neo4j将利用它能从分配的JVM的内存中获取尽可能多的用于缓存对象，依赖于在一个LRU方式驱逐缓存的垃圾收集方式。
+然而要主意Neo4j是在和JVM上面其他对象在 "竞争" 堆空间的，比如你有一个应用以嵌入模式部署，在应用需要更多内存时，Neo4j会让需要更少内存的应用获得 "胜利" 。
 
-NOTE: The GC resistant cache described below is only available in the Neo4j Enterprise Edition.
+NOTE: 在下面描述的GC耐高速缓存只在Neo4j企业版中可以使用。
 
-The other is the _GC resistant cache_ which gets assigned a certain amount of space in the JVM heap and will purge objects whenever it grows bigger than that.
-It is assigned a maximum amount of memory which the sum of all cached objects in it will not exceed.
-Objects will be evicted from cache when the maximum size is about to be reached, instead of relying on garbage collection (GC) to make that decision.
-Here the competition with other objects in the heap as well as GC-pauses can be better controlled since the cache gets assigned a maximum heap space usage.
-The overhead of the GC resistant cache is also much smaller as well as insert/lookup times faster than for reference caches.
+另外一种是 _GC耐高速缓存_ 它会从JVM的堆空间获取一固定大小的内存，当对象存储超过了这个空间时，它会自动清理。
+分配最大的内存给它以便所有缓存对象都在里面而不会超出。
+当最大内存被耗尽时，对象将被清理，而不依赖GC的决定。
+这个在堆上与其他对象的竞争让GC-pauses能被更好的控制，因为缓存分配一个最大空间的堆空间使用。
+与参考缓存相比，GC耐高速缓存的开销更小，插入/查询的速度更快。
 
 [TIP]
-The use of heap memory is subject to the java garbage collector -- depending on the cache type some tuning might be needed to play well with the GC at large heap sizes.
-Therefore, assigning a large heap for Neo4j's sake isn't always the best strategy as it may lead to long GC-pauses.
-Instead leave some space for Neo4j's filesystem caches.
-These are outside of the heap and under under the kernel's direct control, thus more efficiently managed.
+对于java垃圾收集器来说，堆内存的使用是一个方面 -- 依赖于缓存类型而释放需要更大的堆空间。
+因此，分配一个大尺寸堆给Neo4j并不总是一个最好的策略因为它可能导致长时间的GC-pauses。
+相反应该留一些空间给Neo4j的文件系统缓存。
+这些都是超出堆和内核的直接控制下，因此更有效率。
 
-The content of this cache are objects with a representation geared towards supporting the Neo4j object API and graph traversals.
-Reading from this cache is 5 to 10 times faster than reading from the file buffer cache.
-This cache is contained in the heap of the JVM and the size is adapted to the current amount of available heap memory.
+这个缓存中的内容发展成面向支持Neo4j的API和图形遍历的对象。
+从这个缓存读数据比从文件系统缓存快5~10倍。
+这个缓存被包括在JVM的堆上，而大小跟当前可以使用的堆内存的总量适应。
 
-Nodes and relationships are added to the object cache as soon as they are accessed.
-The cached objects are however populated lazily.
-The properties for a node or relationship are not loaded until properties are accessed for that node or relationship.
-String (and array) properties are not loaded until that particular property is accessed.
-The relationships for a particular node is also not loaded until the relationships are accessed for that node.
+节点和关系只要它们被访问就会被加入对象缓存中。
+然而缓存对象是被懒填充的。
+一个节点或者关系的属性不会被加载直到属性被访问。
+字符串（和数组）属性不会被加载直到该指定属性被访问。
+一个指定节点的关系也不会被加载直到该关系被访问。
 
 
-Configuration
-~~~~~~~~~~~~~
+配置
+~~
 
-The main configuration parameter for the object cache is the `cache_type` parameter.
-This specifies which cache implementation to use for the object cache.
-Note that there will exist two cache instances, one for nodes and one for relationships.
-The available cache types are:
+对象缓冲区主要的配置参数就是 `cache_type` 。
+这指定了对象缓存由哪一个缓存来实现。
+对象缓冲区主要存在两个缓存实例，一个是用于节点而一个是用于关系。
+可以采用的缓存类型有：
 
 [options="header",frame="none",cols="<15m,<85"]
 |==========================================
@@ -167,16 +167,16 @@ The available cache types are:
                  Note that this option is only available in the Neo4j Enterprise Edition.
 |==========================================
 
-GC resistant cache configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+GC耐高速缓存配置
+~~~~~~~~~
 
-Since the GC resistant cache operates with a maximum size in the JVM it may be configured per use case for optimal performance.
-There are two aspects of the cache size.
+因为GC高速缓存操作了JVM中一个最大的区域，每次使用的时候都会被配置用于优化性能。
+有两个方面的缓存大小。
 
-One is the size of the array referencing the objects that are put in the cache.
-It is specified as a fraction of the heap, for example specifying +5+ will let that array itself take up 5% out of the entire heap.
-Increasing this figure (up to a maximum of 10) will reduce the chance of hash collisions at the expense of more heap used for it.
-More collisions means more redundant loading of objects from the low level cache.
+一个是对象被放到缓存的数组索引的大小。
+它被指定为一小部分堆，比如指定 +5+ 表示让数组占用整个堆的5%的空间。
+增加这个指数（直到最大的10）会减少消耗更多的堆用于哈希碰撞的机会。
+更多的碰撞意味着来自低级缓存的更多的冗余对象加载。
 
 [options="header",frame="none",cols="<15m,<70,<15m"]
 |==========================================
@@ -185,11 +185,11 @@ More collisions means more redundant loading of objects from the low level cache
 | relationship_cache_array_fraction | Fraction of the heap to dedicate to the array holding the relationships in the cache (max 10). | 5
 |==========================================
 
-The other aspect is the maximum size of all the objects in the cache. It is specified as size in bytes, for example +500M+ for 500 megabytes or +2G+ for two gigabytes.
-Right before the maximum size is reached a +purge+ is performed where (currently) random objects are evicted from the cache until the cache size gets below 90% of the maximum size.
-Optimal settings for the maximum size depends on the size of your graph.
-The configured maximum size should leave enough room for other objects to coexist in the same JVM, but at the same time large enough to keep loading from the low level cache at a minimum.
-Predicted load on the JVM as well as layout of domain level objects should also be take into consideration.  
+另外一个方面是在缓存中的所有对象的尺寸。它以字节为单位指定。比如 +500M+ 或者 +2G+ 等。
+在要接近最大尺寸时一个 +清场+ 操作将被执行，随机对象将被逐出内存直到最大尺寸降低到90%以下。
+最大尺寸的最优化设置依赖于你的图数据库的大小。
+配置最大尺寸应该留足够的空间给在JVM共存的其他对象使用，但在同一时间，应该大到足以保持在最低限度的从低级缓存加载的存储需求。
+在JVM上的预测负载以及域级别的对象的布局也应该考虑到。
 
 [options="header",frame="none",cols="<15m,<70,<15m"]
 |==========================================
@@ -198,7 +198,7 @@ Predicted load on the JVM as well as layout of domain level objects should also 
 | relationship_cache_size  | Maximum size of the heap memory to dedicate to the cached relationships. | 800M
 |==========================================
 
-You can read about references and relevant JVM settings for Sun HotSpot here:
+你可以从下面的地址阅读Sun HotSpot的JVM配置和参考：
 
 * http://weblogs.java.net/blog/enicholas/archive/2006/05/understanding_w.html[Understanding soft/weak references]
 
@@ -207,14 +207,14 @@ You can read about references and relevant JVM settings for Sun HotSpot here:
 * http://www.oracle.com/technetwork/java/hotspotfaq-138619.html#gc_softrefs[HotSpot FAQ]
 
 
-Heap memory usage
-~~~~~~~~~~~~~~~~~
+堆内存使用
+~~~~~
 
-This table can be used to calculate how much memory the data in the object cache will occupy on a 64bit JVM:
+下面的表格可以用来计算在一个64位的JVM上面，对象缓存会占据多少内存：
 
 [options="header",frame="none",cols="<15,<15e,<70e"]
 |================================
-| Object           | Size  | Comment
+| Object           | Size      | Comment
 .5+| Node          .+>m| 344 B | Size for each node (not counting its relationships or properties).
                    .+>m|  48 B | Object overhead.
                    .+>m| 136 B | Property storage (ArrayMap `48B`, HashMap `88B`).
